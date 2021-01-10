@@ -5,7 +5,7 @@ Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS,  TFT_DC, TFT_RST);
 #include <Fonts/FreeSans9pt7b.h>
 #include <Fonts/FreeSansBold9pt7b.h>
 
-void displaydata(String array_data[10])
+void displaydata(String array_data[10],int last_seen_ms)
 {   tft.fillScreen(ST7735_BLACK);
     tft.setTextColor(ST7735_BLUE);
     tft.setTextWrap(false); 
@@ -40,7 +40,10 @@ void displaydata(String array_data[10])
     tft.setTextSize(1);
     tft.setTextColor(ST7735_ORANGE);
     centerString("Last seen ",64,86);
-    centerString("27 minutes ago",64,98);
+    //centerString("27 minutes ago",64,98);
+    char* last_seen;
+    last_seen= pretty_time(last_seen_ms);
+    centerString(String(last_seen_ms),64,98);
     // Signal Strength
     // Let's color depending on the signal strength
     int sign_strength = array_data[7].substring(1,3).toInt();

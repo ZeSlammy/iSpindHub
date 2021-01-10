@@ -23,3 +23,40 @@ void centerString(String buf, int x, int y){
     tft.print(buf);
     return;
 }
+
+char* pretty_time(long val){  
+int days = elapsedDays(val);
+int hours = numberOfHours(val);
+int minutes = numberOfMinutes(val);
+int seconds = numberOfSeconds(val);
+
+ // digital clock display of current time
+ Serial.print(days,DEC);  
+ printDigits(hours);  
+ printDigits(minutes);
+ printDigits(seconds);
+ Serial.println();  
+ // Build the string for "last seen"
+ char* last_seen = "";
+ if (days > 0){
+     last_seen = last_seen + days + 'd,';
+ }
+  if (hours > 0){
+     last_seen = last_seen + hours + 'h,';
+ }
+ if (minutes > 0){
+     last_seen = last_seen + minutes + 'm,';
+ }
+ if (seconds > 0){
+     last_seen = last_seen + seconds + 's ago';
+ }
+return last_seen;
+}
+
+void printDigits(byte digits){
+ // utility function for digital clock display: prints colon and leading 0
+ Serial.print(":");
+ if(digits < 10)
+   Serial.print('0');
+ Serial.print(digits,DEC);  
+}

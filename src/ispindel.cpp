@@ -2,7 +2,7 @@
 extern Adafruit_ST7735 tft;
 //extern int delay_loop;
 
-int handle_spindel_data(String iSpinData,int delay_loop){
+int handle_spindel_data(String iSpinData,int delay_loop,int last_seen_ms){
     int str_len = iSpinData.length() +1;
     char charData[str_len];
     int count = 0;
@@ -46,6 +46,6 @@ int handle_spindel_data(String iSpinData,int delay_loop){
     //}
     Serial.println("delay loop en sortant");
     Serial.println(delay_loop);
-    displaydata(array_data);
+    displaydata(array_data,last_seen_ms);
     return(delay_loop);
 }

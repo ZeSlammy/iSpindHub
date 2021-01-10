@@ -12,4 +12,4 @@
 #define TFT_RST    -1  // you can also connect this to the Arduino reset
 // in which case, set this #define pin to -1!
 #define TFT_DC     0
-void displaydata(String array_data[10]);
+void displaydata(String array_data[10],int last_seen_ms);

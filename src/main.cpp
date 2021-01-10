@@ -66,6 +66,10 @@ void setup() {
       tft.setTextSize(1);
       tft.setCursor(2,50);
       tft.print("SubNetWork deployed ! ");
+      tft.setCursor(2,80);
+      tft.print("Soft-AP IP address = ");
+      tft.setCursor(2,110);
+      tft.print(WiFi.localIP().toString());
       Serial.print("Soft-AP IP address = ");
       Serial.println(WiFi.softAPIP());
       initWebServer();
@@ -91,19 +95,20 @@ while (dir.next()) {
     Serial.println("File Name : " + dir.fileName());
     if(dir.fileSize()) {
         File f = dir.openFile("r");
+        //Serial.println("FS Total Size : ");
+        //Serial.println(fs_info.totalBytes);
+        //Serial.println(fs_info.usedBytes);
+        //Serial.println("File Size :");
+        //Serial.println(f.size());
         // When was the last time the iSpindel Data file updated ?
-        Serial.println("FS Total Size : ");
-        Serial.println(fs_info.totalBytes);
-        Serial.println(fs_info.usedBytes);
-        Serial.println("File Size :");
-        Serial.println(f.size());
-        Serial.println(f.getLastWrite());
+        //Serial.println(f.getLastWrite());
         time_t now = time(nullptr);
-        Serial.println(now);
+        //Serial.println(now);
+        //pretty_time(now-f.getLastWrite());
         // Open file as a string
         String iSpinData = f.readString();
         //Serial.println(iSpinData);
-        delay_loop = handle_spindel_data(iSpinData, delay_loop);
+        delay_loop = handle_spindel_data(iSpinData, delay_loop,now-f.getLastWrite());
         f.close();
         Serial.println("Delay 1:");
         Serial.println(delay_loop);
