@@ -12,4 +12,8 @@
 void initWebServer();
 void setActionPageHandlers();
 void setJsonHandlers();
+void setSettingsAliases();
+bool handleURLTargetPost(AsyncWebServerRequest *request);
+bool handleBrewfatherTargetPost(AsyncWebServerRequest *request);
+
 #define LOG_LEVEL LOG_LEVEL_VERBOSE

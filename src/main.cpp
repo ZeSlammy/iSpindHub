@@ -8,7 +8,7 @@ IPAddress local_IP(192,168,4,1);
 IPAddress gateway(192,168,4,22);
 IPAddress subnet(255,255,255,0);
 
-int delay_loop = 10000;
+int delay_loop = 30000;
 String version = "1.0.0";
 
 

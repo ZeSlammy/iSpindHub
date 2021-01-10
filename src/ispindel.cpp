@@ -33,11 +33,11 @@ int handle_spindel_data(String iSpinData,int delay_loop,int last_seen_ms){
             
         }
   
-    if (count > 5) // We have more than 5 entries so we have a "delay"
-    {
-        delay_loop = array_data[6].toInt()*1000;
+    //if (count > 5) // We have more than 5 entries so we have a "delay"
+    //{
+    //    delay_loop = array_data[6].toInt()*1000;
         
-    }
+    //}
     //int i;
     //for (i=0; i <= count;i++){
     //    Serial.println(array_data[i]);

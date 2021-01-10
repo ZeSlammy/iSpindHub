@@ -15,5 +15,5 @@ void centerString(String buf, int x, int y);
 #define numberOfMinutes(_time_) ((_time_ / SECS_PER_MIN) % SECS_PER_MIN)
 #define numberOfHours(_time_) (( _time_% SECS_PER_DAY) / SECS_PER_HOUR)
 #define elapsedDays(_time_) ( _time_ / SECS_PER_DAY) 
-char* pretty_time(long val);
+String pretty_time(long val);
 void printDigits(byte digits);

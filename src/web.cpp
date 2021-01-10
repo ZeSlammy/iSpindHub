@@ -5,6 +5,7 @@ void initWebServer()
 {
     setActionPageHandlers();
     setJsonHandlers();
+    setSettingsAliases();
     server.onNotFound([](AsyncWebServerRequest *request) {
         Log.verbose(F("Serving 404." CR));
         request->send(404, F("text/plain"), F("404: File not found."));
@@ -18,10 +19,6 @@ void initWebServer()
 }
 void setActionPageHandlers()
 {   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-        tft.setTextColor(ST7735_GREEN);
-        tft.setTextSize(1);
-        tft.setCursor(0,50);
-        tft.print("Connected on /");
         Log.notice("Connected on /");
         request->send(200, F("text/plain"), "Hello World");
     });
@@ -105,4 +102,109 @@ void setJsonHandlers()
             request->send(404, "text/plain", "");
             }
     });
+void setSettingsAliases()
+{
+    server.on("/settings/controller/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/controller/." CR));
+        if (handleControllerPost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/controller/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/tapcontrol/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+
+    server.on("/settings/temperature/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/tempcontrol/." CR));
+        if (handleTemperaturePost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/temperature/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/tapcontrol/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+
+    server.on("/settings/urltarget/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/urltarget/." CR));
+        if (handleURLTargetPost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/urltarget/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/tapcontrol/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+
+    server.on("/settings/brewersfriendtarget/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/brewersfriendtarget/." CR));
+        if (handleBrewersFriendTargetPost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/brewersfriendtarget/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/brewersfriendtarget/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+
+    server.on("/settings/brewfathertarget/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/brewersfriendtarget/." CR));
+        if (handleBrewfatherTargetPost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/brewfathertarget/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/brewersfriendtarget/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+
+    server.on("/settings/thingspeaktarget/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/thingspeaktarget/." CR));
+        if (handleThingSpeakTargetPost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/thingspeaktarget/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/thingspeaktarget/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+}
+
 }

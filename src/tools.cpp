@@ -24,7 +24,7 @@ void centerString(String buf, int x, int y){
     return;
 }
 
-char* pretty_time(long val){  
+String pretty_time(long val){  
 int days = elapsedDays(val);
 int hours = numberOfHours(val);
 int minutes = numberOfMinutes(val);
@@ -37,19 +37,28 @@ int seconds = numberOfSeconds(val);
  printDigits(seconds);
  Serial.println();  
  // Build the string for "last seen"
- char* last_seen = "";
+ String last_seen = "";
  if (days > 0){
-     last_seen = last_seen + days + 'd,';
+     last_seen = last_seen + days;
+     last_seen = last_seen + "d,";
  }
   if (hours > 0){
-     last_seen = last_seen + hours + 'h,';
+    last_seen = last_seen + hours;
+    last_seen = last_seen + "h,";
  }
  if (minutes > 0){
-     last_seen = last_seen + minutes + 'm,';
+    last_seen = last_seen + minutes;
+    last_seen = last_seen + + "m,";
  }
- if (seconds > 0){
-     last_seen = last_seen + seconds + 's ago';
+ if (seconds < 10){
+ last_seen = last_seen + "0";    
+ last_seen = last_seen + seconds;    
  }
+ else {
+last_seen = last_seen + seconds;         
+ }
+ last_seen = last_seen + "s ago";
+ 
 return last_seen;
 }
 
