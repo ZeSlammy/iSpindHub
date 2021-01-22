@@ -26,7 +26,7 @@ void setup() {
   centerString("by Slammy",64,25);
   // File System
   LittleFS.begin();
-  LittleFS.format();
+  //LittleFS.format();
   Serial.begin(115200);
   Log.begin(LOG_LEVEL_VERBOSE, &Serial);
   WiFi.mode(WIFI_STA);
@@ -73,6 +73,7 @@ void setup() {
       Serial.print("Soft-AP IP address = ");
       Serial.println(WiFi.softAPIP());
       initWebServer();
+      Serial.print("Web Server Launched");
     }
     else{
       tft.setTextColor(ST7735_RED);
