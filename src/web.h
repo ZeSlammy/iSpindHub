@@ -10,6 +10,7 @@
 #include "ntp.h"
 #include <StreamUtils.h>
 void initWebServer();
+void setRegPageAliases();
 void setActionPageHandlers();
 void setJsonHandlers();
 void setSettingsAliases();

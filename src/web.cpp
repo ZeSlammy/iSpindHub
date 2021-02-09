@@ -9,6 +9,7 @@ extern const size_t capacityDeserial = capacitySerial + 810;
 
 void initWebServer()
 {
+    setRegPageAliases();
     setActionPageHandlers();
     setJsonHandlers();
     setSettingsAliases();
@@ -22,6 +23,18 @@ void initWebServer()
     server.begin();
 
     Log.notice(F("Async HTTP server started on port 80" CR));
+}
+
+void setRegPageAliases()
+{
+    // Regular page aliases
+
+    server.serveStatic("/", LittleFS, "/").setDefaultFile("index.htm").setCacheControl("max-age=600");
+    server.serveStatic("/index.htm", LittleFS, "/").setDefaultFile("index.htm").setCacheControl("max-age=600");
+    server.serveStatic("/about/", LittleFS, "/").setDefaultFile("about.htm").setCacheControl("max-age=600");
+    server.serveStatic("/help/", LittleFS, "/").setDefaultFile("help.htm").setCacheControl("max-age=600");
+    server.serveStatic("/settings/", LittleFS, "/").setDefaultFile("settings.htm").setCacheControl("max-age=600");
+    server.serveStatic("/wifi/", LittleFS, "/").setDefaultFile("wifi.htm").setCacheControl("max-age=600");
 }
 void setActionPageHandlers()
 {   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
