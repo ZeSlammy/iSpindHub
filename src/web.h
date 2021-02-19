@@ -8,6 +8,7 @@
 #include <WiFiUdp.h>
 #include <LittleFS.h>
 #include "ntp.h"
+#include <time.h>
 #include <StreamUtils.h>
 void initWebServer();
 void setRegPageAliases();
