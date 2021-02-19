@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <meta name="description" content="Brew Bubbles, a Home Brewing application">
-    <meta name="author" content="Lee Bussy">
 
-    <title>Brew Bubbles</title>
+    <meta name="description" content="iSpindHub an iSpindel Repetor">
+    <meta name="author" content="Nicolas Outrey largely inspired by Lee Bussy">
 
-    <link rel="canonical" href="https://www.brewbubbles.com/">
+    <title>iSpindHub</title>
 
+    <link rel="canonical" href="http://homebrewing.slammy.net">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -26,19 +26,18 @@
     <meta name="msapplication-config" content="/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/united/bootstrap.min.css"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/united/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
 
     <style>
         main>.container {
             padding: 60px 15px 0;
         }
-
+        
         .footer {
             background-color: #f5f5f5f5;
         }
-
+        
         .footer>.container {
             padding-right: 15px;
             padding-left: 15px;
@@ -50,14 +49,11 @@
 <body class="d-flex flex-column h-100">
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-
-            <a class="navbar-brand" href="/">
-                <img src="/mstile-144x144.png" style="width:25px;height:25px;">
-                &nbsp;Brew Bubbles
+        <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+            <a class="navbar-brand" href="#">
+                <img src="/hop-icon-24.png" style="width:25px;height:25px;"> &nbsp;iSpindHub
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor01">
@@ -91,13 +87,14 @@
                 </div>
                 <div class="card-body" id="message">
                     <p class="card-text">
-                        Your Brew Bubbles' controller is being reset and will return momentarily. You will be redirected
-                        to the home page when that is complete.
+                        Your Brew Bubbles' controller is being reset and will return momentarily. You will be redirected to the home page when that is complete.
                     </p>
                 </div>
-            </div> <!-- Controller Reset Information -->
+            </div>
+            <!-- Controller Reset Information -->
 
-        </div> <!-- Container -->
+        </div>
+        <!-- Container -->
 
     </main>
 
@@ -107,15 +104,12 @@
         </div>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-        </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-        </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
 
     <script type="text/javascript">
         // Attach the event after the page loads
@@ -128,15 +122,17 @@
         function loadPage() { // Load the page's JS elements
             // Wait for restart to complete
             var running = false;
-            var intervalID = window.setInterval(function () { // Poll every 5 seconds
-                checkSemaphore(function (semaphore) {
+            var intervalID = window.setInterval(function() { // Poll every 5 seconds
+                checkSemaphore(function(semaphore) {
                     didreset = semaphore;
                     if (didreset == true) {
                         // Reset is complete
                         $("#banner").replaceWith("<h1>Controller Reset Complete</h1>");
                         $("#subtitle").replaceWith("<h4 class='card-header' class='card-title'>Redirect Pending</h4>");
                         $("#message").replaceWith("<p class='card-body'>The controller reset is complete.  You will be redirected momentarily.</p>");
-                        setTimeout(function () { window.location.href = "/"; }, 5000);
+                        setTimeout(function() {
+                            window.location.href = "/";
+                        }, 5000);
                     }
                 });
             }, 5000);
@@ -144,14 +140,13 @@
 
         function checkSemaphore(callback) { // Check to see if the update is complete
             var jqxhr = $.getJSON("/config/")
-                .done(function (data) {
+                .done(function(data) {
                     callback(true);
                 })
-                .fail(function () {
+                .fail(function() {
                     // This will fail while controller resets
                     callback({});
-                }
-                );
+                });
         }
     </script>
 

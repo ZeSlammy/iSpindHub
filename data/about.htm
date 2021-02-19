@@ -1,170 +1,165 @@
-    <!doctype html>
-    <html lang="en" class="h-100">
+<!doctype html>
+<html lang="en" class="h-100">
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <meta name="description" content="Brew Bubbles, a Home Brewing application">
-        <meta name="author" content="Lee Bussy">
 
-        <title>Brew Bubbles</title>
+    <meta name="description" content="iSpindHub an iSpindel Repetor">
+    <meta name="author" content="Nicolas Outrey largely inspired by Lee Bussy">
 
-        <link rel="canonical" href="https://www.brewbubbles.com/">
+    <title>iSpindHub</title>
 
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="/favicon.ico" type="image/x-icon">
-        <meta name="apple-mobile-web-app-title" content="Brew Bubbles">
-        <meta name="application-name" content="Brew Bubbles">
-        <meta name="msapplication-TileColor" content="#00aba9">
-        <meta name="msapplication-TileImage" content="/mstile-144x144.png">
-        <meta name="msapplication-config" content="/browserconfig.xml">
-        <meta name="theme-color" content="#ffffff">
+    <link rel="canonical" href="http://homebrewing.slammy.net">
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/united/bootstrap.min.css"
-            crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="apple-mobile-web-app-title" content="Brew Bubbles">
+    <meta name="application-name" content="Brew Bubbles">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
 
-        <style>
-            main>.container {
-                padding: 60px 15px 0;
-            }
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/united/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
 
-            .footer {
-                background-color: #f5f5f5f5;
-            }
+    <style>
+        main>.container {
+            padding: 60px 15px 0;
+        }
+        
+        .footer {
+            background-color: #f5f5f5f5;
+        }
+        
+        .footer>.container {
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        
+        .tooltip-inner {
+            text-align: left;
+        }
+    </style>
 
-            .footer>.container {
-                padding-right: 15px;
-                padding-left: 15px;
-            }
+</head>
 
-            .tooltip-inner {
-                text-align: left;
-            }
-        </style>
+<body class="d-flex flex-column h-100">
 
-    </head>
-
-    <body class="d-flex flex-column h-100">
-
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-
-                <a class="navbar-brand" href="/">
-                    <img src="/mstile-144x144.png" style="width:25px;height:25px;">
-                    &nbsp;Brew Bubbles
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-                    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+            <a class="navbar-brand" href="#">
+                <img src="/hop-icon-24.png" style="width:25px;height:25px;"> &nbsp;iSpindHub
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/settings/">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/help/">Help</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/about/">About <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="flex-shrink-0">
+
+        <div class="container" id="settingsapp">
+            <!-- Container -->
+
+            <div class="card border-dark mb-3">
+                <!-- About Brew Bubbles Information -->
+                <div class="card-header">
+                    <h4 class="card-title">
+                        About Brew Bubbles:
+                        <span id="thisVersion">(version loading...)</span> [
+                        <span class="text-primary" id="thisBranch"></span>] (
+                        <span class="text-warning" id="thisBuild"></span>)
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p><a href="https://www.brewbubbles.com/">Brew Bubbles</a> is a project developed by Lee Bussy and <a href="/license.htm">is licensed under
+                                The MIT License</a>. Inquiries may be directed to
+                        <a href="https://www.homebrewtalk.com/forum/members/lbussy.144719/">
+                                LBussy</a> on the HomeBrewTalk Forums (free registration required).
+                    </p>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Uptime: </strong>
+                            <span id="uptime" data-html="true" data-toggle="tooltip">...loading</span>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/settings/">Settings</a>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Reset Reason: </strong>
+                            <span id="resetreason" data-html="true" data-toggle="tooltip">...loading</span>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/help/">Help</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/about/">About <span class="sr-only">(current)</span></a>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Heap Information: </strong>
+                            <span id="heap" data-html="true" data-toggle="tooltip">...loading</span>
                         </li>
                     </ul>
                 </div>
-            </nav>
-        </header>
-
-        <main role="main" class="flex-shrink-0">
-
-            <div class="container" id="settingsapp">
-                <!-- Container -->
-
-                <div class="card border-dark mb-3">
-                    <!-- About Brew Bubbles Information -->
-                    <div class="card-header">
-                        <h4 class="card-title">
-                            About Brew Bubbles:
-                            <span id="thisVersion">(version loading...)</span>
-                            [<span class="text-primary" id="thisBranch"></span>]
-                            (<span class="text-warning" id="thisBuild"></span>)
-                        </h4>
-                    </div>
-                    <div class="card-body">
-                        <p><a href="https://www.brewbubbles.com/">Brew Bubbles</a> is a project developed
-                            by Lee Bussy and <a href="/license.htm">is licensed under
-                                The MIT License</a>. Inquiries may be directed to
-                            <a href="https://www.homebrewtalk.com/forum/members/lbussy.144719/">
-                                LBussy</a> on the HomeBrewTalk Forums (free registration required).
-                        </p>
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <strong>Uptime: </strong>
-                                <span id="uptime" data-html="true" data-toggle="tooltip">...loading</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <strong>Reset Reason: </strong>
-                                <span id="resetreason" data-html="true" data-toggle="tooltip">...loading</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <strong>Heap Information: </strong>
-                                <span id="heap" data-html="true" data-toggle="tooltip">...loading</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div> <!-- About Brew Bubbles Information -->
-
-            </div> <!-- Container -->
-
-        </main>
-
-        <footer class="footer mt-auto py-3">
-            <div class="container text-center">
-                <span class="text-muted">Copyright © 2019-2020, Lee C. Bussy</span>
             </div>
-        </footer>
+            <!-- About Brew Bubbles Information -->
 
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
-            </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-            </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-            </script>
+        </div>
+        <!-- Container -->
 
-        <script src="/about.js"></script>
+    </main>
 
-        <script type="text/javascript">
-            // Attach the event after the page loads
-            if (window.addEventListener)
-                window.addEventListener("load", startLoad, false);
-            else if (window.attachEvent)
-                window.attachEvent("onload", startLoad);
-            else window.onload = startLoad;
+    <footer class="footer mt-auto py-3">
+        <div class="container text-center">
+            <span class="text-muted">Copyright © 2019-2020, Lee C. Bussy</span>
+        </div>
+    </footer>
 
-            function startLoad() { // Make sure the page is 100% loaded
-                if (document.readyState === 'ready' || document.readyState === 'complete') {
-                    populatePage();
-                } else {
-                    document.onreadystatechange = function () {
-                        if (document.readyState == "complete") {
-                            populatePage();
-                        }
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+    <script src="/about.js"></script>
+
+    <script type="text/javascript">
+        // Attach the event after the page loads
+        if (window.addEventListener)
+            window.addEventListener("load", startLoad, false);
+        else if (window.attachEvent)
+            window.attachEvent("onload", startLoad);
+        else window.onload = startLoad;
+
+        function startLoad() { // Make sure the page is 100% loaded
+            if (document.readyState === 'ready' || document.readyState === 'complete') {
+                populatePage();
+            } else {
+                document.onreadystatechange = function() {
+                    if (document.readyState == "complete") {
+                        populatePage();
                     }
                 }
             }
-        </script>
+        }
+    </script>
 
-    </body>
+</body>
 
-    </html>
+</html>
