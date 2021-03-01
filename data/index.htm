@@ -45,6 +45,12 @@
     </style>
 
 </head>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+</script>
 
 <body class="d-flex flex-column h-100">
 
@@ -81,20 +87,16 @@
             <!-- Container -->
             <div class="card border-dark mb-3">
 
-                <!-- Sensor Readings -->
+                <!-- iSpindel(s) infos -->
                 <div class="card-header">
                     <h4 class="card-title">Available iSpindel(s)</h4>
                 </div>
                 <div class="card-body">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <strong>Vessel Name: </strong>
-                            <span id="name">...loading</span>
-                        </li>
+                    <ul class="list-group" id="iSpindInfo">
                     </ul>
                 </div>
             </div>
-            <!-- Sensor Readings -->
+            <!-- iSpindel(s) infos -->
 
         </div>
         <!-- Container -->
@@ -106,96 +108,39 @@
             <span class="text-muted">Copyright © 2021, Nicolas Outrey</span>
         </div>
     </footer>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-
-    <script>
-        // Attach the event after the page loads
-        if (window.addEventListener)
-            window.addEventListener("load", loadPage, false);
-        else if (window.attachEvent)
-            window.attachEvent("onload", loadPage);
-        else window.onload = loadPage;
-
-        function loadPage() {
-            // console.log("DEBUG: Entering: " + arguments.callee.name);
-
-            loadData(); // Load data the first time
-
-            reloadPeriod = 60;
-            (function countdown(remaining) { // Refresh data every 60 secs
-                if (remaining === 0) {
-                    loadData()
-                    remaining = reloadPeriod
-                }
-                document.getElementById('countdown').innerHTML = remaining
-                setTimeout(function() {
-                    countdown(remaining - 1)
-                }, 1000)
-            })(reloadPeriod)
-            // console.log("DEBUG: Exiting: " + arguments.callee.name);
-        }
-
-        function loadData() {
-            // console.log("DEBUG: Entering: " + arguments.callee.name);
-            var url = "/iSpindInfo/";
-            var bubble = $.getJSON(url, function() {})
-                .done(function(bubble) {
-                    try {
-                        var disco
-                        if (bubble.temp_unit == "F") {
-                            disco = -196.6
-                        } else {
-                            disco = -127
-                        }
-                        $("#name").text(bubble.name)
-                        $("#bpm").text(parseFloat(bubble.bpm).toFixed(1));
-
-                        if (bubble.ambient == disco) {
-                            $("#aTemp").text("Not connected")
-                        } else if (bubble.ambient == 0) {
-                            $("#aTemp").text("Not yet updated.")
-                        } else {
-                            $("#aTemp").text(parseFloat(bubble.ambient).toFixed(2) + "°" + bubble.temp_unit);
-                        }
-
-                        if (bubble.temp == disco) {
-                            $("#vTemp").text("Not connected")
-                        } else if (bubble.temp == 0) {
-                            $("#vTemp").text("Not yet updated.")
-                        } else {
-                            $("#vTemp").text(parseFloat(bubble.temp).toFixed(2) + "°" + bubble.temp_unit);
-                        }
-
-                        var date = new Date(bubble.datetime)
-                        $("#time").text(date)
-                    } catch {
-                        $("#name").text("Not yet updated.")
-                        $("#bpm").text("Not yet updated.")
-                        $("#aTemp").text("Not yet updated.")
-                        $("#vTemp").text("Not yet updated.")
-                        $("#time").text("Not yet updated.")
-                    }
-                })
-                .fail(function() {
-                    $("#name").text("Error loading JSON.")
-                    $("#bpm").text("Error loading JSON.")
-                    $("#aTemp").text("Error loading JSON.")
-                    $("#vTemp").text("Error loading JSON.")
-                    $("#time").text("Error loading JSON.")
-                })
-                .always(function() {
-                    // Post load processing here
-                });
-            // console.log("DEBUG: Exiting: " + arguments.callee.name);
-        }
-    </script>
-
 </body>
+<script>
+    (function() {
+        console.log("On entre dans la fonction");
+        var url = "/iSpindInfo/";
+        var spindel = $.getJSON(url, function() {
+                console.log("success");
+            })
+            .done(function(spindel) {
+                console.log("On entre dans la fonction qui fait each");
+                console.log(spindel);
+                //$.each(spindel.items, function(key, item) {
+                $.each(spindel, function(key, item) {
+                    console.log("On est dans le For Each")
+                    console.log(key);
+                    var each_line = "<li class = \"list-group-item d-flex justify-content-between align-items-center\">" +
+                        "<strong>iSpindel Info:</strong><span>" +
+                        key + "Created On:<span>" +
+                        item.created +
+                        "</span>" +
+                        "</li>";
+                    console.log(each_line);
+                    $("#iSpindInfo").append(each_line);
+                });
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                alert('getJSON request failed! ' + textStatus);
+            })
+            .always(function() {
+                // Post load processing here
+            });
+        console.log("On sort de la fonction");
+    })();
+</script>
 
 </html>

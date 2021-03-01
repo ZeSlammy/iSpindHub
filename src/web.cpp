@@ -128,32 +128,32 @@ void setJsonHandlers()
         FSInfo fs_info;
         LittleFS.info(fs_info);
         Dir dir = LittleFS.openDir("/data");
-        int i = 0;
         String file_info = "{";
         while (dir.next()) {
             String f_name = dir.fileName();
-            File file = dir.openFile("r");
-            int f_size = file.size();
-            time_t cr = file.getCreationTime();
-            Serial.print(cr);
-            time_t lw = file.getLastWrite();
-            Serial.print(lw);
-            file.close();
-            file_info = file_info + "['" + f_name+ "']";
-            struct tm * tmstruct = localtime(&cr);
-            file_info = file_info + ": { 'created':" + ("%d-%02d-%02d %02d:%02d:%02d", (tmstruct->tm_year) + 1900, (tmstruct->tm_mon) + 1, tmstruct->tm_mday, tmstruct->tm_hour, tmstruct->tm_min, tmstruct->tm_sec);
-            tmstruct = localtime(&lw);
-            file_info = file_info + ", 'last_updated':" + ("%d-%02d-%02d %02d:%02d:%02d", (tmstruct->tm_year) + 1900, (tmstruct->tm_mon) + 1, tmstruct->tm_mday, tmstruct->tm_hour, tmstruct->tm_min, tmstruct->tm_sec);
-            file_info = file_info + "},";
-            //
-            //char buff[50];
-            //snprintf(buff,sizeof(buff),"%d-%02d-%02d %02d:%02d:%02d\n", (tmstruct->tm_year) + 1900, (tmstruct->tm_mon) + 1, tmstruct->tm_mday, tmstruct->tm_hour, tmstruct->tm_min, tmstruct->tm_sec);
-            //root[F(f_name)]['created'] = cr;
-            //tmstruct = localtime(&lw);
-            //snprintf(buff,sizeof(buff),"%d-%02d-%02d %02d:%02d:%02d\n", (tmstruct->tm_year) + 1900, (tmstruct->tm_mon) + 1, tmstruct->tm_mday, tmstruct->tm_hour, tmstruct->tm_min, tmstruct->tm_sec);
-            //root[F(f_name)]['updated'] = lw;
-        };
-        file_info = file_info + "}";
+            if(dir.fileSize()) {
+                File file = dir.openFile("r");
+                time_t cr = file.getCreationTime();
+                Serial.println(cr);
+                time_t lw = file.getLastWrite();
+                Serial.println(lw);
+                file.close();
+                file_info+= "\"" + f_name+ "\"";
+                file_info+= ": { \"created\":\"";
+                struct tm * tmstruct = localtime(&cr);
+                char t_format[25];
+                sprintf(t_format,"%d-%02d-%02d %02d:%02d:%02d", (tmstruct->tm_year) + 1900, (tmstruct->tm_mon) + 1, tmstruct->tm_mday, tmstruct->tm_hour, tmstruct->tm_min, tmstruct->tm_sec);
+                file_info+=String(t_format);
+                tmstruct = localtime(&lw);
+                sprintf(t_format,"%d-%02d-%02d %02d:%02d:%02d", (tmstruct->tm_year) + 1900, (tmstruct->tm_mon) + 1, tmstruct->tm_mday, tmstruct->tm_hour, tmstruct->tm_min, tmstruct->tm_sec);
+                file_info+= "\", \"last_updated\":\"";
+                file_info+= String(t_format);
+                file_info+= "\"},";
+            }
+        }
+        int size_info = file_info.length()-1;
+        file_info.remove(size_info,1);
+        file_info+= "}";
         Serial.print(file_info);
         //const size_t capacity = JSON_OBJECT_SIZE(8) + 210;
         //StaticJsonDocument<capacity> doc;
