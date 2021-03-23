@@ -10,7 +10,7 @@ var previousTab = "";
 var currentTab = "";
 
 // Handle unloading page while making a getJSON call
-$(window).bind("beforeunload", function () {
+$(window).bind("beforeunload", function() {
     unloadingState = true;
 });
 
@@ -21,7 +21,7 @@ function loadHash() { // Link to tab via hash value
     }
 
     // Change hash for page-reload
-    $('.nav-tabs a').on('shown.bs.tab', function (e) {
+    $('.nav-tabs a').on('shown.bs.tab', function(e) {
         window.location.hash = e.target.hash;
     });
 }
@@ -33,8 +33,6 @@ function populatePage() {
     });
     loadHash();
     populateForm();
-    loadThisVersion();
-    loadThatVersion();
     loadTab();
     pollComplete();
 }
@@ -47,112 +45,40 @@ function loadTab() {
     }
 
     // Change hash for page-reload
-    $('.nav-tabs a').on('shown.bs.tab', function (e) {
+    $('.nav-tabs a').on('shown.bs.tab', function(e) {
         window.location.hash = e.target.hash;
     });
 }
 
 function populateForm() { // Get current parameters
     var url = "/config/";
-    var config = $.getJSON(url, function () {
-    })
-        .done(function (config) {
+    var config = $.getJSON(url, function() {})
+        .done(function(config) {
             try {
                 $('#mdnsid').val(config.hostname);
                 $('#bubname').val(config.bubble.name);
-                if (config.bubble.tempinf) {
-                    $('input[name="tempformat"]:radio')[1].checked = true;
-                } else {
-                    $('input[name="tempformat"]:radio')[0].checked = true;
-                }
-                $('#calroom').val(config.calibrate.room);
-                $('#calvessel').val(config.calibrate.vessel);
                 $('#urltargeturl').val(config.urltarget.url);
                 $('#urlfreq').val(config.urltarget.freq);
                 $('#brewersfriendkey').val(config.brewersfriend.key);
                 $('#brewersfriendfreq').val(config.brewersfriend.freq);
                 $('#brewfatherkey').val(config.brewfather.key);
                 $('#brewfatherfreq').val(config.brewfather.freq);
-                $('#thingspeakchannel').val(config.thingspeak.channel);
-                $('#thingspeakkey').val(config.thingspeak.key);
-                $('#thingspeakfreq').val(config.thingspeak.freq);
-            }
-            catch {
+            } catch {
                 if (!unloadingState) {
                     alert("Unable to parse configuration data.");
                 }
             }
         })
-        .fail(function () {
+        .fail(function() {
             if (!unloadingState) {
                 alert("Unable to retrieve configuration data.");
             }
         })
-        .always(function () {
+        .always(function() {
             // Can post-process here
         });
 }
 
-function loadThisVersion() { // Get current parameters
-    var thisVersionJson = "/thisVersion/";
-    var thisVersion = $.getJSON(thisVersionJson, function () {
-    })
-        .done(function (thisVersion) {
-            try {
-                $('#thisVersion').text(thisVersion.version);
-            }
-            catch {
-                if (!unloadingState) {
-                    $('#thisVersion').text("Error parsing.");
-                }
-            }
-        })
-        .fail(function () {
-            if (!unloadingState) {
-                $('#thisVersion').text("Error loading.");
-            }
-        })
-        .always(function () {
-            // Can post-process here
-            if (loaded < numReq) {
-                loaded++;
-            }
-            if (typeof callback == "function") {
-                callback();
-            }
-        });
-}
-
-function loadThatVersion() { // Get current parameters
-    var thatVersionJson = "/thatVersion/";
-    var thatVersion = $.getJSON(thatVersionJson, function () {
-    })
-        .done(function (thatVersion) {
-            try {
-                $('#thatVersion').text(thatVersion.version);
-                document.getElementById("proceed").disabled = false;
-            }
-            catch {
-                if (!unloadingState) {
-                    $('#thatVersion').text("Error parsing.");
-                }
-            }
-        })
-        .fail(function () {
-            if (!unloadingState) {
-                $('#thatVersion').text("Error loading.");
-            }
-        })
-        .always(function () {
-            // Can post-process here
-            if (loaded < numReq) {
-                loaded++;
-            }
-            if (typeof callback == "function") {
-                callback();
-            }
-        });
-}
 
 function pollComplete() { // Poll to see if entire page is loaded
     if (loaded == numReq) {
@@ -228,23 +154,6 @@ function processControllerPost(url, obj) {
     postData(url, data);
 }
 
-function processTemperaturePost(url, obj) {
-    // Handle Temperature configuration posts
-
-    // Get form data
-    var $form = $(obj),
-        calroom = $form.find("input[name='calroom']").val(),
-        calvessel = $form.find("input[name='calvessel']").val();
-    tempformat = $form.find("input[name='tempformat']:checked").val();
-
-    // Process post
-    data = {
-        calroom: calroom,
-        calvessel: calvessel,
-        tempformat: tempformat
-    };
-    postData(url, data);
-}
 
 function processURLTargetPost(url, obj) {
     // Handle URL target posts
@@ -301,7 +210,7 @@ function processThingSpeakPost(url, obj) {
     var $form = $(obj),
         thingspeakchannel = $form.find("input[name='thingspeakchannel']").val(),
         thingspeakkey = $form.find("input[name='thingspeakkey']").val();
-        thingspeakfreq = $form.find("input[name='thingspeakfreq']").val();
+    thingspeakfreq = $form.find("input[name='thingspeakfreq']").val();
 
     // Process post
     data = {
@@ -318,13 +227,13 @@ function postData(url, data, newpage = false, newdata = false, callback = null) 
         url: url,
         type: 'POST',
         data: data,
-        success: function (data) {
+        success: function(data) {
             // No alert
         },
-        error: function (data) {
+        error: function(data) {
             alert("Settings update failed.");
         },
-        complete: function (data) {
+        complete: function(data) {
             if (loadNew) {
                 window.location.href = newpage;
             } else if (newdata) {

@@ -1,8 +1,7 @@
 {
-    "name": "Brew Bubbles",
-    "short_name": "Brew Bubbles",
-    "icons": [
-        {
+    "name": "iSpindHub",
+    "short_name": "iSPindHub",
+    "icons": [{
             "src": "/icons/android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
