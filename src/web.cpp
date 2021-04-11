@@ -130,24 +130,54 @@ void setJsonHandlers()
         Dir dir = LittleFS.openDir("/data");
         String file_info = "{";
         while (dir.next()) {
+            //Porcessing One file at at time
             String f_name = dir.fileName();
             if(dir.fileSize()) {
                 File file = dir.openFile("r");
                 time_t cr = file.getCreationTime();
-                Serial.println(cr);
+                //Serial.println(cr);
                 time_t lw = file.getLastWrite();
-                Serial.println(lw);
+                //Serial.println(lw);
+                //Get Last Readings
+                String lastData = get_last_value(file.readString());
+                //Serial.println(iSpinData);
                 file.close();
+                //Store Name
                 file_info+= "\"" + f_name+ "\"";
                 file_info+= ": { \"created\":\"";
                 struct tm * tmstruct = localtime(&cr);
                 char t_format[25];
                 sprintf(t_format,"%d-%02d-%02d %02d:%02d:%02d", (tmstruct->tm_year) + 1900, (tmstruct->tm_mon) + 1, tmstruct->tm_mday, tmstruct->tm_hour, tmstruct->tm_min, tmstruct->tm_sec);
+                //store creation date
                 file_info+=String(t_format);
                 tmstruct = localtime(&lw);
                 sprintf(t_format,"%d-%02d-%02d %02d:%02d:%02d", (tmstruct->tm_year) + 1900, (tmstruct->tm_mon) + 1, tmstruct->tm_mday, tmstruct->tm_hour, tmstruct->tm_min, tmstruct->tm_sec);
                 file_info+= "\", \"last_updated\":\"";
+                //store last updated
                 file_info+= String(t_format);
+                //Store Last Readings
+                int str_len = lastData.length() +1;
+                int count = 0;
+                int idx;
+                int mov_idx = 0;
+                String array_data[10] = {};
+                for (idx = 0; idx <= str_len; idx++)
+                {
+                    if (lastData[idx] == ',')
+                    {   //splitData[count] = lastData.substring(mov_idx,idx-1);
+                    array_data[count] = lastData.substring(mov_idx,idx);
+                    mov_idx = idx+1;
+                    count++;
+                    }
+                }
+                file_info+="\", \"SG\":\"";
+                file_info+=array_data[5];
+                file_info+="\", \"T\":\"";
+                file_info+=array_data[3] + " °" + array_data[8];
+                file_info+="\", \"B\":\"";
+                file_info+=array_data[4];
+                file_info+="\", \"RSSI\":\"";
+                file_info+=array_data[7];
                 file_info+= "\"},";
             }
         }

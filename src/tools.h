@@ -17,3 +17,4 @@ void centerString(String buf, int x, int y);
 //#define elapsedDays(_time_) ( _time_ / SECS_PER_DAY) 
 String pretty_time(long val);
 void printDigits(byte digits);
+String get_last_value(String iSpinData);

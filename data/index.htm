@@ -125,8 +125,14 @@
                     console.log(key);
                     var each_line = "<li class = \"list-group-item d-flex justify-content-between align-items-center\">" +
                         "<strong>iSpindel Info:</strong><span>" +
-                        key + "</span><br>Created On:<span>" +
+                        key + "</span>Created On:<br>" +
                         item.created +
+                        "</span>" +
+                        "<span>Last Readings:<br>Temperature " +
+                        item.T +
+                        "<br>Gravity : " + item.SG +
+                        +"<br>Battery : " + item.B +
+                        +"<br>RSSI : " + item.RSSI +
                         "</span>" +
                         "</li>";
                     console.log(each_line);

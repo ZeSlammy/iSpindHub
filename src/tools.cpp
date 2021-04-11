@@ -69,3 +69,16 @@ void printDigits(byte digits){
    Serial.print('0');
  Serial.print(digits,DEC);  
 }
+
+
+String get_last_value(String iSpinData){
+int str_len = iSpinData.length() +1;
+char charData[str_len];
+iSpinData.toCharArray(charData,str_len);
+//Split by the \r char
+char* splitData = strtok(charData,"\r");
+int line_len = strlen(splitData);
+// Get to the LAST record
+String lastData = iSpinData.substring(str_len-line_len,str_len);
+return lastData;
+}
