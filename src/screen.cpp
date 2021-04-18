@@ -1,22 +1,32 @@
 #include "screen.h"
-Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS,  TFT_DC, TFT_RST);
 #include <Fonts/FreeSansBold12pt7b.h>
 #include <Fonts/FreeSansBold18pt7b.h>
 #include <Fonts/FreeSans9pt7b.h>
 #include <Fonts/FreeSansBold9pt7b.h>
-
+Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS,  TFT_DC, TFT_RST);
 void displaydata(String array_data[10],int last_seen_ms)
-{   tft.fillScreen(ST7735_BLACK);
+{   wdt_disable();
+    //ESP.getFreeHeap();
+    //ESP.getHeapFragmentation();
+    //ESP.getMaxFreeBlockSize();
+    //Serial.println("On entre dans le DisplayData");
+    tft.fillScreen(ST7735_BLACK);
+    //Serial.println("Fondu au noir");
     tft.setTextColor(ST7735_BLUE);
-    tft.setTextWrap(false); 
+    //Serial.println("Bonne Couleur");
+    tft.setTextWrap(false);
+    //Serial.println("Text Wrap Ok");
     // Cadre tout autour
     tft.drawRect(0,0,128,128,ST7735_WHITE);
+    //Serial.println("Cadre Ok");
     //tft.setTextSize(1);
     tft.setFont(&FreeSansBold12pt7b);
+    //Serial.println("Police OK");
     // SG 
     tft.setTextColor(ST7735_WHITE);
     tft.setCursor(3,22);
     tft.print("SG: "+ array_data[5]);
+    //Serial.println("SG OK");
     // Separator
     tft.drawLine(1,24,127,24,ST7735_LIME);
     // Temperature
@@ -25,6 +35,7 @@ void displaydata(String array_data[10],int last_seen_ms)
     //tft.print("T° : " + array_data[3] + " °" + array_data[8]);
     centerString("T° : " + array_data[3] + " °" + array_data[8],64,44);
     tft.drawLine(1,46,127,46,ST7735_LIME);
+    //Serial.println("T Ok");
     //Battery
     tft.setFont(&FreeSans9pt7b);
     tft.setTextColor(ST7735_MAGENTA);
@@ -59,13 +70,12 @@ void displaydata(String array_data[10],int last_seen_ms)
     else tft.setTextColor(ST7735_RED);
     
     centerString("Signal : " + String(sign_strength) + "dB",64,108);
-
     // Local IP
     tft.setFont();
     tft.setTextColor(ST7735_BLUE);
     centerString("IP : " + WiFi.localIP().toString(),64,118);
     //tft.print("IP : " + WiFi.localIP().toString());
     //tft.drawLine(1,120,127,120,ST7735_LIME);
-
+    wdt_enable(WDTO_8S);
 return;
 }

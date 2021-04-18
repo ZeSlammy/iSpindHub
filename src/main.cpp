@@ -28,13 +28,14 @@ void setup() {
   LittleFS.begin();
   //LittleFS.format();
   Serial.begin(115200);
+  wdt_enable(WDTO_8S);
   Log.begin(LOG_LEVEL_VERBOSE, &Serial);
   WiFi.mode(WIFI_STA);
   bool rst = drd.detect(); // Check for double-reset
   bool isconnected;
   bool isdeployed;
   if (rst == true){
-    Serial.println("DRD Triggered, launch Config Portal");
+    //Serial.println("DRD Triggered, launch Config Portal");
     doWiFi(true);
   }
   else{
@@ -49,16 +50,16 @@ void setup() {
     tft.setTextColor(ST7735_RED);
     tft.setTextSize(1);
     tft.print("Failed to connect :(");
-    Serial.println("Failed to connect.");
+    //Serial.println("Failed to connect.");
   }
   else{
     tft.setCursor(2,40);
     tft.setTextColor(ST7735_GREEN);
     tft.setTextSize(1);
     tft.print("Connected !");
-    Serial.println("Connected");
-    Serial.println("Setting soft-AP configuration ... ");
-    Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet) ? "Ready" : "Failed!");
+    //Serial.println("Connected");
+    //Serial.println("Setting soft-AP configuration ... ");
+    //Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet) ? "Ready" : "Failed!");
     setClock();             // Set NTP Time
     isdeployed = WiFi.softAP("iSpindHub");
     if(isdeployed){
@@ -70,10 +71,10 @@ void setup() {
       tft.print("Soft-AP IP address = ");
       tft.setCursor(2,110);
       tft.print(WiFi.localIP().toString());
-      Serial.print("Soft-AP IP address = ");
-      Serial.println(WiFi.softAPIP());
+      //Serial.print("Soft-AP IP address = ");
+      //Serial.println(WiFi.softAPIP());
       initWebServer();
-      Serial.print("Web Server Launched");
+      //Serial.print("Web Server Launched");
     }
     else{
       tft.setTextColor(ST7735_RED);
@@ -86,40 +87,38 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+Serial.println("Début du Loop");
 FSInfo fs_info;
 LittleFS.info(fs_info);
-
 Dir dir = LittleFS.openDir("/data");
+Serial.println("On a ouvert le Dir");
 // or Dir dir = LittleFS.openDir("/data");
+//while(true){
 while (dir.next()) {
-    //Open iSpindel Data file
-    Serial.println("File Name : " + dir.fileName());
-    if(dir.fileSize()) {
-        File f = dir.openFile("r");
-        //Serial.println("FS Total Size : ");
-        //Serial.println(fs_info.totalBytes);
-        //Serial.println(fs_info.usedBytes);
-        //Serial.println("File Size :");
-        //Serial.println(f.size());
-        // When was the last time the iSpindel Data file updated ?
-        //Serial.println(f.getLastWrite());
-        time_t now = time(nullptr);
-        //Serial.println(now);
-        //pretty_time(now-f.getLastWrite());
-        // Open file as a string
-        String iSpinData = f.readString();
-        //Serial.println(iSpinData);
-        delay_loop = handle_spindel_data(iSpinData, delay_loop,now-f.getLastWrite());
-        f.close();
-        Serial.println("Delay 1:");
-        Serial.println(delay_loop);
-    delay(delay_loop);
-    }
-
-
+  //Open iSpindel Data file
+  //Serial.println("File Name : " + dir.fileName());
+  if(dir.fileSize()) {
+      wdt_reset();
+      File f = dir.openFile("r");
+      Serial.println("File Name :");
+      Serial.println(f.name());
+      Serial.println("File Size :");
+      Serial.println(f.size());
+      time_t now = time(nullptr);
+      String temp = f.readStringUntil('\r');
+      int line_len = temp.length()+1;
+      f.seek(line_len,SeekEnd);
+      String iSpinData  = f.readString();
+      Serial.println(iSpinData);
+      delay_loop = handle_spindel_data(iSpinData, delay_loop,now-f.getLastWrite());
+      f.close();
+      //free(iSpinData);
+  Serial.println("Avant delay");
+  delay(delay_loop);
+  Serial.println("Après delay");
+  }
 }
-Serial.println("Delay 2:");
-Serial.println(delay_loop);
-delay(delay_loop);
-return;
+dir.rewind();
+//}
+//return;
 }

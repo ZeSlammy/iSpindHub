@@ -48,15 +48,15 @@ void setJsonHandlers()
         server.on("/ispindel", HTTP_POST, [](AsyncWebServerRequest *request) {
         // Used to handle the json coming from iSpindel
          }, NULL, [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total){
-            for (size_t i = 0; i < len; i++) {
-                Serial.write(data[i]);
-            }
+            //for (size_t i = 0; i < len; i++) {
+            //    Serial.write(data[i]);
+            //}
 
             StaticJsonDocument<300> jdoc;
             //ReadLoggingStream loggingStream(data, Serial);
             //DeserializationError error = deserializeJson(jdoc, loggingStream);
             DeserializationError error = deserializeJson(jdoc, (const char*)data);
-            Log.verbose(("Parsing json from ispindel.\n"));
+            Log.verbose(F("Parsing json from ispindel.\n"));
             if (!error) {
                 //tft.fillRect(0,0,128,20,ST7735_BLACK);
                 // Get Data from JSON 
@@ -93,10 +93,10 @@ void setJsonHandlers()
                     iSpindLog.print(gravity,4);
                     float interval = jdoc["interval"];
                     iSpindLog.print(",");
-                    iSpindLog.print(interval,4);
+                    iSpindLog.print(interval,1);
                     float rssi = jdoc["RSSI"];
                     iSpindLog.print(",");
-                    iSpindLog.print(rssi,4);
+                    iSpindLog.print(rssi,1);
                     iSpindLog.print(",");
                     iSpindLog.write(t_unit);
                     iSpindLog.print(",");
@@ -139,7 +139,13 @@ void setJsonHandlers()
                 time_t lw = file.getLastWrite();
                 //Serial.println(lw);
                 //Get Last Readings
-                String lastData = get_last_value(file.readString());
+                String temp = file.readStringUntil('\r');
+                int line_len = temp.length()+1;
+                int file_size = file.size();
+                float num_line = file_size/line_len;
+                file.seek(line_len,SeekEnd);
+                String lastData  = file.readString();
+                //String lastData = get_last_value(file.readString());
                 //Serial.println(iSpinData);
                 file.close();
                 //Store Name
@@ -155,6 +161,12 @@ void setJsonHandlers()
                 file_info+= "\", \"last_updated\":\"";
                 //store last updated
                 file_info+= String(t_format);
+                // store file size
+                file_info+= "\", \"file_size\":\"";
+                file_info+=String(file_size);
+                // store number of lines
+                file_info+= "\", \"lines_number\":\"";
+                file_info+=String(int(num_line));
                 //Store Last Readings
                 int str_len = lastData.length() +1;
                 int count = 0;
@@ -184,7 +196,7 @@ void setJsonHandlers()
         int size_info = file_info.length()-1;
         file_info.remove(size_info,1);
         file_info+= "}";
-        Serial.print(file_info);
+        //Serial.print(file_info);
         //const size_t capacity = JSON_OBJECT_SIZE(8) + 210;
         //StaticJsonDocument<capacity> doc;
         //JsonObject root = doc.to<JsonObject>();
@@ -200,7 +212,16 @@ void setJsonHandlers()
 
 void setSettingsAliases()
 {
-        server.on("/settings/urltarget/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        server.on("/download", HTTP_GET, [](AsyncWebServerRequest *request){
+            Log.verbose(F("On arrive dans le Download" CR));
+            if (request->hasParam("file")){
+                request->send(LittleFS, "/data/" +  request->getParam("file")->value(), "text/plain", true);
+
+            }
+            request->send(404, F("text/plain"), F("File Not Found."));
+    });
+    
+    server.on("/settings/urltarget/", HTTP_POST, [](AsyncWebServerRequest *request) {
         Log.verbose(F("Processing post to /settings/urltarget/." CR));
         if (handleURLTargetPost(request))
         {

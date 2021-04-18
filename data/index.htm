@@ -124,15 +124,19 @@
                     console.log("On est dans le For Each")
                     console.log(key);
                     var each_line = "<li class = \"list-group-item d-flex justify-content-between align-items-center\">" +
-                        "<strong>iSpindel Info:</strong><span>" +
-                        key + "</span>Created On:<br>" +
+                        "<a href=/download?file=" + key + "><strong>" + key + "</strong></a>" +
+                        "File Size : " + item.file_size +
+                        "<br>Number of lines : " + item.lines_number + "<span>" +
+                        "</span>Created On:<br>" +
                         item.created +
+                        "<br>Last Updated On :<br> " +
+                        item.last_updated +
                         "</span>" +
                         "<span>Last Readings:<br>Temperature " +
                         item.T +
                         "<br>Gravity : " + item.SG +
-                        +"<br>Battery : " + item.B +
-                        +"<br>RSSI : " + item.RSSI +
+                        "<br>Battery : " + item.B +
+                        "<br>RSSI : " + item.RSSI +
                         "</span>" +
                         "</li>";
                     console.log(each_line);

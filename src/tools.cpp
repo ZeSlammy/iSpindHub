@@ -31,11 +31,11 @@ int minutes = numberOfMinutes(val);
 int seconds = numberOfSeconds(val);
 
  // digital clock display of current time
- Serial.print(days,DEC);  
- printDigits(hours);  
- printDigits(minutes);
- printDigits(seconds);
- Serial.println();  
+ //Serial.print(days,DEC);  
+ //printDigits(hours);  
+ //printDigits(minutes);
+ //printDigits(seconds);
+ //Serial.println();  
  // Build the string for "last seen"
  String last_seen = "";
  if (days > 0){
@@ -73,12 +73,16 @@ void printDigits(byte digits){
 
 String get_last_value(String iSpinData){
 int str_len = iSpinData.length() +1;
-char charData[str_len];
-iSpinData.toCharArray(charData,str_len);
+//char charData[str_len];
+//iSpinData.toCharArray(charData,str_len);
 //Split by the \r char
-char* splitData = strtok(charData,"\r");
-int line_len = strlen(splitData);
+int line_len = iSpinData.indexOf("\r");
+//char* splitData = strtok(charData,"\r");
+//int line_len = strlen(splitData);
 // Get to the LAST record
+Serial.println("Position, Longueur ");
+Serial.println(str_len);
+Serial.println(line_len);
 String lastData = iSpinData.substring(str_len-line_len,str_len);
 return lastData;
 }
