@@ -2,7 +2,7 @@
 
   
 
-<!-- TOC -->autoauto- [**iSpindHub**](#ispindhub)autoauto<!-- /TOC -->
+<!-- TOC -->autoauto- [**iSpindHub**](#ispindhub)auto- [Overall Project Information](#overall-project-information)auto- [Build your Own !](#build-your-own-)auto    - [Generic stuff](#generic-stuff)auto    - [1.4 TFT Screen](#14-tft-screen)auto    - [1.77" TFT Screen](#177-tft-screen)auto    - [2" TFT Screen](#2-tft-screen)auto    - [To Do List](#to-do-list)autoauto<!-- /TOC -->
 
   
 # Overall Project Information
@@ -28,6 +28,8 @@ I might have to rewrite my code to use a generic library and not a specific one 
 
 ## 1.4 TFT Screen
 This one is an easy to find on Ali Express and is nice because it plugs directly onto a D1 Mini.
+Display is square 128*128
+
 | Marking on screen  |  D1 Mini PIN  |  Alternative names  | Comments  |
 | :------------: | :------------: | :------------: | :------------: |
 | LED  | 3.3V  | LCD | Could be on 5V if your screen is tolerant  |
@@ -41,6 +43,27 @@ This one is an easy to find on Ali Express and is nice because it plugs directly
 
 ![Back of the Red Tab 1.4 TFT](https://github.com/ZeSlammy/iSpindHub/blob/master/pictures/1_4_TFT_RedTab_Back.jpg?raw=true "Back of the Red Tab 1.4 TFT")
 ![Front of the Red Tab TFT](https://github.com/ZeSlammy/iSpindHub/blob/master/pictures/1_4_TFT_RedTab_Front.jpg?raw=true "Front of the Red Tab TFT")
+
+## 1.77" TFT Screen
+Display is 160*128
+
+
+## 2" TFT Screen
+Red PCB with Red Tab
+Display is 176*220
+
+
+| Marking on screen  |  D1 Mini PIN  |  Alternative names  | Comments  |
+| :------------: | :------------: | :------------: | :------------: |
+| LED  | D4  | LCD | Could be on 5V if your screen is tolerant  |
+|  GND | GND  |  G |   |
+|  RST | D2  |   |   |
+| DC  | D1  | RS  |   |
+| MOSI  | D7  | SDI  |   |
+| SCK  | D5  |   |   |
+| 3V  | 3V3  |   |   |
+| CS  | D8  |   |   |
+
 
 ## To Do List
 
