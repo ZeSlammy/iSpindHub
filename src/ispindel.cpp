@@ -1,5 +1,6 @@
 #include "ispindel.h"
-extern Adafruit_ST7735 tft;
+//extern Adafruit_ST7735 tft;
+extern TFT_eSPI tft;
 //extern int delay_loop;
 
 int handle_spindel_data(String iSpinData,int delay_loop,int last_seen_ms){

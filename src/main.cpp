@@ -1,5 +1,6 @@
 #include "main.h"
-extern Adafruit_ST7735 tft;
+//extern Adafruit_ST7735 tft;
+extern TFT_eSPI tft;
 
 
 DoubleResetDetect drd(DRD_TIMEOUT, DRD_ADDRESS);
@@ -13,16 +14,20 @@ String version = "1.0.0";
 
 
 void setup() {
-  tft.initR(INITR_144GREENTAB); // initialise ST7735S chip, green tab
+  //tft.initR(INITR_144GREENTAB); // initialise ST7735S chip, green tab
+  tft.init();
   tft.setTextWrap(false); // Allow text to run off right edge
   //tft.setRotation(1);
   // Display Boot 
-  tft.fillScreen(ST7735_BLACK);
+  //tft.fillScreen(ST7735_BLACK);
+  tft.fillScreen(TFT_BLACK);
   tft.setCursor(0, 0); 
-  tft.drawRect(0,0,128,128,ST7735_WHITE);
+  //tft.drawRect(0,0,128,128,ST7735_WHITE);
+  tft.drawRect(0,0,128,128,TFT_WHITE);
   tft.setTextColor(ST7735_AQUA);
   centerString("iSpind Hub " + version,64,10);
-  tft.setTextColor(ST7735_YELLOW);
+  //tft.setTextColor(ST7735_YELLOW);
+  tft.setTextColor(TFT_YELLOW);
   centerString("by Slammy",64,25);
   // File System
   LittleFS.begin();
@@ -47,14 +52,16 @@ void setup() {
   isconnected = wm.autoConnect("iSpindHubConfig");
   if(!isconnected){
     tft.setCursor(2,40);
-    tft.setTextColor(ST7735_RED);
+    //tft.setTextColor(ST7735_RED);
+    tft.setTextColor(TFT_RED);
     tft.setTextSize(1);
     tft.print("Failed to connect :(");
     //Serial.println("Failed to connect.");
   }
   else{
     tft.setCursor(2,40);
-    tft.setTextColor(ST7735_GREEN);
+    //tft.setTextColor(ST7735_GREEN);
+    tft.setTextColor(TFT_GREEN);
     tft.setTextSize(1);
     tft.print("Connected !");
     //Serial.println("Connected");
@@ -63,7 +70,8 @@ void setup() {
     setClock();             // Set NTP Time
     isdeployed = WiFi.softAP("iSpindHub");
     if(isdeployed){
-      tft.setTextColor(ST7735_BLUE);
+      //tft.setTextColor(ST7735_BLUE);
+      tft.setTextColor(TFT_BLUE);
       tft.setTextSize(1);
       tft.setCursor(2,50);
       tft.print("SubNetWork deployed ! ");
@@ -77,7 +85,8 @@ void setup() {
       //Serial.print("Web Server Launched");
     }
     else{
-      tft.setTextColor(ST7735_RED);
+      //tft.setTextColor(ST7735_RED);
+      tft.setTextColor(TFT_RED);
       tft.setTextSize(1);
       tft.setCursor(2,50);
       tft.print("Failed to Deploy SubNetwork ");

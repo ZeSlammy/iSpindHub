@@ -1,6 +1,6 @@
 #include "web.h"
 AsyncWebServer server(80);
-extern Adafruit_ST7735 tft;
+//extern Adafruit_ST7735 tft;
 const char *filename = "/config.json";
 Config config;
 

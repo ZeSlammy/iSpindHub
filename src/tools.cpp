@@ -1,5 +1,6 @@
 #include "tools.h"
-extern Adafruit_ST7735 tft;
+//extern Adafruit_ST7735 tft;
+extern TFT_eSPI tft;
 void _delay(unsigned long ulDelay) {
     // Safe semi-blocking delay
 #ifdef ESP32
@@ -16,7 +17,8 @@ void _delay(unsigned long ulDelay) {
 void centerString(String buf, int x, int y){
     int16_t x1, y1;
     uint16_t w, h;
-    tft.getTextBounds(buf, x, y, &x1, &y1, &w, &h); //calc width of new string
+    //tft.getTextBounds(buf, x, y, &x1, &y1, &w, &h); //calc width of new string
+    w = tft.textWidth(buf);
     //Serial.print(buf);
     //Serial.print(w);
     tft.setCursor(x - w / 2, y);
