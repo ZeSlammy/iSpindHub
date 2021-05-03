@@ -215,7 +215,8 @@ void setSettingsAliases()
         server.on("/download", HTTP_GET, [](AsyncWebServerRequest *request){
             Log.verbose(F("On arrive dans le Download" CR));
             if (request->hasParam("file")){
-                request->send(LittleFS, "/data/" +  request->getParam("file")->value(), "text/plain", true);
+                //request->send(LittleFS, "/data/" +  request->getParam("file")->value(), "text/plain", true);
+                request->send(LittleFS, "/data/" +  request->getParam("file")->value(), String(), true);
 
             }
             request->send(404, F("text/plain"), F("File Not Found."));

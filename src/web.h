@@ -10,6 +10,9 @@
 #include "ntp.h"
 #include <time.h>
 #include <StreamUtils.h>
+#ifndef USE_LITTLEFS
+#define USE_LITTLEFS
+#endif
 void initWebServer();
 void setRegPageAliases();
 void setActionPageHandlers();
