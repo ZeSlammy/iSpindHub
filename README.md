@@ -1,9 +1,14 @@
 # **iSpindHub**
 
-  
-
-<!-- TOC -->autoauto- [**iSpindHub**](#ispindhub)auto- [Overall Project Information](#overall-project-information)auto- [Build your Own !](#build-your-own-)auto    - [Generic stuff](#generic-stuff)auto    - [1.4 TFT Screen](#14-tft-screen)auto    - [1.77" TFT Screen](#177-tft-screen)auto    - [2" TFT Screen](#2-tft-screen)auto    - [To Do List](#to-do-list)autoauto<!-- /TOC -->
-
+- [**iSpindHub**](#ispindhub)
+- [Overall Project Information](#overall-project-information)
+- [Build your Own !](#build-your-own-)
+  - [Generic stuff](#generic-stuff)
+  - [1.4 TFT Screen](#14-tft-screen)
+  - [1.77" TFT Screen](#177-tft-screen)
+  - [2" TFT Screen](#2-tft-screen)
+- [To Do List](#to-do-list)
+ 
   
 # Overall Project Information
 
@@ -65,7 +70,7 @@ Display is 176*220
 | CS  | D8  |   |   |
 
 
-## To Do List
+# To Do List
 
 - [x] HomePage showing info about iSpindels
 
