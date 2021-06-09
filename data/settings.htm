@@ -113,7 +113,15 @@
                         </div>
                     </li>
                     <!-- Targets Nav Item -->
-
+                    <!-- Advanced Nav Item -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Advanced</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" data-toggle="tab" href="#reset">Reset</a>
+                            <a class="dropdown-item" data-toggle="tab" href="#wifi">Wifi</a>
+                        </div>
+                    </li>
+                    <!-- Advanced Nav Item -->
 
                 </ul>
                 <!-- Nav Tabs -->
@@ -338,7 +346,21 @@
                         </div>
                     </div>
                     <!-- Reset Controllers tab -->
-
+                    <!-- Wifi Reset tab -->
+                    <div class="tab-pane fade" id="wifi">
+                        <div class="card-header">
+                            <h4 class="card-title">Reset Wifi Settings</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                If you plan on relocating your iSpindHub to a new network, you can reset the WiFi connection settings by clicking "Reset WiFi". You will need to perform the the original network setup again by connecting to this device as an access point.
+                            </p>
+                            <form action="/wifi/">
+                                <button class="btn btn-danger">Reset WiFi</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Wifi Reset tab -->
 
 
 

@@ -1,11 +1,9 @@
 #include "web.h"
 AsyncWebServer server(80);
 //extern Adafruit_ST7735 tft;
-const char *filename = "/config.json";
-Config config;
 
-extern const size_t capacitySerial = 3 * JSON_OBJECT_SIZE(2) + JSON_OBJECT_SIZE(3) + 3 * JSON_OBJECT_SIZE(4) + JSON_OBJECT_SIZE(11);
-extern const size_t capacityDeserial = capacitySerial + 810;
+const size_t capacitySerial = 3 * JSON_OBJECT_SIZE(2) + JSON_OBJECT_SIZE(3) + 3 * JSON_OBJECT_SIZE(4) + JSON_OBJECT_SIZE(11);
+const size_t capacityDeserial = capacitySerial + 810;
 
 void initWebServer()
 {
@@ -40,6 +38,11 @@ void setActionPageHandlers()
 {   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
         Log.notice("Connected on /");
         request->send(200, F("text/plain"), "Hello World");
+    });
+        server.on("/wifi2/", HTTP_GET, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing /wifi2/." CR));
+        request->send(LittleFS, "/wifi2.htm");
+        resetWifi(); // Wipe settings, reset controller
     });
 
 }
@@ -376,174 +379,5 @@ bool handleBrewfatherTargetPost(AsyncWebServerRequest *request) // Handle Brewfa
     }
 }
 
-bool saveConfig()
-{
-    return saveFile();
-}
-
-bool saveFile()
-{
-    // Saves the configuration to a file on File System
-    File file = LittleFS.open(filename, "w");
-    if (!file)
-    {
-        file.close();
-        return false;
-    }
-
-    // Serialize JSON to file
-    if (!serializeConfig(file))
-    {
-        file.close();
-        return false;
-    }
-    file.close();
-    return true;
-}
 
 
-bool deserializeConfig(Stream &src)
-{
-    // Deserialize configuration
-    DynamicJsonDocument doc(capacityDeserial);
-
-    // Parse the JSON object in the file
-    DeserializationError err = deserializeJson(doc, src);
-
-    if (err)
-    {
-        // We really don;t care if there's an err, the file should be created anyway
-        config.load(doc.as<JsonObject>());
-        return true;
-    }
-    else
-    {
-        config.load(doc.as<JsonObject>());
-        return true;
-    }
-}
-
-bool serializeConfig(Print &dst)
-{
-    // Serialize configuration
-    DynamicJsonDocument doc(capacitySerial);
-
-    // Create an object at the root
-    JsonObject root = doc.to<JsonObject>();
-
-    // Fill the object
-    config.save(root);
-
-    // Serialize JSON to file
-    return serializeJsonPretty(doc, dst) > 0;
-}
-
-void Config::save(JsonObject obj) const
-{
-    // Add Target object
-    urltarget.save(obj.createNestedObject("urltarget"));
-    // Add Brewfather object
-    brewfather.save(obj.createNestedObject("brewfather"));
-}
-
-void Config::load(JsonObjectConst obj)
-{
-    // Load all config objects
-    urltarget.load(obj["urltarget"]);
-    brewfather.load(obj["brewfather"]);
-}
-
-void URLTarget::save(JsonObject obj) const
-{
-    obj["url"] = url;
-    obj["freq"] = freq;
-    obj["update"] = update;
-}
-
-void URLTarget::load(JsonObjectConst obj)
-{
-    // Load URL Target configuration
-    //
-    if (obj["url"].isNull())
-    {
-        strlcpy(url, "", sizeof(url));
-    }
-    else
-    {
-        const char *tu = obj["url"];
-        strlcpy(url, tu, sizeof(url));
-    }
-
-    if (obj["freq"].isNull())
-    {
-        freq = 2;
-    }
-    else
-    {
-        int f = obj["freq"];
-        freq = f;
-    }
-
-    if (obj["update"].isNull())
-    {
-        update = false;
-    }
-    else
-    {
-        bool u = obj["update"];
-        update = u;
-    }
-}
-
-void KeyTarget::save(JsonObject obj) const
-{
-    obj["channel"] = channel;
-    obj["key"] = key;
-    obj["freq"] = freq;
-    obj["update"] = update;
-}
-
-void KeyTarget::load(JsonObjectConst obj)
-{
-    // Load Key-type configuration
-    //
-    if (obj["channel"].isNull())
-    {
-        channel = 0;
-    }
-    else
-    {
-        int c = obj["channel"];
-        channel = c;
-    }
-
-    if (obj["key"].isNull())
-    {
-        strlcpy(key, "", sizeof(key));
-    }
-    else
-    {
-        const char *k = obj["key"];
-        strlcpy(key, k, sizeof(key));
-    }
-
-    if (obj["freq"].isNull())
-    {
-        freq = 15;
-    }
-    else
-    {
-        int f = obj["freq"];
-        freq = f;
-    }
-
-    if (obj["update"].isNull())
-    {
-        update = false;
-    }
-    else
-    {
-        bool u = obj["update"];
-        update = u;
-    }
-}

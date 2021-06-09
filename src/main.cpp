@@ -35,7 +35,7 @@ void setup() {
   Serial.begin(115200);
   wdt_enable(WDTO_8S);
   Log.begin(LOG_LEVEL_VERBOSE, &Serial);
-  WiFi.mode(WIFI_STA);
+  //WiFi.mode(WIFI_STA);
   bool rst = drd.detect(); // Check for double-reset
   bool isconnected;
   bool isdeployed;
@@ -46,10 +46,11 @@ void setup() {
   else{
     doWiFi();
   }
-  AsyncWiFiManager wm;
+  //AsyncWiFiManager wm;
   
   
-  isconnected = wm.autoConnect("iSpindHubConfig");
+  //isconnected = wm.autoConnect("iSpindHubConfig");
+    isconnected = WiFi.isConnected();
   if(!isconnected){
     tft.setCursor(2,40);
     //tft.setTextColor(ST7735_RED);
@@ -68,6 +69,7 @@ void setup() {
     //Serial.println("Setting soft-AP configuration ... ");
     //Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet) ? "Ready" : "Failed!");
     setClock();             // Set NTP Time
+    Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet) ? "Ready" : "Failed!");
     isdeployed = WiFi.softAP("iSpindHub");
     if(isdeployed){
       //tft.setTextColor(ST7735_BLUE);
