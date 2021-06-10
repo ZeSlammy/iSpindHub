@@ -163,57 +163,6 @@ bool printConfig()
     return retval;
 }
 
-bool mergeJsonString(String newJson)
-{
-    // Serialize configuration
-    DynamicJsonDocument doc(capacityDeserial);
-
-    // Parse directly from file
-    DeserializationError err = deserializeJson(doc, newJson);
-    if (err)
-        Serial.println(err.c_str());
-
-    return mergeJsonObject(doc);
-}
-
-bool mergeJsonObject(JsonVariantConst src)
-{
-    // Serialize configuration
-    DynamicJsonDocument doc(capacityDeserial);
-
-    // Create an object at the root
-    JsonObject root = doc.to<JsonObject>();
-
-    // Fill the object
-    config.save(root);
-
-    // Merge in the configuration
-    if (merge(root, src))
-    {
-        // Move new object to config
-        config.load(root);
-        saveFile();
-        return true;
-    }
-
-    return false;
-}
-
-bool merge(JsonVariant dst, JsonVariantConst src)
-{
-    if (src.is<JsonObject>())
-    {
-        for (auto kvp : src.as<JsonObject>())
-        {
-            merge(dst.getOrAddMember(kvp.key()), kvp.value());
-        }
-    }
-    else
-    {
-        dst.set(src);
-    }
-    return true;
-}
 
 void ApConfig::save(JsonObject obj) const
 {
@@ -237,7 +186,7 @@ void ApConfig::load(JsonObjectConst obj)
 
     if (obj["passphrase"].isNull())
     {
-        strlcpy(passphrase, AP_PASSWD, sizeof(passphrase));
+        strlcpy(passphrase, APPWD, sizeof(passphrase));
     }
     else
     {

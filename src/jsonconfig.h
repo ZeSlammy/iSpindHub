@@ -1,8 +1,13 @@
 #ifndef _JSONCONFIG_H
 #define _JSONCONFIG_H
+#define ARDUINOJSON_ENABLE_ARDUINO_STRING 1
+#include <string.h>
+#include <Arduino.h>
 #include <ArduinoJson.h>
+#include <AsyncJson.h>
 #include <LittleFS.h>
 #include "config.h"
+
 struct ApConfig
 {
     // Stores Access Point configuration
@@ -58,8 +63,5 @@ bool printConfig();
 bool printFile();
 bool serializeConfig(Print &);
 bool deserializeConfig(Stream &);
-bool merge(JsonVariant, JsonVariantConst);
-bool mergeJsonObject(JsonVariantConst);
-bool mergeJsonString(String);
 
 #endif // _JSONCONFIG_H

@@ -1,4 +1,5 @@
 #include "web.h"
+#include "resetreasons.h"
 AsyncWebServer server(80);
 //extern Adafruit_ST7735 tft;
 
@@ -209,6 +210,87 @@ void setJsonHandlers()
 
         //request->send(200, F("application/json"), json);
         request->send(200, F("application/json"), file_info);
+    });
+    // JSON Handlers
+
+    server.on("/resetreason/", HTTP_GET, [](AsyncWebServerRequest *request) {
+        // Used to provide the reset reason json
+        Log.verbose(F("Sending /resetreason/." CR));
+
+        const size_t capacity = JSON_OBJECT_SIZE(1) + JSON_OBJECT_SIZE(2);
+        StaticJsonDocument<capacity> doc;
+        JsonObject r = doc.createNestedObject("r");
+
+        rst_info *_reset = ESP.getResetInfoPtr();
+        unsigned int reset = (unsigned int)(*_reset).reason;
+
+        r["reason"] = resetReason[reset];
+        r["description"] = resetDescription[reset];
+
+        String resetreason;
+        serializeJson(doc, resetreason);
+        request->send(200, F("text/plain"), resetreason);
+    });
+
+    server.on("/heap/", HTTP_GET, [](AsyncWebServerRequest *request) {
+        // Used to provide the heap json
+        Log.verbose(F("Sending /heap/." CR));
+
+        const size_t capacity = JSON_OBJECT_SIZE(1) + JSON_OBJECT_SIZE(3);
+        StaticJsonDocument<capacity> doc;
+        JsonObject h = doc.createNestedObject("h");
+
+        uint32_t free;
+        uint16_t max;
+        uint8_t frag;
+        ESP.getHeapStats(&free, &max, &frag);
+
+        h["free"] = free;
+        h["max"] = max;
+        h["frag"] = frag;
+
+        String heap;
+        serializeJson(doc, heap);
+        request->send(200, F("text/plain"), heap);
+    });
+
+    server.on("/uptime/", HTTP_GET, [](AsyncWebServerRequest *request) {
+        // Used to provide the uptime json
+        Log.verbose(F("Sending /uptime/." CR));
+
+        const size_t capacity = JSON_OBJECT_SIZE(1) + JSON_OBJECT_SIZE(5);
+        StaticJsonDocument<capacity> doc;
+        JsonObject u = doc.createNestedObject("u");
+
+        const int days = uptimeDays();
+        const int hours = uptimeHours();
+        const int minutes = uptimeMinutes();
+        const int seconds = uptimeSeconds();
+        const int millis = uptimeMillis();
+
+        u["days"] = days;
+        u["hours"] = hours;
+        u["minutes"] = minutes;
+        u["seconds"] = seconds;
+        u["millis"] = millis;
+
+        String ut = "";
+        serializeJson(doc, ut);
+        request->send(200, F("text/plain"), ut);
+    });
+        server.on("/config/", HTTP_GET, [](AsyncWebServerRequest *request) {
+        // Used to provide the Config json
+        Log.verbose(F("Serving /config/." CR));
+
+        // Serialize configuration
+        DynamicJsonDocument doc(capacitySerial); // Create doc
+        JsonObject root = doc.to<JsonObject>();  // Create JSON object
+        config.save(root);                       // Fill the object with current config
+        String json;
+        serializeJsonPretty(doc, json); // Serialize JSON to String
+
+        request->header("Cache-Control: no-store");
+        request->send(200, F("application/json"), json);
     });
 };
 

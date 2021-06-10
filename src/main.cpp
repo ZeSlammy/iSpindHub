@@ -3,7 +3,7 @@
 extern TFT_eSPI tft;
 
 
-DoubleResetDetect drd(DRD_TIMEOUT, DRD_ADDRESS);
+//DoubleResetDetect drd(DRD_TIMEOUT, DRD_ADDRESS);
 
 IPAddress local_IP(192,168,4,1);
 IPAddress gateway(192,168,4,22);
@@ -36,7 +36,8 @@ void setup() {
   wdt_enable(WDTO_8S);
   Log.begin(LOG_LEVEL_VERBOSE, &Serial);
   //WiFi.mode(WIFI_STA);
-  bool rst = drd.detect(); // Check for double-reset
+  //bool rst = drd.detect(); // Check for double-reset
+  bool rst = false;
   bool isconnected;
   bool isdeployed;
   if (rst == true){
