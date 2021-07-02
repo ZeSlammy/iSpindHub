@@ -21,7 +21,8 @@ void displaydata(String array_data[10],int last_seen_ms)
     //Serial.println("Text Wrap Ok");
     // Cadre tout autour
     //tft.drawRect(0,0,128,128,ST7735_WHITE);
-    tft.drawRect(0,0,128,128,TFT_WHITE);
+    //tft.drawRect(0,0,128,128,TFT_WHITE);
+    tft.drawRect(0,0,TFT_WIDTH,TFT_HEIGHT,TFT_WHITE);
     //Serial.println("Cadre Ok");
     //tft.setTextSize(1);
     //tft.setFont(&FreeSansBold12pt7b);
@@ -29,19 +30,21 @@ void displaydata(String array_data[10],int last_seen_ms)
     //Serial.println("Police OK");
     // SG 
     //tft.setTextColor(ST7735_WHITE);
-    tft.drawRect(0,0,128,128,TFT_WHITE);
     tft.setCursor(3,22);
     tft.print("SG: "+ array_data[5]);
     //Serial.println("SG OK");
     // Separator
-    tft.drawLine(1,24,127,24,ST7735_LIME);
+    //tft.drawLine(1,24,127,24,ST7735_LIME);
+    tft.drawLine(1,24,TFT_WIDTH-1,24,ST7735_LIME);
     // Temperature
     //tft.setCursor(2,44);
     //tft.setTextColor(ST7735_YELLOW);
     tft.setTextColor(TFT_YELLOW);
     //tft.print("T° : " + array_data[3] + " °" + array_data[8]);
-    centerString("T° : " + array_data[3] + " °" + array_data[8],64,44);
-    tft.drawLine(1,46,127,46,ST7735_LIME);
+    //centerString("T° : " + array_data[3] + " °" + array_data[8],64,44);
+    centerString("T° : " + array_data[3] + " °" + array_data[8],(TFT_WIDTH/2),44);
+    //tft.drawLine(1,46,127,46,ST7735_LIME);
+    tft.drawLine(1,46,TFT_WIDTH-1,46,ST7735_LIME);
     //Serial.println("T Ok");
     //Battery
     //tft.setFont(&FreeSans9pt7b);
