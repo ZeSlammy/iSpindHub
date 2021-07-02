@@ -1,0 +1,2 @@
+"c:\users\noutrey\.platformio\penv\scripts\python.exe" "C:\Users\noutrey\.platformio\packages\tool-esptoolpy@1.30000.201119\esptool.py" --before default_reset --after hard_reset --chip esp8266 --port "COM24" --baud 115200 write_flash 0x0 ..\.pio\build\2_inches\firmware.bin
+"c:\users\noutrey\.platformio\penv\scripts\python.exe" "C:\Users\noutrey\.platformio\packages\tool-esptoolpy@1.30000.201119\esptool.py" --before default_reset --after hard_reset --chip esp8266 --port "COM24" --baud 115200 write_flash 1048576 ..\.pio\build\2_inches\littlefs.bin

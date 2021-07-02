@@ -3,8 +3,8 @@
 AsyncWebServer server(80);
 //extern Adafruit_ST7735 tft;
 
-const size_t capacitySerial = 3 * JSON_OBJECT_SIZE(2) + JSON_OBJECT_SIZE(3) + 3 * JSON_OBJECT_SIZE(4) + JSON_OBJECT_SIZE(11);
-const size_t capacityDeserial = capacitySerial + 810;
+//const size_t capacitySerial = 3 * JSON_OBJECT_SIZE(2) + JSON_OBJECT_SIZE(3) + 3 * JSON_OBJECT_SIZE(4) + JSON_OBJECT_SIZE(11);
+//const size_t capacityDeserial = capacitySerial + 810;
 
 void initWebServer()
 {

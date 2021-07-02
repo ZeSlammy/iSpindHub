@@ -23,12 +23,12 @@ void setup() {
   tft.fillScreen(TFT_BLACK);
   tft.setCursor(0, 0); 
   //tft.drawRect(0,0,128,128,ST7735_WHITE);
-  tft.drawRect(0,0,128,128,TFT_WHITE);
+  tft.drawRect(0,0,TFT_WIDTH ,TFT_HEIGHT,TFT_WHITE);
   tft.setTextColor(ST7735_AQUA);
-  centerString("iSpind Hub " + version,64,10);
+  centerString("iSpind Hub " + version,(TFT_WIDTH/2),10);
   //tft.setTextColor(ST7735_YELLOW);
   tft.setTextColor(TFT_YELLOW);
-  centerString("by Slammy",64,25);
+  centerString("by Slammy",(TFT_WIDTH/2),25);
   // File System
   LittleFS.begin();
   //LittleFS.format();

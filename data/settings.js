@@ -56,7 +56,6 @@ function populateForm() { // Get current parameters
         .done(function(config) {
             try {
                 $('#mdnsid').val(config.hostname);
-                $('#bubname').val(config.bubble.name);
                 $('#urltargeturl').val(config.urltarget.url);
                 $('#urlfreq').val(config.urltarget.freq);
                 $('#brewersfriendkey').val(config.brewersfriend.key);

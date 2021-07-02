@@ -30,6 +30,8 @@ bool handleBrewfatherTargetPost(AsyncWebServerRequest *request);
 
 #define LOG_LEVEL LOG_LEVEL_VERBOSE
 extern struct Config config;
+extern const size_t capacityDeserial;
+extern const size_t capacitySerial;
 extern const char *resetReason[7];
 extern const char *resetDescription[7];
 
