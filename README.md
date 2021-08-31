@@ -56,6 +56,7 @@ Display is square 128*128
 
 
 [**find it on Amazon.com**](https://www.amazon.com/1-44Inch-Display-Resolution-Peripheral-Interface/dp/B08135JYP4/)
+
 [**find it on Amazon.fr**](https://amzn.to/3DwjqVb) REFERRAL LINK
 
 
@@ -73,6 +74,7 @@ Display is 160*128
 | CS  | D8  | 7  |   |
 
 [**Find it on AliExpress**](https://www.aliexpress.com/item/32265216471.html?spm=a2g0s.9042311.0.0.27424c4dJhxqbL)
+
 [**Find it on Amazon.fr**](https://amzn.to/3gOuxPC) REFERRAL LINK
 
 ## 2" TFT Screen
@@ -92,6 +94,7 @@ Display is 176*220
 | CS  | D8  |   |   |
 
 [**Find it on AliExpress**](https://www.aliexpress.com/item/32842202564.html?spm=a2g0s.9042311.0.0.27424c4dJhxqbL)
+
 [**Find it on Amazon.fr**](https://amzn.to/3mOLFIX) REFERRAL LINK
 # To Do List
 
