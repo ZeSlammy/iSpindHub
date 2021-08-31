@@ -24,8 +24,7 @@ It also acts as a WiFi repetiter and will push iSpindel information to various s
 
 ![Image of a iSpindhub Display](https://raw.githubusercontent.com/ZeSlammy/iSpindHub/master/pictures/iSpindHub2.jpg)
 
-  
-  
+    
 
 It's a work in Progress :D
 
