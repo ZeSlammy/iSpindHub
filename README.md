@@ -2,6 +2,7 @@
 - [**iSpindHub**](#ispindhub)
 - [Overall Project Information](#overall-project-information)
 - [Major Thanks](#major-thanks)
+- [Documentation is in progress](#documentation-is-in-progress)
 - [Build your Own !](#build-your-own-)
   - [Generic stuff](#generic-stuff)
   - [1.4 TFT Screen](#14-tft-screen)
@@ -30,6 +31,9 @@ It's a work in Progress :D
 
 # Major Thanks
 I cannot thank enough [**Thorrak**](https://github.com/thorrak) and [**lbussy**](https://github.com/lbussy) for helping me during my dumb moments.
+
+# Documentation is in progress
+Check it on in the [**docs folder**](https://www.github.com/ZeSlammy/iSpindHub/docs/) !
 
 # Build your Own !
 ## Generic stuff

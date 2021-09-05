@@ -7,70 +7,41 @@
 TFT_eSPI tft = TFT_eSPI();  
 void displaydata(String array_data[10],int last_seen_ms)
 {   wdt_disable();
-    //ESP.getFreeHeap();
-    //ESP.getHeapFragmentation();
-    //ESP.getMaxFreeBlockSize();
-    //Serial.println("On entre dans le DisplayData");
-    //tft.fillScreen(ST7735_BLACK);
     tft.fillScreen(TFT_BLACK);
-    //Serial.println("Fondu au noir");
-    //tft.setTextColor(ST7735_BLUE);
     tft.setTextColor(TFT_BLUE);
-    //Serial.println("Bonne Couleur");
     tft.setTextWrap(false);
-    //Serial.println("Text Wrap Ok");
     // Cadre tout autour
-    //tft.drawRect(0,0,128,128,ST7735_WHITE);
-    //tft.drawRect(0,0,128,128,TFT_WHITE);
     tft.drawRect(0,0,TFT_WIDTH,TFT_HEIGHT,TFT_WHITE);
-    //Serial.println("Cadre Ok");
-    //tft.setTextSize(1);
-    //tft.setFont(&FreeSansBold12pt7b);
     tft.setFreeFont(&FreeSansBold12pt7b);
-    //Serial.println("Police OK");
-    // SG 
-    //tft.setTextColor(ST7735_WHITE);
-    tft.setCursor(3,22);
-    tft.print("SG: "+ array_data[5]);
-    //Serial.println("SG OK");
+    centerString("SG: "+ array_data[5],(TFT_WIDTH-2)/2,TFT_HEIGHT/8-2);
+    //tft.setCursor(3,22);
+    //tft.print("SG: "+ array_data[5]);
     // Separator
     //tft.drawLine(1,24,127,24,ST7735_LIME);
-    tft.drawLine(1,24,TFT_WIDTH-1,24,ST7735_LIME);
+    tft.drawLine(1,TFT_HEIGHT/8 +2 ,TFT_WIDTH-1,TFT_HEIGHT/8 + 2,ST7735_LIME);
     // Temperature
-    //tft.setCursor(2,44);
-    //tft.setTextColor(ST7735_YELLOW);
     tft.setTextColor(TFT_YELLOW);
-    //tft.print("T° : " + array_data[3] + " °" + array_data[8]);
-    //centerString("T° : " + array_data[3] + " °" + array_data[8],64,44);
-    centerString("T° : " + array_data[3] + " °" + array_data[8],(TFT_WIDTH/2),44);
-    //tft.drawLine(1,46,127,46,ST7735_LIME);
-    tft.drawLine(1,46,TFT_WIDTH-1,46,ST7735_LIME);
-    //Serial.println("T Ok");
+    centerString("T° : " + array_data[3] + " °" + array_data[8],(TFT_WIDTH/2),TFT_HEIGHT/4-2);
+    
+    tft.drawLine(1,TFT_HEIGHT/4 +2,TFT_WIDTH-1,TFT_HEIGHT/4 +2,ST7735_LIME);
     //Battery
-    //tft.setFont(&FreeSans9pt7b);
     tft.setFreeFont(&FreeSans9pt7b);
-    //tft.setTextColor(ST7735_MAGENTA);
     tft.setTextColor(TFT_MAGENTA);
-    centerString("Battery : " + array_data[4].substring(0,4) + " V",62,62);
-    tft.drawLine(1,65,127,65,ST7735_LIME);
+    centerString("Battery : " + array_data[4].substring(0,4) + " V",(TFT_WIDTH/2),3*TFT_HEIGHT/8-2);
+    tft.drawLine(1,3*TFT_HEIGHT/8+2,TFT_WIDTH,3*TFT_HEIGHT/8+2,ST7735_LIME);
     // iSpindel Name
-    //tft.setFont(&FreeSans9pt7b);
     tft.setFreeFont(&FreeSans9pt7b);
-    //tft.setTextColor(ST7735_RED);
     tft.setTextColor(TFT_RED);
-    centerString(array_data[1],64,80);
-    tft.drawLine(1,83,127,83,ST7735_LIME);
+    centerString(array_data[1],(TFT_WIDTH/2),TFT_HEIGHT/2-2);
+    tft.drawLine(1,TFT_HEIGHT/2+2,TFT_WIDTH,TFT_HEIGHT/2+2,ST7735_LIME);
     //Last Seen
-    //tft.setFont();
     tft.setFreeFont();
     tft.setTextSize(1);
-    //tft.setTextColor(ST7735_ORANGE);
     tft.setTextColor(TFT_ORANGE);
-    centerString("Last seen ",64,86);
-    //centerString("27 minutes ago",64,98);
+    centerString("Last seen ",(TFT_WIDTH/2),9*TFT_HEIGHT/16-2);
     String last_seen;
     last_seen= pretty_time(last_seen_ms);
-    centerString(String(last_seen),64,98);
+    centerString(String(last_seen),(TFT_WIDTH/2),10*TFT_HEIGHT/16-2);
     // Signal Strength
     // Let's color depending on the signal strength
     int sign_strength = array_data[7].substring(1,3).toInt();
@@ -89,13 +60,13 @@ void displaydata(String array_data[10],int last_seen_ms)
     //else tft.setTextColor(ST7735_RED);
     else tft.setTextColor(TFT_RED);
     
-    centerString("Signal : " + String(sign_strength) + "dB",64,108);
+    centerString("Signal : " + String(sign_strength) + "dB",(TFT_WIDTH/2),6*TFT_HEIGHT/8-2);
     // Local IP
     //tft.setFont();
     tft.setFreeFont();
     //tft.setTextColor(ST7735_BLUE);
     tft.setTextColor(TFT_BLUE);
-    centerString("IP : " + WiFi.localIP().toString(),64,118);
+    centerString("IP : " + WiFi.localIP().toString(),(TFT_WIDTH/2),7*TFT_HEIGHT/8);
     //tft.print("IP : " + WiFi.localIP().toString());
     //tft.drawLine(1,120,127,120,ST7735_LIME);
     wdt_enable(WDTO_8S);

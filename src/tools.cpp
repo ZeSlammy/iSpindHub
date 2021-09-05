@@ -21,7 +21,7 @@ void centerString(String buf, int x, int y){
     w = tft.textWidth(buf);
     //Serial.print(buf);
     //Serial.print(w);
-    tft.setCursor(x - w / 2, y);
+    tft.setCursor(x - (w / 2), y);
     tft.print(buf);
     return;
 }
