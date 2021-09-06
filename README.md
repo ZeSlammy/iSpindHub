@@ -33,7 +33,7 @@ It's a work in Progress :D
 I cannot thank enough [**Thorrak**](https://github.com/thorrak) and [**lbussy**](https://github.com/lbussy) for helping me during my dumb moments.
 
 # Documentation is in progress
-Check it on in the [**docs folder**](https://www.github.com/ZeSlammy/iSpindHub/docs/) !
+Check it on in the [**docs folder**](https://github.com/ZeSlammy/iSpindHub/tree/master/docs) !
 
 # Build your Own !
 ## Generic stuff

@@ -306,6 +306,17 @@ void setSettingsAliases()
             }
             request->send(404, F("text/plain"), F("File Not Found."));
     });
+    server.on("/file_delete", HTTP_GET, [](AsyncWebServerRequest *request){
+            Log.verbose(F("On arrive dans le File Delete" CR));
+            if (request->hasParam("file")){
+                String file_name;
+                file_name = request->getParam("file")->value();
+                file_name = "/data/" + file_name;
+                LittleFS.remove(file_name);
+
+            }
+            request->send(404, F("text/plain"), F("File Not Found."));
+    });
     
     server.on("/settings/urltarget/", HTTP_POST, [](AsyncWebServerRequest *request) {
         Log.verbose(F("Processing post to /settings/urltarget/." CR));
