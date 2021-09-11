@@ -44,6 +44,9 @@ I might have to rewrite my code to use a generic library and not a specific one 
 This one is an easy to find on Ali Express and is nice because it plugs directly onto a D1 Mini.
 Display is square 128*128
 
+/!\ I have not tested it (recently) directly plugged onto the D1 Mini.
+I used the bottom connection and soldered pins.
+
 | Marking on screen  |  D1 Mini PIN  |  Alternative names  | Comments  |
 | :------------: | :------------: | :------------: | :------------: |
 | LED  | 3.3V  | LCD | Could be on 5V if your screen is tolerant  |
@@ -54,6 +57,21 @@ Display is square 128*128
 | SCK  | D5  |   |   |
 | 3V  | 3V3  |   |   |
 | CS  | D4  |   |   |
+
+
+If you want to use the existing pins at the back of the screen do the following
+
+| Marking on screen  |  D1 Mini PIN  |  Alternative names  | Comments  |
+| :------------: | :------------: | :------------: | :------------: |
+|  D4 | D8  |  |   |
+|  G | GND  |   |   |
+| D7  | D7  |   | It might be marked D4. It is the one between D6 and D8  |
+| D5  | D5  |   |   |
+| 3V  | 3V3  |   |   |
+| RST  | D2  |   |   |
+| D3  | D3  |   |   |
+
+
 
 ![Back of the Red Tab 1.4 TFT](https://github.com/ZeSlammy/iSpindHub/blob/master/pictures/1_4_TFT_RedTab_Back.jpg?raw=true "Back of the Red Tab 1.4 TFT")
 ![Front of the Red Tab TFT](https://github.com/ZeSlammy/iSpindHub/blob/master/pictures/1_4_TFT_RedTab_Front.jpg?raw=true "Front of the Red Tab TFT")
@@ -122,3 +140,4 @@ Display is 176*220
 - [ ] Handle multiple screens through multiple releases
 
 - [ ] Handle multiple screens through options in configuration
+- [ ] 
