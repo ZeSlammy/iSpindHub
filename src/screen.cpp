@@ -27,7 +27,8 @@ void displaydata(String array_data[10],int last_seen_ms)
     //Battery
     tft.setFreeFont(&FreeSans9pt7b);
     tft.setTextColor(TFT_MAGENTA);
-    centerString("Battery : " + array_data[4].substring(0,4) + " V",(TFT_WIDTH/2),3*TFT_HEIGHT/8-2);
+    //centerString("Battery : " + array_data[4].substring(0,4) + " V",(TFT_WIDTH/2),3*TFT_HEIGHT/8-2);
+    centerString(array_data[2].substring(0,5) +" ÷ /" + array_data[4].substring(0,4) + " V",(TFT_WIDTH/2),3*TFT_HEIGHT/8-2);
     tft.drawLine(1,3*TFT_HEIGHT/8+2,TFT_WIDTH,3*TFT_HEIGHT/8+2,ST7735_LIME);
     // iSpindel Name
     tft.setFreeFont(&FreeSans9pt7b);

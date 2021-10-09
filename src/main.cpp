@@ -12,6 +12,8 @@ IPAddress subnet(255,255,255,0);
 int delay_loop = 30000;
 String version = "1.0.0";
 
+CronId BF_id;
+CronId LB_id;
 
 void setup() {
   //tft.initR(INITR_144GREENTAB); // initialise ST7735S chip, green tab
@@ -100,6 +102,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 Serial.println("Début du Loop");
+
 FSInfo fs_info;
 LittleFS.info(fs_info);
 Dir dir = LittleFS.openDir("/data");
@@ -124,6 +127,7 @@ while (dir.next()) {
       Serial.println(iSpinData);
       delay_loop = handle_spindel_data(iSpinData, delay_loop,now-f.getLastWrite());
       f.close();
+      printConfig();
       //free(iSpinData);
   Serial.println("Avant delay");
   delay(delay_loop);
