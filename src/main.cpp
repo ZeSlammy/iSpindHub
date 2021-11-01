@@ -10,7 +10,7 @@ IPAddress gateway(192,168,4,22);
 IPAddress subnet(255,255,255,0);
 
 int delay_loop = 30000;
-String version = "1.0.0";
+String version = "1.0.1";
 
 CronId BF_id;
 CronId LB_id;

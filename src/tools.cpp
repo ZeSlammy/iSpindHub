@@ -19,7 +19,11 @@ void centerString(String buf, int x, int y){
     uint16_t w, h;
     //tft.getTextBounds(buf, x, y, &x1, &y1, &w, &h); //calc width of new string
     w = tft.textWidth(buf);
-    //Serial.print(buf);
+    Serial.println(buf);
+    Serial.println(tft.fontHeight());
+    Serial.println("x" + (String)x);
+    Serial.println("y" + (String)y);
+    Serial.println("w" + (String)w);
     //Serial.print(w);
     tft.setCursor(x - (w / 2), y);
     tft.print(buf);

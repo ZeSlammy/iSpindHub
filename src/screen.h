@@ -9,6 +9,13 @@
 #define ST7735_LIME    0x07FF
 #define ST7735_AQUA    0x04FF
 #define ST7735_PINK    0xF8FF
+#define FreeSans9 "FreeSans20"
+//#define FreeSansGras9 "FreeSansGras9"
+#define FreeSans12 "FreeSans12"
+#define FreeSansGras12 "SegLight20"
+#include <FS.h>
+#include <LittleFS.h>
+#define FlashFS LittleFS
 //#define TFT_CS     2
 //#define TFT_RST    -1  // you can also connect this to the Arduino reset
 // in which case, set this #define pin to -1!
