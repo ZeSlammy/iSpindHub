@@ -194,6 +194,8 @@ void setJsonHandlers()
                 file_info+=array_data[4];
                 file_info+="\", \"RSSI\":\"";
                 file_info+=array_data[7];
+                file_info+="\", \"Angle\":\"";
+                file_info+=array_data[2];
                 file_info+= "\"},";
             }
         }
@@ -315,7 +317,8 @@ void setSettingsAliases()
                 LittleFS.remove(file_name);
 
             }
-            request->send(404, F("text/plain"), F("File Not Found."));
+            //request->send(404, F("text/plain"), F("File Not Found."));
+            request->redirect("/index.htm");
     });
     
     server.on("/settings/urltarget/", HTTP_POST, [](AsyncWebServerRequest *request) {

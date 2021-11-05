@@ -137,7 +137,7 @@ Display is 176*220
 
 - [ ] Historical graphs
 
-- [ ] Handle multiple screens through multiple releases
+- [X] Handle multiple screens through multiple releases
 
 - [ ] Handle multiple screens through options in configuration
 - [ ] 
