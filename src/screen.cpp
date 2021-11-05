@@ -14,34 +14,37 @@ void displaydata(String array_data[10],int last_seen_ms)
     // Cadre tout autour
     tft.drawRect(0,0,TFT_WIDTH,TFT_HEIGHT,TFT_WHITE);
     tft.setFreeFont(&FreeSansBold12pt7b);
-    centerString("SG: "+ array_data[5],(TFT_WIDTH-2)/2,TFT_HEIGHT/8-2);
-    //centerString("SG: "+ array_data[5],(TFT_WIDTH-2)/2,2);
-    //tft.setCursor(3,22);
-    //tft.print("SG: "+ array_data[5]);
+    //centerString("SG: "+ array_data[5],(TFT_WIDTH-2)/2,TFT_HEIGHT/8-2);
+    centerString("SG: "+ array_data[5],(TFT_WIDTH-2)/2,18);
     // Separator
-    //tft.drawLine(1,24,127,24,ST7735_LIME);
-    tft.drawLine(1,TFT_HEIGHT/8 +2 ,TFT_WIDTH-1,TFT_HEIGHT/8 + 2,ST7735_LIME);
+    //tft.drawLine(1,TFT_HEIGHT/8 +2 ,TFT_WIDTH-1,TFT_HEIGHT/8 + 2,ST7735_LIME);
+    tft.drawLine(1,20 ,TFT_WIDTH-1,20,ST7735_LIME);
     // Temperature
     tft.setTextColor(TFT_YELLOW);
     tft.loadFont(FreeSansGras12, LittleFS);
     //centerString("T° : " + array_data[3] + " °" + array_data[8],(TFT_WIDTH/2),TFT_HEIGHT/4-2);
-    centerString("T° : " + array_data[3] + " °" + array_data[8],(TFT_WIDTH/2),TFT_HEIGHT/8+4);
+    centerString("T° : " + array_data[3] + " °" + array_data[8],(TFT_WIDTH/2),21);
     tft.unloadFont();
-    tft.drawLine(1,TFT_HEIGHT/4 +2,TFT_WIDTH-1,TFT_HEIGHT/4 +2,ST7735_LIME);
+    //tft.drawLine(1,TFT_HEIGHT/4 +2,TFT_WIDTH-1,TFT_HEIGHT/4 +2,ST7735_LIME);
+    tft.drawLine(1,36,TFT_WIDTH-1,36,ST7735_LIME);
     //Battery
     //tft.setFreeFont(&FreeSans9pt7b);
     tft.loadFont(FreeSans9, LittleFS);
     tft.setTextColor(TFT_MAGENTA);
     //centerString("Battery : " + array_data[4].substring(0,4) + " V",(TFT_WIDTH/2),3*TFT_HEIGHT/8-2);
     //centerString(array_data[2].substring(0,5) +"° /" + array_data[4].substring(0,4) + " V",(TFT_WIDTH/2),3*TFT_HEIGHT/8-2);
-    centerString(array_data[2].substring(0,5) +"° /" + array_data[4].substring(0,4) + " V",(TFT_WIDTH/2),TFT_HEIGHT/4+4);
-    tft.drawLine(1,3*TFT_HEIGHT/8+2,TFT_WIDTH,3*TFT_HEIGHT/8+2,ST7735_LIME);
+    //centerString(array_data[2].substring(0,5) +"° - " + array_data[4].substring(0,4) + "V",(TFT_WIDTH/2),TFT_HEIGHT/4+4);
+    centerString(array_data[2].substring(0,5) +"°-" + array_data[4].substring(0,4) + "V",(TFT_WIDTH/2),38);
+    //tft.drawLine(1,3*TFT_HEIGHT/8+2,TFT_WIDTH,3*TFT_HEIGHT/8+2,ST7735_LIME);
+    tft.drawLine(1,55,TFT_WIDTH,55,ST7735_LIME);
     tft.unloadFont();
     // iSpindel Name
     tft.setFreeFont(&FreeSans9pt7b);
     tft.setTextColor(TFT_RED);
-    centerString(array_data[1],(TFT_WIDTH/2),TFT_HEIGHT/2-2);
-    tft.drawLine(1,TFT_HEIGHT/2+2,TFT_WIDTH,TFT_HEIGHT/2+2,ST7735_LIME);
+    //centerString(array_data[1],(TFT_WIDTH/2),TFT_HEIGHT/2-2);
+    centerString(array_data[1],(TFT_WIDTH/2),69);
+    //tft.drawLine(1,TFT_HEIGHT/2+2,TFT_WIDTH,TFT_HEIGHT/2+2,ST7735_LIME);
+    tft.drawLine(1,72,TFT_WIDTH,72,ST7735_LIME);
     //Last Seen
     tft.unloadFont();
     tft.setFreeFont();
