@@ -107,10 +107,11 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Targets</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" data-toggle="tab" href="#urltarget">URL Target</a>
+                            <a class="dropdown-item" data-toggle="tab" href="#brewpiless">BrewPiLess</a>
                             <a class="dropdown-item" data-toggle="tab" href="#littlebock">Little Bock</a>
                             <a class="dropdown-item" data-toggle="tab" href="#brewersfriend">Brewer's Friend</a>
                             <a class="dropdown-item" data-toggle="tab" href="#brewfather">Brewfather</a>
-                        </div>
+                            </div>
                     </li>
                     <!-- Targets Nav Item -->
                     <!-- Advanced Nav Item -->
@@ -190,8 +191,52 @@
                     </div>
                     <!-- URL Target Settings tab -->
 
+                    <!-- BrewPiLess Target Settings tab -->
+                    <div class="tab-pane fade" id="brewpiless">
+
+                        <div class="card-header">
+                            <h4 class="card-title">BrewPiLess as a Target Settings</h4>
+                        </div>
+
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+
+                                    <p class="card-text">These settings control how iSpindHub will relay iSpindel data to a  <a href="https://github.com/vitotai/BrewPiLess">BrewPiLess</a>. To disable pushing to the endpoint, delete the URL.
+                                    </p>
+
+                                    <form class="form-group" id="brewpiless" action="/settings/urltarget/" method="POST" onsubmit="return processPost(this);">
+                                        <!-- BrewPiLess Target URL Form -->
+                                        <div class="form-group row">
+                                            <label for="endpointURL" class="col-sm-3 col-form-label" data-toggle="tooltip" title="BrewPiLess IP adress. Delete to disable pushing to BrewPiLess.">
+                                                Target
+                                            </label>
+                                            <div class="col-sm-9">
+                                                <input type="url" class="form-control" id="BPiLesstargeturl" name="urltargeturl" minlength="3" maxlength="128" placeholder="http://brewpi.local/brewpi-api.php">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="endpointPushEvery" class="col-sm-3 col-form-label" data-toggle="tooltip" title="How often (in minutes) to push data to HTML Endpoint">Push
+                                                Frequency</label>
+                                            <div class="col-sm-9">
+                                                <input type="number" class="form-control" id="urlfreq" name="urlfreq" placeholder="2" min="1" max="60">
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-sm-12 justify-content-center">
+                                            <button class="btn btn-primary" id="submitSettings" onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
+                                        </div>
+                                    </form>
+                                    <!-- BrewPiLess Target Frequency Form -->
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- BrewPiLess Target Settings tab -->
                     <!-- LittleBock Target Settings tab -->
-                    <div class="tab-pane fade" id="urltarget">
+                    <div class="tab-pane fade" id="littlebock">
 
                         <div class="card-header">
                             <h4 class="card-title">LittleBock Target Settings</h4>
@@ -204,7 +249,7 @@
                                     <p class="card-text">These settings control how iSpindHub will relay iSpindel data to LittleBock. To disable pushing to the endpoint, delete the URL.
                                     </p>
 
-                                    <form class="form-group" id="urltarget" action="/settings/LBtarget/" method="POST" onsubmit="return processPost(this);">
+                                    <form class="form-group" id="littlebock" action="/settings/LBtarget/" method="POST" onsubmit="return processPost(this);">
                                         <!-- URL Target URL Form -->
                                         <div class="form-group row">
                                             <label for="endpointURL" class="col-sm-3 col-form-label" data-toggle="tooltip" title="HTML Endpoint URL. Delete to disable pushing to an HTML Endpoint. Ports other than 80 need to be in the format of: http://foo.com:8080/page.php">
@@ -306,7 +351,7 @@
 
                                     <form class="form-group" id="brewfather" action="/settings/brewfathertarget/" method="POST" onsubmit="return processPost(this);">
                                         <div class="form-group row">
-                                            <label for="brewersFriendKey" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Enter the API key from your Brewfather premium account. To disable pushing to Brewfather, delete the key.">
+                                            <label for="BrewFatherKey" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Enter the API key from your Brewfather premium account. To disable pushing to Brewfather, delete the key.">
                                                 Brewfather Key
                                             </label>
                                             <div class="col-sm-9">

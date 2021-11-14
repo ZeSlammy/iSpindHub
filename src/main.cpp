@@ -12,8 +12,10 @@ IPAddress subnet(255,255,255,0);
 int delay_loop = 30000;
 String version = "1.0.1";
 
-CronId BF_id;
+CronId BFa_id;
+CronId BFr_id;
 CronId LB_id;
+CronId URL_id;
 
 void setup() {
   //tft.initR(INITR_144GREENTAB); // initialise ST7735S chip, green tab

@@ -121,6 +121,20 @@ Display is 176*220
 [**Find it on AliExpress**](https://s.click.aliexpress.com/e/_9JS0cI)
 
 [**Find it on Amazon.fr**](https://amzn.to/3mOLFIX) REFERRAL LINK
+
+[**Anothe one ton amazon**](https://amzn.to/3Cfpq2E) REFERRAL LINK
+For this one, connections are as follow
+| Marking on screen  |  D1 Mini PIN  |  Alternative names  | Comments  |
+| :------------: | :------------: | :------------: | :------------: |
+| VCC  | Vin  |  |   |
+| GND | GND  |   |   |
+| CLK | D5  |   |   |
+| SDA | D7  |   |   |
+| RS  | D1  |   |   |
+| RST  | RST  |   |   |
+| CS | D8  |   |   |
+|
+
 # To Do List
 
 - [x] HomePage showing info about iSpindels
