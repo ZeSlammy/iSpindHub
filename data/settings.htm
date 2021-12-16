@@ -26,18 +26,19 @@
     <meta name="msapplication-config" content="/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/united/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/united/bootstrap.min.css"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
 
     <style>
         main>.container {
             padding: 60px 15px 0;
         }
-        
+
         .footer {
             background-color: #f5f5f5f5;
         }
-        
+
         .footer>.container {
             padding-right: 15px;
             padding-left: 15px;
@@ -56,7 +57,8 @@
             </a>
             <!-- Brand Link -->
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -104,19 +106,21 @@
                     <!-- Targets Nav Item -->
                     <li class="nav-item dropdown">
 
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Targets</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Targets</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" data-toggle="tab" href="#urltarget">URL Target</a>
                             <a class="dropdown-item" data-toggle="tab" href="#brewpiless">BrewPiLess</a>
                             <a class="dropdown-item" data-toggle="tab" href="#littlebock">Little Bock</a>
                             <a class="dropdown-item" data-toggle="tab" href="#brewersfriend">Brewer's Friend</a>
                             <a class="dropdown-item" data-toggle="tab" href="#brewfather">Brewfather</a>
-                            </div>
+                        </div>
                     </li>
                     <!-- Targets Nav Item -->
                     <!-- Advanced Nav Item -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Advanced</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Advanced</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" data-toggle="tab" href="#reset">Reset</a>
                             <a class="dropdown-item" data-toggle="tab" href="#wifi">Wifi</a>
@@ -138,7 +142,8 @@
                         </div>
                         <div class="card-body">
                             <p>
-                                Use the tabs above to navigate the various settings and customize iSpindHub for your own use. Be sure to use the update button after changing a field.
+                                Use the tabs above to navigate the various settings and customize iSpindHub for your own
+                                use. Be sure to use the update button after changing a field.
                             </p>
                         </div>
                     </div>
@@ -156,31 +161,43 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
 
-                                    <p class="card-text">These settings control how iSpindHub will relay iSpindel data to an HTML endpoint such as <a href="https://www.brewpiremix.com/">BrewPi Remix</a> or
-                                        <a href="https://www.fermentrack.com/">Fermentrack</a>. To disable pushing to the endpoint, delete the URL.
+                                    <p class="card-text">These settings control how iSpindHub will relay iSpindel data
+                                        to an HTML endpoint such as <a href="https://www.brewpiremix.com/">BrewPi
+                                            Remix</a> or
+                                        <a href="https://www.fermentrack.com/">Fermentrack</a>. To disable pushing to
+                                        the endpoint, delete the URL.
                                     </p>
 
-                                    <form class="form-group" id="urltarget" action="/settings/urltarget/" method="POST" onsubmit="return processPost(this);">
+                                    <form class="form-group" id="urltarget" action="/settings/urltarget/" method="POST"
+                                        onsubmit="return processPost(this);">
                                         <!-- URL Target URL Form -->
                                         <div class="form-group row">
-                                            <label for="endpointURL" class="col-sm-3 col-form-label" data-toggle="tooltip" title="HTML Endpoint URL. Delete to disable pushing to an HTML Endpoint. Ports other than 80 need to be in the format of: http://foo.com:8080/page.php">
+                                            <label for="endpointURL" class="col-sm-3 col-form-label"
+                                                data-toggle="tooltip"
+                                                title="HTML Endpoint URL. Delete to disable pushing to an HTML Endpoint. Ports other than 80 need to be in the format of: http://foo.com:8080/page.php">
                                                 Target
                                             </label>
                                             <div class="col-sm-9">
-                                                <input type="url" class="form-control" id="urltargeturl" name="urltargeturl" minlength="3" maxlength="128" placeholder="http://brewpi.local/brewpi-api.php">
+                                                <input type="url" class="form-control" id="urltargeturl"
+                                                    name="urltargeturl" minlength="3" maxlength="128"
+                                                    placeholder="http://brewpi.local/brewpi-api.php">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="endpointPushEvery" class="col-sm-3 col-form-label" data-toggle="tooltip" title="How often (in minutes) to push data to HTML Endpoint">Push
+                                            <label for="endpointPushEvery" class="col-sm-3 col-form-label"
+                                                data-toggle="tooltip"
+                                                title="How often (in minutes) to push data to HTML Endpoint">Push
                                                 Frequency</label>
                                             <div class="col-sm-9">
-                                                <input type="number" class="form-control" id="urlfreq" name="urlfreq" placeholder="2" min="1" max="60">
+                                                <input type="number" class="form-control" id="urlfreq" name="urlfreq"
+                                                    placeholder="2" min="1" max="60">
                                             </div>
                                         </div>
 
                                         <div class="row col-sm-12 justify-content-center">
-                                            <button class="btn btn-primary" id="submitSettings" onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
+                                            <button class="btn btn-primary" id="submitSettings"
+                                                onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
                                         </div>
                                     </form>
                                     <!-- URL Target Frequency Form -->
@@ -202,30 +219,40 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
 
-                                    <p class="card-text">These settings control how iSpindHub will relay iSpindel data to a  <a href="https://github.com/vitotai/BrewPiLess">BrewPiLess</a>. To disable pushing to the endpoint, delete the URL.
+                                    <p class="card-text">These settings control how iSpindHub will relay iSpindel data
+                                        to a <a href="https://github.com/vitotai/BrewPiLess">BrewPiLess</a>. To disable
+                                        pushing to the endpoint, delete the URL.
                                     </p>
 
-                                    <form class="form-group" id="brewpiless" action="/settings/urltarget/" method="POST" onsubmit="return processPost(this);">
+                                    <form class="form-group" id="brewpiless" action="/settings/urltarget/" method="POST"
+                                        onsubmit="return processPost(this);">
                                         <!-- BrewPiLess Target URL Form -->
                                         <div class="form-group row">
-                                            <label for="endpointURL" class="col-sm-3 col-form-label" data-toggle="tooltip" title="BrewPiLess IP adress. Delete to disable pushing to BrewPiLess.">
-                                                Target
+                                            <label for="endpointURL" class="col-sm-3 col-form-label"
+                                                data-toggle="tooltip"
+                                                title="BrewPiLess IP adress. Delete to disable pushing to BrewPiLess.">
+                                                IP Adress for BrewPiLess
                                             </label>
                                             <div class="col-sm-9">
-                                                <input type="url" class="form-control" id="BPiLesstargeturl" name="urltargeturl" minlength="3" maxlength="128" placeholder="http://brewpi.local/brewpi-api.php">
+                                                <input type="url" class="form-control" id="BPiLessurl" name="BPiLessurl"
+                                                    minlength="3" maxlength="128" placeholder="http://192.168.1.22">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="endpointPushEvery" class="col-sm-3 col-form-label" data-toggle="tooltip" title="How often (in minutes) to push data to HTML Endpoint">Push
+                                            <label for="endpointPushEvery" class="col-sm-3 col-form-label"
+                                                data-toggle="tooltip"
+                                                title="How often (in minutes) to push data to HTML Endpoint">Push
                                                 Frequency</label>
                                             <div class="col-sm-9">
-                                                <input type="number" class="form-control" id="urlfreq" name="urlfreq" placeholder="2" min="1" max="60">
+                                                <input type="number" class="form-control" id="bpilessfreq"
+                                                    name="bpilessfreq" placeholder="2" min="1" max="60">
                                             </div>
                                         </div>
 
                                         <div class="row col-sm-12 justify-content-center">
-                                            <button class="btn btn-primary" id="submitSettings" onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
+                                            <button class="btn btn-primary" id="submitSettings"
+                                                onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
                                         </div>
                                     </form>
                                     <!-- BrewPiLess Target Frequency Form -->
@@ -246,30 +273,77 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
 
-                                    <p class="card-text">These settings control how iSpindHub will relay iSpindel data to LittleBock. To disable pushing to the endpoint, delete the URL.
+                                    <p class="card-text">These settings control how iSpindHub will relay iSpindel data
+                                        to <a href="https://www.littlebock.fr/">LittleBock</a>. To disable pushing to
+                                        the endpoint, delete the URL.
                                     </p>
 
-                                    <form class="form-group" id="littlebock" action="/settings/LBtarget/" method="POST" onsubmit="return processPost(this);">
-                                        <!-- URL Target URL Form -->
+                                    <form class="form-group" id="littlebock" action="/settings/LBtarget/" method="POST"
+                                        onsubmit="return processPost(this);">
+                                        <!-- Little Bock Form -->
                                         <div class="form-group row">
-                                            <label for="endpointURL" class="col-sm-3 col-form-label" data-toggle="tooltip" title="HTML Endpoint URL. Delete to disable pushing to an HTML Endpoint. Ports other than 80 need to be in the format of: http://foo.com:8080/page.php">
-                                                Target
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="url" class="form-control" id="urltargeturl" name="urltargeturl" minlength="3" maxlength="128" placeholder="http://brewpi.local/brewpi-api.php">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="endpointPushEvery" class="col-sm-3 col-form-label" data-toggle="tooltip" title="How often (in minutes) to push data to HTML Endpoint">Push
+                                            <label for="endpointPushEvery" class="col-sm-3 col-form-label"
+                                                data-toggle="tooltip"
+                                                title="How often (in minutes) to push data to LittleBock">Push
                                                 Frequency</label>
                                             <div class="col-sm-9">
-                                                <input type="number" class="form-control" id="urlfreq" name="urlfreq" placeholder="2" min="1" max="60">
+                                                <input type="number" class="form-control" id="urlfreq" name="urlfreq"
+                                                    placeholder="15" min="1" max="60">
                                             </div>
                                         </div>
 
+                                        <div class="form-group row">
+                                            <div class="form-row">
+                                            <label for="endpointURL" class="col-sm-3 col-form-label"
+                                                data-toggle="tooltip"
+                                                title="iSpindel Name">
+                                                iSpindel 1 name
+                                            </label>
+                                            <div class="col-sm-9">
+                                                <input type="name" class="form-control" id="ispindelname1"
+                                                    name="ispindelname1" minlength="3" maxlength="128"
+                                                    placeholder="iSpindel0001">
+                                            </div>
+                                            <label for="endpointURL" class="col-sm-3 col-form-label"
+                                                data-toggle="tooltip"
+                                                title="End of LittleBock API : /api/log/ispindle/XXXX/YYYY">
+                                                API for iSpindel 1
+                                            </label>
+                                            <div class="col-sm-9">
+                                                <input type="name" class="form-control" id="LBKey1"
+                                                    name="LBKey1" minlength="3" maxlength="128"
+                                                    placeholder="1234/567">
+                                            </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <label for="endpointURL" class="col-sm-3 col-form-label"
+                                                    data-toggle="tooltip"
+                                                    title="iSpindel Name">
+                                                    iSpindel 2 name
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="name" class="form-control" id="ispindelname2"
+                                                        name="ispindelname2" minlength="3" maxlength="128"
+                                                        placeholder="iSpindel0002">
+                                                </div>
+                                                <label for="endpointURL" class="col-sm-3 col-form-label"
+                                                    data-toggle="tooltip"
+                                                    title="End of LittleBock API : /api/log/ispindle/XXXX/YYYY">
+                                                    API for iSpindel 2
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="name" class="form-control" id="LBKey2"
+                                                        name="LBKey2" minlength="3" maxlength="128"
+                                                        placeholder="1234/567">
+                                                </div>
+                                                </div>
+                                        </div>
+
+
+
                                         <div class="row col-sm-12 justify-content-center">
-                                            <button class="btn btn-primary" id="submitSettings" onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
+                                            <button class="btn btn-primary" id="submitSettings"
+                                                onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
                                         </div>
                                     </form>
                                     <!-- LittleBock Target Frequency Form -->
@@ -293,33 +367,45 @@
 
                                     <p class="card-text">
                                         These settings control how iSpindHub forwards iSpindel information to
-                                        <a href="http://www.brewersfriend.com/">Brewer's Friend.</a> With a premium account, Brewer's Friend supports logging brew-related data. To find your API key; log into your Brewer's Friend account and go to Profile
-                                        > Account. Your API key will be a 20 to 64-character string of letters and numbers (not a URL).
+                                        <a href="http://www.brewersfriend.com/">Brewer's Friend.</a> With a premium
+                                        account, Brewer's Friend supports logging brew-related data. To find your API
+                                        key; log into your Brewer's Friend account and go to Profile
+                                        > Account. Your API key will be a 20 to 64-character string of letters and
+                                        numbers (not a URL).
                                     </p>
                                     <p class="card-text">
                                         To disable pushing to Brewer's Friend, delete the key.
                                     </p>
 
-                                    <form class="form-group" id="brewersfriend" action="/settings/brewersfriendtarget/" method="POST" onsubmit="return processPost(this);">
+                                    <form class="form-group" id="brewersfriend" action="/settings/brewersfriendtarget/"
+                                        method="POST" onsubmit="return processPost(this);">
                                         <div class="form-group row">
-                                            <label for="brewersFriendKey" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Enter the API key from your Brewer's Friend premium account. To disable pushing to Brewer's Friend, delete the key.">
+                                            <label for="brewersFriendKey" class="col-sm-3 col-form-label"
+                                                data-toggle="tooltip"
+                                                title="Enter the API key from your Brewer's Friend premium account. To disable pushing to Brewer's Friend, delete the key.">
                                                 Brewer's Friend Key
                                             </label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="brewersfriendkey" name="brewersfriendkey" minlength="20" maxlength="64" placeholder="000fa2ac454c1abf14ffa3">
+                                                <input type="text" class="form-control" id="brewersfriendkey"
+                                                    name="brewersfriendkey" minlength="20" maxlength="64"
+                                                    placeholder="000fa2ac454c1abf14ffa3">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="bfPushEvery" class="col-sm-3 col-form-label" data-toggle="tooltip" title="How often (in minutes) to push data to Brewer's Friend">Push
+                                            <label for="bfPushEvery" class="col-sm-3 col-form-label"
+                                                data-toggle="tooltip"
+                                                title="How often (in minutes) to push data to Brewer's Friend">Push
                                                 Frequency</label>
                                             <div class="col-sm-9">
-                                                <input type="number" class="form-control" id="brewersfriendfreq" placeholder="15" name="brewersfriendfreq" min="15" max="120">
+                                                <input type="number" class="form-control" id="brewersfriendfreq"
+                                                    placeholder="15" name="brewersfriendfreq" min="15" max="120">
                                             </div>
                                         </div>
 
                                         <div class="row col-sm-12 justify-content-center">
-                                            <button class="btn btn-primary" id="submitSettings" onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
+                                            <button class="btn btn-primary" id="submitSettings"
+                                                onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
                                         </div>
                                     </form>
 
@@ -342,33 +428,46 @@
 
                                     <p class="card-text">
                                         These settings control how iSpindHub forwards iSpindel information to
-                                        <a href="https://brewfather.app/">Brewfather.</a> With a premium account, Brewfather supports logging brew-related data. To find your API key; log into your Brewfather account and go to Custom Stream. Your API key
-                                        will be a 10 to 64-character string of letters and numbers on the line following &quot;<b>URL</b> http://log.brewfather.net/stream?id=&quot; (do not include the the URL.)
+                                        <a href="https://brewfather.app/">Brewfather.</a> With a premium account,
+                                        Brewfather supports logging brew-related data. To find your API key; log into
+                                        your Brewfather account and go to Custom Stream. Your API key
+                                        will be a 10 to 64-character string of letters and numbers on the line following
+                                        &quot;<b>URL</b> http://log.brewfather.net/stream?id=&quot; (do not include the
+                                        the URL.)
                                     </p>
                                     <p class="card-text">
                                         To disable pushing to Brewfather, delete the key.
                                     </p>
 
-                                    <form class="form-group" id="brewfather" action="/settings/brewfathertarget/" method="POST" onsubmit="return processPost(this);">
+                                    <form class="form-group" id="brewfather" action="/settings/brewfathertarget/"
+                                        method="POST" onsubmit="return processPost(this);">
                                         <div class="form-group row">
-                                            <label for="BrewFatherKey" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Enter the API key from your Brewfather premium account. To disable pushing to Brewfather, delete the key.">
+                                            <label for="BrewFatherKey" class="col-sm-3 col-form-label"
+                                                data-toggle="tooltip"
+                                                title="Enter the API key from your Brewfather premium account. To disable pushing to Brewfather, delete the key.">
                                                 Brewfather Key
                                             </label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="brewfatherkey" name="brewfatherkey" minlength="10" maxlength="64" placeholder="q4F3wPfooBa3X3">
+                                                <input type="text" class="form-control" id="brewfatherkey"
+                                                    name="brewfatherkey" minlength="10" maxlength="64"
+                                                    placeholder="q4F3wPfooBa3X3">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="bfPushEvery" class="col-sm-3 col-form-label" data-toggle="tooltip" title="How often (in minutes) to push data to Brewfather">Push
+                                            <label for="bfPushEvery" class="col-sm-3 col-form-label"
+                                                data-toggle="tooltip"
+                                                title="How often (in minutes) to push data to Brewfather">Push
                                                 Frequency</label>
                                             <div class="col-sm-9">
-                                                <input type="number" class="form-control" id="brewfatherfreq" placeholder="15" name="brewfatherfreq" min="15" max="120">
+                                                <input type="number" class="form-control" id="brewfatherfreq"
+                                                    placeholder="15" name="brewfatherfreq" min="2" max="120">
                                             </div>
                                         </div>
 
                                         <div class="row col-sm-12 justify-content-center">
-                                            <button class="btn btn-primary" id="submitSettings" onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
+                                            <button class="btn btn-primary" id="submitSettings"
+                                                onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
                                         </div>
 
                                     </form>
@@ -386,7 +485,9 @@
                         </div>
                         <div class="card-body">
                             <p class="card-text">
-                                You may want to reset the controller for some reason. For instance if it's AAALLL the way in the garage. You can do that here. This is a safe operation, it will simply reboot the controller.
+                                You may want to reset the controller for some reason. For instance if it's AAALLL the
+                                way in the garage. You can do that here. This is a safe operation, it will simply reboot
+                                the controller.
                             </p>
                             <form action="/reset/">
                                 <button class="btn btn-danger">Reset Controller</button>
@@ -401,7 +502,9 @@
                         </div>
                         <div class="card-body">
                             <p class="card-text">
-                                If you plan on relocating your iSpindHub to a new network, you can reset the WiFi connection settings by clicking "Reset WiFi". You will need to perform the the original network setup again by connecting to this device as an access point.
+                                If you plan on relocating your iSpindHub to a new network, you can reset the WiFi
+                                connection settings by clicking "Reset WiFi". You will need to perform the the original
+                                network setup again by connecting to this device as an access point.
                             </p>
                             <form action="/wifi/">
                                 <button class="btn btn-danger">Reset WiFi</button>
@@ -427,12 +530,15 @@
         </div>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
 
     <script src="/settings.js"></script>
 
@@ -448,7 +554,7 @@
             if (document.readyState === 'ready' || document.readyState === 'complete') {
                 populatePage();
             } else {
-                document.onreadystatechange = function() {
+                document.onreadystatechange = function () {
                     if (document.readyState == "complete") {
                         populatePage();
                     }

@@ -126,7 +126,6 @@ void setJsonHandlers()
             }
     });
         server.on("/iSpindInfo/", HTTP_GET, [](AsyncWebServerRequest *request) {
-        // Used to provide the Bubbles json
         Log.verbose(F("Sending /iSpindInfo/." CR));
 
         FSInfo fs_info;
@@ -303,7 +302,10 @@ void setSettingsAliases()
             Log.verbose(F("On arrive dans le Download" CR));
             if (request->hasParam("file")){
                 //request->send(LittleFS, "/data/" +  request->getParam("file")->value(), "text/plain", true);
-                request->send(LittleFS, "/data/" +  request->getParam("file")->value(), String(), true);
+                String fn = "data/" + request->getParam("file")->value();
+                //request->send(LittleFS, fn, String(), true);
+                request->send(LittleFS, fn, "text/plain");
+                
 
             }
             request->send(404, F("text/plain"), F("File Not Found."));
@@ -451,7 +453,8 @@ bool handleBrewfatherTargetPost(AsyncWebServerRequest *request) // Handle Brewfa
             }
             if (strcmp(name, "brewfatherfreq") == 0) // Change Brewfather frequency
             {
-                if ((atoi(value) < 15) || (atoi(value) > 120))
+                //if ((atoi(value) < 15) || (atoi(value) > 120))
+                if ((atoi(value) < 2) || (atoi(value) > 120))
                 {
                     Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
                 }

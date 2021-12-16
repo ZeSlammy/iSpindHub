@@ -8,7 +8,7 @@ int handle_spindel_data(String iSpinData,int delay_loop,int last_seen_ms){
     //Serial.println(delay_loop);
     //String lastData = get_last_value(iSpinData);
     String lastData = iSpinData;
-    Serial.println(lastData);
+    //Serial.println(lastData);
     int str_len = lastData.length() +1;
     int count = 0;
     int idx;
