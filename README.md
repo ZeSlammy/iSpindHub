@@ -141,11 +141,11 @@ For this one, connections are as follow
 
 - [ ] Configuration Page for Little Bock
 
-- [ ] Configuration Page for BrewFather
+- [X] Configuration Page for BrewFather
 
-- [ ] Configuration Page for URL
+- [X] Configuration Page for URL
 
-- [ ] Jobs that send info to LittleBock / BrewFather / etc
+- [X] Jobs that send info to LittleBock / BrewFather / etc (Done for BF)
 
 - [ ] Page to manage log files (Delete / Trim)
 
@@ -154,4 +154,15 @@ For this one, connections are as follow
 - [X] Handle multiple screens through multiple releases
 
 - [ ] Handle multiple screens through options in configuration
-- [ ] 
+
+- [ ] BrewPiless as a target
+
+- [ ] Change colors (ultimately allow people to make their own screens without recompiling)
+
+- [ ] Handle error on "No Json file"
+
+- [ ] Handle config to be persistent in between flashes
+
+- [ ] Handle TimeZones
+
+- [ ] Maybe handle file downloading
