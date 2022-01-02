@@ -37,6 +37,10 @@ void setup()
   Serial.begin(115200);
   wdt_enable(WDTO_8S);
   Log.begin(LOG_LEVEL_VERBOSE, &Serial);
+  if (loadConfig())
+    Log.notice(F("Configuration loaded." CR));
+  else
+    Log.error(F("Unable to load configuration." CR));
   // WiFi.mode(WIFI_STA);
   // bool rst = drd.detect(); // Check for double-reset
   bool rst = false;
@@ -76,7 +80,15 @@ void setup()
     // Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet) ? "Ready" : "Failed!");
     setClock(); // Set NTP Time
     Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet) ? "Ready" : "Failed!");
-    isdeployed = WiFi.softAP("iSpindHub");
+    //isdeployed = WiFi.softAP("iSpindHub");
+    if (strlen(config.ispindhub.name) == 0)
+    {
+        isdeployed = WiFi.softAP(APNAME);
+    }
+    else{
+      isdeployed = WiFi.softAP(config.ispindhub.name);
+    }
+    
     if (isdeployed)
     {
       // tft.setTextColor(ST7735_BLUE);
@@ -138,7 +150,7 @@ void loop()
       // Serial.println(iSpinData);
       delay_loop = handle_spindel_data(iSpinData, delay_loop, now - f.getLastWrite());
       f.close();
-      //printConfig();
+      printConfig();
       if (config.brewfather.freq > 0)
       {
         Serial.println("On a une frequence BFather");

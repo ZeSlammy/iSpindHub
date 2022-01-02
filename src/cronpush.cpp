@@ -35,7 +35,7 @@ void pushBrewFather()
                 String temp = file.readStringUntil('\r');
                 int line_len = temp.length() + 1;
                 int file_size = file.size();
-                float num_line = file_size / line_len;
+                //float num_line = file_size / line_len;
                 file.seek(line_len, SeekEnd);
                 String lastData = file.readString();
                 file.close();

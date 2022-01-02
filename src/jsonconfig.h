@@ -8,12 +8,21 @@
 #include <LittleFS.h>
 #include "config.h"
 
+struct iSpindHub
+{
+    // Stores iSpindHub configuration
+    char name[32];
+    char TMZ[4];
+    void load(JsonObjectConst);
+    void save(JsonObject) const;
+};
+
 struct ApConfig
 {
     // Stores Access Point configuration
     char ssid[32];
     char passphrase[64];
-
+    
     void load(JsonObjectConst);
     void save(JsonObject) const;
 };
@@ -44,6 +53,8 @@ struct KeyTarget
 struct Config
 {
     // Stores the complete configuration
+    char hostname[32];
+    iSpindHub ispindhub;
     ApConfig apconfig;
     URLTarget urltarget;
     KeyTarget brewersfriend;
@@ -63,5 +74,8 @@ bool printConfig();
 bool printFile();
 bool serializeConfig(Print &);
 bool deserializeConfig(Stream &);
+bool merge(JsonVariant, JsonVariantConst);
+bool mergeJsonObject(JsonVariantConst);
+bool mergeJsonString(String);
 
 #endif // _JSONCONFIG_H

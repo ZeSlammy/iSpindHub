@@ -24,7 +24,7 @@ void setActionPageHandlers();
 void setJsonHandlers();
 void setSettingsAliases();
 
-
+bool handleiSpindHubPost(AsyncWebServerRequest *request);
 bool handleURLTargetPost(AsyncWebServerRequest *request);
 bool handleBrewfatherTargetPost(AsyncWebServerRequest *request);
 

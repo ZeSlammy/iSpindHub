@@ -3,7 +3,9 @@
 
 void setClock() {
     Log.notice(F("Entering blocking loop to get NTP time."));
-    configTime(GMT, 0, "pool.ntp.org", "time.nist.gov");
+    char* TMZ = config.ispindhub.TMZ;
+    Log.notice("Time Zone used is %", TMZ);
+    configTime(TMZ, 0, "pool.ntp.org", "time.nist.gov");
     time_t nowSecs = time(nullptr);
     time_t startSecs = time(nullptr);
     int cycle = 0;

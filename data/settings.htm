@@ -98,7 +98,7 @@
 
                     <!-- Controller Nav Item -->
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#iSpindhub">iSpindHub</a>
+                        <a class="nav-link" data-toggle="tab" href="#ispindhub">iSpindHub</a>
                     </li>
                     <!-- Controller Nav Item -->
 
@@ -148,7 +148,49 @@
                         </div>
                     </div>
                     <!-- Initial Page Tab -->
+                    <!-- iSPindHub Settings Tab -->
+                    <div class="tab-pane fade" id="ispindhub">
+                        
+                        <div class="card-header">
+                            <h4 class="card-title">iSpindHub Base Settings</h4>
+                        </div>
 
+                        <div class="card-body">
+                            <form id="ispindhub" action="/settings/ispindhub/" method="POST" onsubmit="return processPost(this);">
+
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                         <div class="form-group row">
+                                            <label for="ispindhubname" class="col-sm-3 col-form-label" data-toggle="tooltip"
+                                                title="Change the name of this ispindhub">
+                                                ispindhub ID
+                                            </label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="ispindhubname" name="ispindhubname"
+                                                    minlength="3" maxlength="32" placeholder="iSpindHub">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="ispindhubTZ" class="col-sm-3 col-form-label" data-toggle="tooltip"
+                                                title="Change the TimeZone for this iSpindeHub">
+                                                ispindhub TimeZone
+                                            </label>
+                                            <div class="col-sm-9">
+                                                <select class="selectpicker" id="ispindhubTZ" name="ispindhubTZ"
+                                                    data-live-search="true"></select>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-12 justify-content-center">
+                                            <button class="btn btn-primary" id="submitSettings"
+                                                onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+
+                    </div> <!-- Controller Settings Tab -->
 
                     <!-- URL Target Settings tab -->
                     <div class="tab-pane fade" id="urltarget">
@@ -539,9 +581,24 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
         </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.10/moment-timezone-with-data.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
     <script src="/settings.js"></script>
-
+    <script>
+        var tzz = moment.tz.guess();
+        var timezone = moment.tz.names();
+        for (var i = 0; i < timezone.length; i++) {
+          if (timezone[i] == tzz){
+                  $('select').append('<option value="' + moment.tz.zone(timezone[i]).abbr(Date.now()) + '" selected>' + timezone[i] + '</option>');
+          }
+          else{
+            $('select').append('<option value="' + moment.tz.zone(timezone[i]).abbr(Date.now()) + '">' + timezone[i] + '</option>');
+          }
+          }
+        $('select').selectpicker();
+      
+      </script>
     <script type="text/javascript">
         // Attach the event after the page loads (multi-browser)
         if (window.addEventListener)

@@ -56,6 +56,7 @@ function populateForm() { // Get current parameters
         .done(function(config) {
             try {
                 $('#mdnsid').val(config.hostname);
+                $('#ispindhubname').val(config.ispindhub.name);
                 $('#urltargeturl').val(config.urltarget.url);
                 $('#urlfreq').val(config.urltarget.freq);
                 $('#brewersfriendkey').val(config.brewersfriend.key);
@@ -94,6 +95,7 @@ function processPost(obj) {
     posted = false;
     event.preventDefault();
     hashLoc = window.location.hash;
+    console.log(hashLoc);
     var $form = $(obj);
     url = $form.attr("action");
 
@@ -102,8 +104,8 @@ function processPost(obj) {
 
     // Switch here for hashLoc
     switch (hashLoc) {
-        case "#controller":
-            processControllerPost(url, obj);
+        case "#ispindhub":
+            processiSpindHubPost(url, obj);
             break;
         case "#temperature":
             processTemperaturePost(url, obj);
@@ -137,18 +139,18 @@ function buttonClearDelay() { // Poll to see if entire page is loaded
     }
 }
 
-function processControllerPost(url, obj) {
+function processiSpindHubPost(url, obj) {
     // Handle Controller settings posts
 
     // Get form data
     var $form = $(obj),
-        mdnsid = $form.find("input[name='mdnsid']").val(),
-        bubname = $form.find("input[name='bubname']").val();
+        ispindhubname = $form.find("input[name='ispindhubname']").val();
+        ispindhubTZ = $form.find("select[name='ispindhubTZ'").val();
 
     // Process post
     data = {
-        mdnsid: mdnsid,
-        bubname: bubname
+        ispindhubname: ispindhubname,
+        ispindhubTZ : ispindhubTZ
     };
     postData(url, data);
 }

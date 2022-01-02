@@ -298,7 +298,23 @@ void setJsonHandlers()
 
 void setSettingsAliases()
 {
-        server.on("/download", HTTP_GET, [](AsyncWebServerRequest *request){
+    server.on("/settings/ispindhub/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/ispindhub/." CR));
+        if (handleiSpindHubPost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/ispindhub/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/ispindhub/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+    server.on("/download", HTTP_GET, [](AsyncWebServerRequest *request){
             Log.verbose(F("On arrive dans le Download" CR));
             if (request->hasParam("file")){
                 //request->send(LittleFS, "/data/" +  request->getParam("file")->value(), "text/plain", true);
@@ -417,6 +433,61 @@ bool handleURLTargetPost(AsyncWebServerRequest *request) // Handle URL Target Po
         return false;
     }
 }
+
+bool handleiSpindHubPost(AsyncWebServerRequest *request) // Handle controller settings
+{
+    // Loop through all parameters
+    int params = request->params();
+    for (int i = 0; i < params; i++)
+    {
+        AsyncWebParameter *p = request->getParam(i);
+        if (p->isPost())
+        {
+            // Process any p->name().c_str() / p->value().c_str() pairs
+            const char *name = p->name().c_str();
+            const char *value = p->value().c_str();
+            Log.verbose(F("Processing [%s]:(%s) pair." CR), name, value);
+
+            // iSpindHub settings
+            //
+            if (strcmp(name, "ispindhubname") == 0) // Set iSpindHub name & Network BroadCast
+            {
+                if ((strlen(value) < 3) || (strlen(value) > 32))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not valid." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    strlcpy(config.ispindhub.name, value, sizeof(config.ispindhub.name));
+                }
+            }
+            if (strcmp(name, "ispindhubTZ") == 0) // Set iSpindHub TimeZone
+            {
+                if ((strlen(value) < 3) || (strlen(value) > 5))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not valid." CR), name, value);
+                }
+                else
+                {
+                    strlcpy(config.ispindhub.TMZ, value, sizeof(config.ispindhub.TMZ));
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                }
+            }
+        }
+    }
+    if (saveConfig())
+    {
+        return true;
+    }
+    else
+    {
+        Log.error(F("Error: Unable to save iSpindHub configuration data." CR));
+        return false;
+    }
+}
+
+
 
 bool handleBrewfatherTargetPost(AsyncWebServerRequest *request) // Handle Brewfather Target Post
 {

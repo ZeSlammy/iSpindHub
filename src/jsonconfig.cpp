@@ -162,7 +162,57 @@ bool printConfig()
     Serial.println();
     return retval;
 }
+bool mergeJsonString(String newJson)
+{
+    // Serialize configuration
+    DynamicJsonDocument doc(capacityDeserial);
 
+    // Parse directly from file
+    DeserializationError err = deserializeJson(doc, newJson);
+    if (err)
+        Serial.println(err.c_str());
+
+    return mergeJsonObject(doc);
+}
+
+bool mergeJsonObject(JsonVariantConst src)
+{
+    // Serialize configuration
+    DynamicJsonDocument doc(capacityDeserial);
+
+    // Create an object at the root
+    JsonObject root = doc.to<JsonObject>();
+
+    // Fill the object
+    config.save(root);
+
+    // Merge in the configuration
+    if (merge(root, src))
+    {
+        // Move new object to config
+        config.load(root);
+        saveFile();
+        return true;
+    }
+
+    return false;
+}
+
+bool merge(JsonVariant dst, JsonVariantConst src)
+{
+    if (src.is<JsonObject>())
+    {
+        for (auto kvp : src.as<JsonObjectConst>())
+        {
+            merge(dst.getOrAddMember(kvp.key()), kvp.value());
+        }
+    }
+    else
+    {
+        dst.set(src);
+    }
+    return true;
+}
 
 void ApConfig::save(JsonObject obj) const
 {
@@ -289,6 +339,37 @@ void KeyTarget::load(JsonObjectConst obj)
         update = u;
     }
 }
+void iSpindHub::save(JsonObject obj) const
+{
+    obj["name"] = name;
+    obj["TMZ"] = TMZ;
+}
+
+void iSpindHub::load(JsonObjectConst obj)
+{
+    // Load iSpindHub configuration
+    //
+
+    if (obj["name"].isNull())
+    {
+        strlcpy(name, APNAME, sizeof(name));
+    }
+    else
+    {
+        const char *nm = obj["name"];
+        strlcpy(name, nm, sizeof(name));
+    }
+
+    if (obj["TMZ"].isNull())
+    {
+        strlcpy(TMZ, "CET", sizeof(TMZ));
+    }
+    else
+    {
+        const char *tm = obj["TMZ"];
+        strlcpy(TMZ,tm, sizeof(TMZ));
+    }
+}
 
 void Config::load(JsonObjectConst obj)
 {
@@ -296,7 +377,8 @@ void Config::load(JsonObjectConst obj)
     //
 
     apconfig.load(obj["apconfig"]);
-   urltarget.load(obj["urltarget"]);
+    ispindhub.load(obj["ispindhub"]);
+    urltarget.load(obj["urltarget"]);
     brewersfriend.load(obj["brewersfriend"]);
     brewfather.load(obj["brewfather"]);
 }
@@ -305,6 +387,8 @@ void Config::save(JsonObject obj) const
 {
     // Add Access Point object
     apconfig.save(obj.createNestedObject("apconfig"));
+    // Add iSpindHub object
+    ispindhub.save(obj.createNestedObject("ispindhub"));
     // Add Target object
     urltarget.save(obj.createNestedObject("urltarget"));
     // Add Brewer's Friend object
@@ -312,3 +396,5 @@ void Config::save(JsonObject obj) const
     // Add Brewfather object
     brewfather.save(obj.createNestedObject("brewfather"));
 }
+
+

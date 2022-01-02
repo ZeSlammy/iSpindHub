@@ -157,6 +157,8 @@ For this one, connections are as follow
 
 - [ ] BrewPiless as a target
 
+- [X] Change the name of the Broadcasted network
+
 - [ ] Change colors (ultimately allow people to make their own screens without recompiling)
 
 - [ ] Handle error on "No Json file"

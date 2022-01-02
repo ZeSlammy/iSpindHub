@@ -72,12 +72,23 @@ void doWiFi(bool dontUseStoredCreds) {
         {
             // We finished with portal (We were configured)
             Log.notice(F("Get In Set HostName" CR));
-            //blinker.detach();        // Turn off blinker
-            Log.notice(F(HOSTNAME CR));
-            //WiFi.setHostname(HOSTNAME);
-            WiFi.hostname(HOSTNAME);
-            WiFi.softAP(HOSTNAME);
+            if (strlen(config.ispindhub.name) == 0) {
+                Log.notice(F(HOSTNAME CR));
+                //WiFi.setHostname(HOSTNAME);
+                WiFi.hostname(HOSTNAME);
+                WiFi.softAP(HOSTNAME);
+            }
+            else {
+                Log.notice("We use the information from the config file");
+                Log.notice(F(CR));
+                Log.notice(config.ispindhub.name);
+                Log.notice(F(CR));
+                WiFi.hostname(config.ispindhub.name);
+                WiFi.softAP(config.ispindhub.name);
+            }
+            
             Log.notice(F("Get Out Set HostName" CR));
+            saveConfig();
         }
     }
     if (shouldSaveConfig) { // Save configuration
@@ -85,17 +96,18 @@ void doWiFi(bool dontUseStoredCreds) {
     }
 
     Log.notice(F("Connected. IP address: %s." CR), WiFi.localIP().toString().c_str());
-    //blinker.detach();        // Turn off blinker
     dnsServer.start(DNS_PORT, "*", WiFi.softAPIP());
     Log.verbose(F("Soft AP started, IP: %s" CR), WiFi.softAPIP().toString().c_str());
-
     WiFi.onEvent(WiFiEvent);
 }
 
 void resetWifi()
 { // Wipe WiFi settings and reset controller
     WiFi.disconnect();
+    wm.resetSettings();
     Log.notice(F("Restarting after clearing wifi settings." CR));
+    saveConfig();
+    _delay(100);
     ESP.restart();
 }
 

@@ -8,6 +8,7 @@
 #endif
 
 #include <ArduinoLog.h>
+#include "jsonconfig.h"
 
 void setClock();
 String getDTS();
@@ -57,5 +58,5 @@ static const float __attribute__((unused)) CAT = -1.00;
 static const int __attribute__((unused)) EPOCH_1_1_2019 = 1546300800; //1546300800 =  01/01/2019 @ 12:00am (UTC)
 static const char __attribute__((unused)) *DAYS_OF_WEEK[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 static const char __attribute__((unused)) *DAYS_OF_WEEK_3[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-
+extern struct Config config;
 #endif // _NTP_H
