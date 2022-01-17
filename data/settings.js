@@ -113,6 +113,9 @@ function processPost(obj) {
         case "#urltarget":
             processURLTargetPost(url, obj);
             break;
+        case "#brewpiles":
+            processBPiLessPost(url, obj);
+            break;
         case "#brewersfriend":
             processBrewersFriendPost(url, obj);
             break;
@@ -163,6 +166,22 @@ function processURLTargetPost(url, obj) {
     var $form = $(obj),
         urltargeturl = $form.find("input[name='urltargeturl']").val(),
         urlfreq = $form.find("input[name='urlfreq']").val();
+
+    // Process post
+    data = {
+        urltargeturl: urltargeturl,
+        urlfreq: urlfreq
+    };
+    postData(url, data);
+}
+
+function processBPiLessPost(url, obj) {
+    // Handle URL target posts
+
+    // Get form data
+    var $form = $(obj),
+        urltargeturl = $form.find("input[name='bpilessurl']").val(),
+        urlfreq = $form.find("input[name='bpilessfreq']").val();
 
     // Process post
     data = {

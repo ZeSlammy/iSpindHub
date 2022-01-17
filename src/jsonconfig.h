@@ -57,6 +57,7 @@ struct Config
     iSpindHub ispindhub;
     ApConfig apconfig;
     URLTarget urltarget;
+    URLTarget bpiless;
     KeyTarget brewersfriend;
     KeyTarget brewfather;
     bool nodrd;

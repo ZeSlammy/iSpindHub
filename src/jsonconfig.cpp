@@ -391,6 +391,8 @@ void Config::save(JsonObject obj) const
     ispindhub.save(obj.createNestedObject("ispindhub"));
     // Add Target object
     urltarget.save(obj.createNestedObject("urltarget"));
+    // Add BrewPiLess object
+    bpiless.save(obj.createNestedObject("bpiless"));
     // Add Brewer's Friend object
     brewersfriend.save(obj.createNestedObject("brewersfriend"));
     // Add Brewfather object

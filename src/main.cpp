@@ -12,7 +12,7 @@ int delay_loop = 30000;
 String version = "1.0.1";
 
 // Recurring jobs setup
-TickTwo BFa_timer(pushBrewFather, 900000);
+TickTwo BFa_timer(pushBrewFather, 900);
 
 void setup()
 {
@@ -150,30 +150,14 @@ void loop()
       // Serial.println(iSpinData);
       delay_loop = handle_spindel_data(iSpinData, delay_loop, now - f.getLastWrite());
       f.close();
-      printConfig();
-      if (config.brewfather.freq > 0)
-      {
-        Serial.println("On a une frequence BFather");
-        Serial.println(BFa_timer.interval());
-        Serial.println(config.brewfather.freq);
-
-        if (float(BFa_timer.interval()) == float(config.brewfather.freq * 60 * 1000))
-        {
-          Serial.println("Fréquence identique");
-        }
-        else
-        {
-          Serial.println("Fréquence Différente");
-          BFa_timer.interval(config.brewfather.freq * 60 * 1000);
-        }
-      }
-
+      //printConfig();
+      BFa_timer.interval(config.brewfather.freq * 60 * 1000);
       // free(iSpinData);
-      Serial.println("Avant delay");
-      Serial.println(BFa_timer.elapsed());
-      Serial.println(BFa_timer.state());
+      //Serial.println("Avant delay");
+      //Serial.println(BFa_timer.elapsed());
+      //Serial.println(BFa_timer.state());
       delay(delay_loop);
-      Serial.println("Après delay");
+      //Serial.println("Après delay");
     }
   }
   dir.rewind();

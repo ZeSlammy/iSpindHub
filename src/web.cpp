@@ -355,6 +355,23 @@ void setSettingsAliases()
         Log.verbose(F("Invalid method to /settings/tapcontrol/." CR));
         request->send(405, F("text/plain"), F("Method not allowed."));
     });
+    
+    server.on("/settings/bpilesstarget/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/bpilesstarget/." CR));
+        if (handleBPiLessPost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/bpilesstarget/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/tapcontrol/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
 
 
     server.on("/settings/brewfathertarget/", HTTP_POST, [](AsyncWebServerRequest *request) {
@@ -549,5 +566,62 @@ bool handleBrewfatherTargetPost(AsyncWebServerRequest *request) // Handle Brewfa
     }
 }
 
+bool handleBPiLessPost(AsyncWebServerRequest *request) // Handle URL Target Post
+{
+    // Loop through all parameters
+    int params = request->params();
+    for (int i = 0; i < params; i++)
+    {
+        AsyncWebParameter *p = request->getParam(i);
+        if (p->isPost())
+        {
+            // Process any p->name().c_str() / p->value().c_str() pairs
+            const char *name = p->name().c_str();
+            const char *value = p->value().c_str();
+            Log.verbose(F("Processing [%s]:(%s) pair." CR), name, value);
 
+            // URL Target settings
+            //
+            if (strcmp(name, "BPiLessurl") == 0) // Change Target URL
+            {
+                if (strlen(value) == 0)
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied.  Disabling Url Target." CR), name, value);
+                    strlcpy(config.bpiless.url, value, sizeof(config.bpiless.url));
+                }
+                else if ((strlen(value) < 3) || (strlen(value) > 128))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    strlcpy(config.urltarget.url, value, sizeof(config.urltarget.url));
+                }
+            }
+            if (strcmp(name, "BPiLessfreq") == 0) // Change Target URL frequency
+            {
+                if ((atoi(value) < 1) || (atoi(value) > 60))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    config.bpiless.freq = atoi(value);
+                    config.bpiless.update = true;
+                }
+            }
+        }
+    }
+    if (saveConfig())
+    {
+        return true;
+    }
+    else
+    {
+        Log.error(F("Error: Unable to save BPiless configuration data." CR));
+        return false;
+    }
+}
 

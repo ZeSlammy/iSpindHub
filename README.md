@@ -51,7 +51,7 @@ I used the bottom connection and soldered pins.
 | :------------: | :------------: | :------------: | :------------: |
 | LED  | 3.3V  | LCD | Could be on 5V if your screen is tolerant  |
 |  GND | GND  |  G |   |
-|  RST | RESET  |   |   |
+|  RST | D2 |   |   |
 | DC  | D3  |   |   |
 | MOSI  | D7  | SDI  |   |
 | SCK  | D5  |   |   |
