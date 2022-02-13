@@ -12,7 +12,9 @@
 #ifndef APCONFPWD
 #define APCONFPWD ""
 #endif
-
+#ifndef VERSION_STRING
+#define VERSION_STRING PIO_SRC_TAG
+#endif
 #ifndef WIFI_CHAN
 #define WIFI_CHAN 1
 #endif // WIFI_CHAN

@@ -160,6 +160,11 @@
 
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
+
+                                        <p class="card-text">For those settings, you will have to reboot the iSpindHub. I may make it automatic if I find out how.
+                                        </p>
+    
+
                                          <div class="form-group row">
                                             <label for="ispindhubname" class="col-sm-3 col-form-label" data-toggle="tooltip"
                                                 title="Change the name of this ispindhub">
@@ -177,7 +182,7 @@
                                             </label>
                                             <div class="col-sm-9">
                                                 <select class="selectpicker" id="ispindhubTZ" name="ispindhubTZ"
-                                                    data-live-search="true"></select>
+                                                    data-live-search="false"></select>
                                             </div>
                                         </div>
                                         <div class="row col-sm-12 justify-content-center">
@@ -586,7 +591,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
     <script src="/settings.js"></script>
     <script>
-        var tzz = moment.tz.guess();
+        // var tzz = moment.tz.guess();
+        // var tzz = config.ispindhub.TMZ
+        var tzz
         var timezone = moment.tz.names();
         for (var i = 0; i < timezone.length; i++) {
           if (timezone[i] == tzz){

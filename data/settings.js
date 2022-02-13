@@ -33,6 +33,7 @@ function populatePage() {
     });
     loadHash();
     populateForm();
+    loadThisVersion();
     loadTab();
     pollComplete();
 }
@@ -50,6 +51,36 @@ function loadTab() {
     });
 }
 
+function loadThisVersion() { // Get current parameters
+    var thisVersionJson = "/thisVersion/";
+    var thisVersion = $.getJSON(thisVersionJson, function () {
+    })
+        .done(function (thisVersion) {
+            try {
+                $('#thisVersion').text(thisVersion.version);
+            }
+            catch {
+                if (!unloadingState) {
+                    $('#thisVersion').text("Error parsing.");
+                }
+            }
+        })
+        .fail(function () {
+            if (!unloadingState) {
+                $('#thisVersion').text("Error loading.");
+            }
+        })
+        .always(function () {
+            // Can post-process here
+            if (loaded < numReq) {
+                loaded++;
+            }
+            if (typeof callback == "function") {
+                callback();
+            }
+        });
+}
+
 function populateForm() { // Get current parameters
     var url = "/config/";
     var config = $.getJSON(url, function() {})
@@ -57,6 +88,7 @@ function populateForm() { // Get current parameters
             try {
                 $('#mdnsid').val(config.hostname);
                 $('#ispindhubname').val(config.ispindhub.name);
+                $('#ispindhubTZ').val(config.ispindhub.TMZ);
                 $('#urltargeturl').val(config.urltarget.url);
                 $('#urlfreq').val(config.urltarget.freq);
                 $('#brewersfriendkey').val(config.brewersfriend.key);

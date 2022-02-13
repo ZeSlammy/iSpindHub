@@ -9,7 +9,9 @@ IPAddress gateway(192, 168, 4, 22);
 IPAddress subnet(255, 255, 255, 0);
 
 int delay_loop = 30000;
-String version = "1.0.1";
+// String version = "0.0.6";
+String vers = String(version());
+
 
 // Recurring jobs setup
 TickTwo BFa_timer(pushBrewFather, 900);
@@ -27,7 +29,7 @@ void setup()
   // tft.drawRect(0,0,128,128,ST7735_WHITE);
   tft.drawRect(0, 0, TFT_WIDTH, TFT_HEIGHT, TFT_WHITE);
   tft.setTextColor(ST7735_AQUA);
-  centerString("iSpind Hub " + version, (TFT_WIDTH / 2), 10);
+  centerString("iSpind Hub " + vers, (TFT_WIDTH / 2), 10);
   // tft.setTextColor(ST7735_YELLOW);
   tft.setTextColor(TFT_YELLOW);
   centerString("by Slammy", (TFT_WIDTH / 2), 25);

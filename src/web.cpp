@@ -5,6 +5,9 @@ AsyncWebServer server(80);
 
 //const size_t capacitySerial = 3 * JSON_OBJECT_SIZE(2) + JSON_OBJECT_SIZE(3) + 3 * JSON_OBJECT_SIZE(4) + JSON_OBJECT_SIZE(11);
 //const size_t capacityDeserial = capacitySerial + 810;
+const char *build() { return stringify(PIO_SRC_REV); }
+const char *branch() { return stringify(PIO_SRC_BRH); }
+const char *version() { return stringify(PIO_SRC_TAG); }
 
 void initWebServer()
 {
@@ -279,6 +282,22 @@ void setJsonHandlers()
         serializeJson(doc, ut);
         request->send(200, F("text/plain"), ut);
     });
+
+        server.on("/thisVersion/", HTTP_GET, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Serving /thisVersion/." CR));
+        const size_t capacity = JSON_OBJECT_SIZE(3);
+        DynamicJsonDocument doc(capacity);
+
+        doc["version"] = version();
+        doc["branch"] = branch();
+        doc["build"] = build();
+
+        String json;
+        serializeJsonPretty(doc, json);
+        request->send(200, F("application/json"), json);
+    });
+
+
         server.on("/config/", HTTP_GET, [](AsyncWebServerRequest *request) {
         // Used to provide the Config json
         Log.verbose(F("Serving /config/." CR));

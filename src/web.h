@@ -41,5 +41,11 @@ bool saveConfig();
 bool saveFile();
 bool serializeConfig(Print &);
 bool deserializeConfig(Stream &);
+#define stringify(s) _stringifyDo(s)
+#define _stringifyDo(s) #s
+
+const char *build();
+const char *branch();
+const char *version();
 
 #endif //

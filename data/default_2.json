@@ -1,0 +1,45 @@
+{
+    "global": {
+        "back_color": "BLACK",
+        "font_color": "WHITE",
+        "text_wrap" : false
+
+    },
+    "line 1": {
+        "type": "text",
+        "font": "",
+        "color": "",
+        "x": 0,
+        "y": 18,
+        "center": false,
+        "text": "SG: #SG"
+    },
+    "line 2": {
+        "type": "variable_text",
+        "font": "",
+        "colors": {
+            "65": "GREEN",
+            "70": "YELLOW",
+            "80": "ORANGE",
+            "default": "RED"
+        },
+        "x": 0,
+        "y": 18,
+        "center": true,
+        "text": "Signal: #RSSI dB"
+    },
+    "line 3": {
+        "type": "rectangle",
+        "color": "MAGENTA",
+        "x_0": 0,
+        "y_0": 0,
+        "x_1": 128,
+        "y_1": 128
+    },
+    "line 4": {
+        "type": "line",
+        "color": "YELLOW",
+        "x_0": 0,
+        "y_0": 0
+    }
+}
