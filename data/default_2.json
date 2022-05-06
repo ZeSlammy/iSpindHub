@@ -17,6 +17,7 @@
     "line 2": {
         "type": "variable_text",
         "font": "",
+        "variable" : "#RSSI",
         "colors": {
             "65": "GREEN",
             "70": "YELLOW",

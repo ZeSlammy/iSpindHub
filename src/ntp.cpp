@@ -19,7 +19,7 @@ void setClock() {
             Serial.println();
 #endif
             Log.verbose(F("Re-requesting time hack."));
-            configTime(GMT, 0, "pool.ntp.org", "time.nist.gov");
+            configTime(TMZ, 0, "pool.ntp.org", "time.nist.gov");
             startSecs = time(nullptr);
             cycle++;
         }
