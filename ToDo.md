@@ -22,7 +22,7 @@
 
 - [X] Change the name of the Broadcasted network
 
-- [ ] Change colors (ultimately allow people to make their own screens without recompiling)
+- [X] Change colors (ultimately allow people to make their own screens without recompiling)
 
 - [ ] Handle error on "No Json file"
 

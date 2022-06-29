@@ -3,7 +3,7 @@ const char *filename = "/config.json";
 Config config;
 
 extern const size_t capacitySerial = 1536;
-extern const size_t capacityDeserial = 768;
+extern const size_t capacityDeserial = 800;
 
 bool deleteConfigFile()
 {
@@ -342,7 +342,7 @@ void KeyTarget::load(JsonObjectConst obj)
 void iSpindHub::save(JsonObject obj) const
 {
     obj["name"] = name;
-    obj["TMZ"] = TMZ;
+    obj["TZ"] = TZ;
 }
 
 void iSpindHub::load(JsonObjectConst obj)
@@ -360,14 +360,15 @@ void iSpindHub::load(JsonObjectConst obj)
         strlcpy(name, nm, sizeof(name));
     }
 
-    if (obj["TMZ"].isNull())
+    if (obj["TZ"].isNull())
     {
-        strlcpy(TMZ, "CET", sizeof(TMZ));
+        strlcpy(TZ, "CEST", sizeof(TZ));
     }
     else
     {
-        const char *tm = obj["TMZ"];
-        strlcpy(TMZ,tm, sizeof(TMZ));
+        const char *tm = obj["TZ"];
+        strlcpy(TZ,tm, sizeof(TZ));
+        
     }
 }
 

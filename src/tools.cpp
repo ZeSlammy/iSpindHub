@@ -21,10 +21,12 @@ void centerString(String buf, int x, int y){
     w = tft.textWidth(buf);
     //Serial.println(buf);
     //Serial.println(tft.fontHeight());
-    //Serial.println("x" + (String)x);
-    //Serial.println("y" + (String)y);
-    //Serial.println("w" + (String)w);
-    //Serial.print(w);
+    /*
+    Serial.println("x" + (String)x);
+    Serial.println("y" + (String)y);
+    Serial.println("w" + (String)w);
+    Serial.print(w);
+    */
     tft.setCursor(x - (w / 2), y);
     tft.print(buf);
     return;
@@ -92,3 +94,42 @@ Serial.println(line_len);
 String lastData = iSpinData.substring(str_len-line_len,str_len);
 return lastData;
 }
+
+uint32_t get_color(String colorString){
+    if (colorString =="TFT_BLACK"){
+    return TFT_BLACK;
+    }
+    else if (colorString =="TFT_GREEN"){
+    return TFT_GREEN;
+    }
+    else if (colorString =="TFT_BLUE"){
+    return TFT_BLUE;
+    }
+    else if (colorString =="TFT_WHITE"){
+    return TFT_WHITE;
+    }
+    else if (colorString =="TFT_RED"){
+    return TFT_RED;
+    }
+    else if (colorString =="TFT_YELLOW"){
+    return TFT_YELLOW;
+    }
+    else if (colorString =="TFT_CYAN"){
+    return TFT_CYAN;
+    }
+    else if (colorString =="TFT_MAGENTA"){
+    return TFT_MAGENTA;
+    }
+    else if (colorString =="TFT_LIGHTGREY"){
+    return TFT_LIGHTGREY;
+    }
+    else if (colorString =="TFT_ORANGE"){
+    return TFT_ORANGE;
+    }
+    else {
+    return TFT_WHITE;
+    }
+    
+}
+
+

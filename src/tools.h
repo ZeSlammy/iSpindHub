@@ -1,6 +1,7 @@
 #ifndef _TOOLS_H
 #define _TOOLS_H
 #include <Arduino.h>
+#include <ArduinoJson.h>
 //#include <Adafruit_GFX.h>    // Core graphics library
 //#include <Adafruit_ST7735.h> // Hardware-specific library
 #include <TFT_eSPI.h>
@@ -21,5 +22,5 @@ void centerString(String buf, int x, int y);
 String pretty_time(long val);
 void printDigits(byte digits);
 String get_last_value(String iSpinData);
-
+uint32_t get_color(String colorString);
 #endif

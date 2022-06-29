@@ -1,632 +1,869 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <meta name="description" content="iSpindHub an iSpindel Repetor">
-    <meta name="author" content="Nicolas Outrey largely inspired by Lee Bussy">
+    <meta name="description" content="iSpindHub an iSpindel Repetor" />
+    <meta
+      name="author"
+      content="Nicolas Outrey largely inspired by Lee Bussy"
+    />
 
     <title>iSpindHub</title>
 
-    <link rel="canonical" href="http://homebrewing.slammy.net">
+    <link rel="canonical" href="http://homebrewing.slammy.net" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <meta name="apple-mobile-web-app-title" content="Brew Bubbles">
-    <meta name="application-name" content="Brew Bubbles">
-    <meta name="msapplication-TileColor" content="#00aba9">
-    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
-    <meta name="msapplication-config" content="/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/united/bootstrap.min.css"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
-
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="apple-mobile-web-app-title" content="iSpindHub" />
+    <meta name="application-name" content="iSpindHub" />
+    <meta name="msapplication-TileColor" content="#00aba9" />
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <meta name="theme-color" content="#ffffff" />
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.10/moment-timezone-with-data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      crossorigin="anonymous"
+    />
+    <script src="/settings.js"></script>
     <style>
-        main>.container {
-            padding: 60px 15px 0;
-        }
+      main > .container {
+        padding: 60px 15px 0;
+      }
 
-        .footer {
-            background-color: #f5f5f5f5;
-        }
+      .footer {
+        background-color: #f5f5f5f5;
+      }
 
-        .footer>.container {
-            padding-right: 15px;
-            padding-left: 15px;
-        }
+      .footer > .container {
+        padding-right: 15px;
+        padding-left: 15px;
+      }
     </style>
-</head>
+  </head>
 
-<body class="d-flex flex-column h-100">
-
+  <body class="d-flex flex-column h-100">
     <header>
+      <!-- Nav Bar -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <a class="navbar-brand" href="#">
+          <img src="/hop-icon-24.png" style="width: 25px; height: 25px" />
+          &nbsp;iSpindHub
+        </a>
+        <!-- Brand Link -->
 
-        <!-- Nav Bar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-            <a class="navbar-brand" href="#">
-                <img src="/hop-icon-24.png" style="width:25px;height:25px;"> &nbsp;iSpindHub
-            </a>
-            <!-- Brand Link -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarColor01"
+          aria-controls="navbarColor01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Nav Bar Links -->
-            <div class="collapse navbar-collapse" id="navbarColor01">
-
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/settings/">Settings <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/help/">Help</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about/">About</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- Nav Bar Links -->
-
-        </nav>
-        <!-- Nav Bar -->
-
+        <!-- Nav Bar Links -->
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/settings/"
+                >Settings <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/help/">Help</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">About</a>
+            </li>
+          </ul>
+        </div>
+        <!-- Nav Bar Links -->
+      </nav>
+      <!-- Nav Bar -->
     </header>
 
     <main role="main" class="flex-shrink-0">
-
-        <div class="container" id="settingsapp">
-
-            <div class="card border-dark mb-3">
-
-                <!-- Nav Tabs -->
-                <ul class="nav nav-tabs">
-
-                    <!-- Controller Nav Item -->
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#ispindhub">iSpindHub</a>
-                    </li>
-                    <!-- Controller Nav Item -->
-
-
-                    <!-- Targets Nav Item -->
-                    <li class="nav-item dropdown">
-
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                            aria-haspopup="true" aria-expanded="false">Targets</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" data-toggle="tab" href="#urltarget">URL Target</a>
-                            <a class="dropdown-item" data-toggle="tab" href="#brewpiless">BrewPiLess</a>
-                            <a class="dropdown-item" data-toggle="tab" href="#littlebock">Little Bock</a>
-                            <a class="dropdown-item" data-toggle="tab" href="#brewersfriend">Brewer's Friend</a>
-                            <a class="dropdown-item" data-toggle="tab" href="#brewfather">Brewfather</a>
-                        </div>
-                    </li>
-                    <!-- Targets Nav Item -->
-                    <!-- Advanced Nav Item -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                            aria-haspopup="true" aria-expanded="false">Advanced</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" data-toggle="tab" href="#reset">Reset</a>
-                            <a class="dropdown-item" data-toggle="tab" href="#wifi">Wifi</a>
-                        </div>
-                    </li>
-                    <!-- Advanced Nav Item -->
-
-                </ul>
-                <!-- Nav Tabs -->
-
-                <!-- Nav Tab Content -->
-                <div id="myTabContent" class="tab-content">
-
-                    <!-- Initial Page Tab -->
-                    <div class="tab-pane fade active show" id="initial">
-
-                        <div class="card-header">
-                            <h4 class="card-title">Settings for iSpindHub</h4>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                Use the tabs above to navigate the various settings and customize iSpindHub for your own
-                                use. Be sure to use the update button after changing a field.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Initial Page Tab -->
-                    <!-- iSPindHub Settings Tab -->
-                    <div class="tab-pane fade" id="ispindhub">
-                        
-                        <div class="card-header">
-                            <h4 class="card-title">iSpindHub Base Settings</h4>
-                        </div>
-
-                        <div class="card-body">
-                            <form id="ispindhub" action="/settings/ispindhub/" method="POST" onsubmit="return processPost(this);">
-
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-
-                                        <p class="card-text">For those settings, you will have to reboot the iSpindHub. I may make it automatic if I find out how.
-                                        </p>
-    
-
-                                         <div class="form-group row">
-                                            <label for="ispindhubname" class="col-sm-3 col-form-label" data-toggle="tooltip"
-                                                title="Change the name of this ispindhub">
-                                                ispindhub ID
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="ispindhubname" name="ispindhubname"
-                                                    minlength="3" maxlength="32" placeholder="iSpindHub">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="ispindhubTZ" class="col-sm-3 col-form-label" data-toggle="tooltip"
-                                                title="Change the TimeZone for this iSpindeHub">
-                                                ispindhub TimeZone
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <select class="selectpicker" id="ispindhubTZ" name="ispindhubTZ"
-                                                    data-live-search="false"></select>
-                                            </div>
-                                        </div>
-                                        <div class="row col-sm-12 justify-content-center">
-                                            <button class="btn btn-primary" id="submitSettings"
-                                                onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
-                                        </div>
-
-                                    </li>
-                                </ul>
-                            </form>
-                        </div>
-
-                    </div> <!-- Controller Settings Tab -->
-
-                    <!-- URL Target Settings tab -->
-                    <div class="tab-pane fade" id="urltarget">
-
-                        <div class="card-header">
-                            <h4 class="card-title">URL Target Settings</h4>
-                        </div>
-
-                        <div class="card-body">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-
-                                    <p class="card-text">These settings control how iSpindHub will relay iSpindel data
-                                        to an HTML endpoint such as <a href="https://www.brewpiremix.com/">BrewPi
-                                            Remix</a> or
-                                        <a href="https://www.fermentrack.com/">Fermentrack</a>. To disable pushing to
-                                        the endpoint, delete the URL.
-                                    </p>
-
-                                    <form class="form-group" id="urltarget" action="/settings/urltarget/" method="POST"
-                                        onsubmit="return processPost(this);">
-                                        <!-- URL Target URL Form -->
-                                        <div class="form-group row">
-                                            <label for="endpointURL" class="col-sm-3 col-form-label"
-                                                data-toggle="tooltip"
-                                                title="HTML Endpoint URL. Delete to disable pushing to an HTML Endpoint. Ports other than 80 need to be in the format of: http://foo.com:8080/page.php">
-                                                Target
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="url" class="form-control" id="urltargeturl"
-                                                    name="urltargeturl" minlength="3" maxlength="128"
-                                                    placeholder="http://brewpi.local/brewpi-api.php">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="endpointPushEvery" class="col-sm-3 col-form-label"
-                                                data-toggle="tooltip"
-                                                title="How often (in minutes) to push data to HTML Endpoint">Push
-                                                Frequency</label>
-                                            <div class="col-sm-9">
-                                                <input type="number" class="form-control" id="urlfreq" name="urlfreq"
-                                                    placeholder="2" min="1" max="60">
-                                            </div>
-                                        </div>
-
-                                        <div class="row col-sm-12 justify-content-center">
-                                            <button class="btn btn-primary" id="submitSettings"
-                                                onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
-                                        </div>
-                                    </form>
-                                    <!-- URL Target Frequency Form -->
-
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- URL Target Settings tab -->
-
-                    <!-- BrewPiLess Target Settings tab -->
-                    <div class="tab-pane fade" id="brewpiless">
-
-                        <div class="card-header">
-                            <h4 class="card-title">BrewPiLess as a Target Settings</h4>
-                        </div>
-
-                        <div class="card-body">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-
-                                    <p class="card-text">These settings control how iSpindHub will relay iSpindel data
-                                        to a <a href="https://github.com/vitotai/BrewPiLess">BrewPiLess</a>. To disable
-                                        pushing to the endpoint, delete the URL.
-                                    </p>
-
-                                    <form class="form-group" id="brewpiless" action="/settings/bpilesstarget/" method="POST"
-                                        onsubmit="return processPost(this);">
-                                        <!-- BrewPiLess Target URL Form -->
-                                        <div class="form-group row">
-                                            <label for="endpointURL" class="col-sm-3 col-form-label"
-                                                data-toggle="tooltip"
-                                                title="BrewPiLess IP adress. Delete to disable pushing to BrewPiLess.">
-                                                IP Adress for BrewPiLess
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="url" class="form-control" id="BPiLessurl" name="BPiLessurl"
-                                                    minlength="3" maxlength="128" placeholder="http://192.168.1.22">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="endpointPushEvery" class="col-sm-3 col-form-label"
-                                                data-toggle="tooltip"
-                                                title="How often (in minutes) to push data to HTML Endpoint">Push
-                                                Frequency</label>
-                                            <div class="col-sm-9">
-                                                <input type="number" class="form-control" id="BPiLessfreq"
-                                                    name="BPiLessfreq" placeholder="2" min="1" max="60">
-                                            </div>
-                                        </div>
-
-                                        <div class="row col-sm-12 justify-content-center">
-                                            <button class="btn btn-primary" id="submitSettings"
-                                                onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
-                                        </div>
-                                    </form>
-                                    <!-- BrewPiLess Target Frequency Form -->
-
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- BrewPiLess Target Settings tab -->
-                    <!-- LittleBock Target Settings tab -->
-                    <div class="tab-pane fade" id="littlebock">
-
-                        <div class="card-header">
-                            <h4 class="card-title">LittleBock Target Settings</h4>
-                        </div>
-
-                        <div class="card-body">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-
-                                    <p class="card-text">These settings control how iSpindHub will relay iSpindel data
-                                        to <a href="https://www.littlebock.fr/">LittleBock</a>. To disable pushing to
-                                        the endpoint, delete the URL.
-                                    </p>
-
-                                    <form class="form-group" id="littlebock" action="/settings/LBtarget/" method="POST"
-                                        onsubmit="return processPost(this);">
-                                        <!-- Little Bock Form -->
-                                        <div class="form-group row">
-                                            <label for="endpointPushEvery" class="col-sm-3 col-form-label"
-                                                data-toggle="tooltip"
-                                                title="How often (in minutes) to push data to LittleBock">Push
-                                                Frequency</label>
-                                            <div class="col-sm-9">
-                                                <input type="number" class="form-control" id="urlfreq" name="urlfreq"
-                                                    placeholder="15" min="1" max="60">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <div class="form-row">
-                                            <label for="endpointURL" class="col-sm-3 col-form-label"
-                                                data-toggle="tooltip"
-                                                title="iSpindel Name">
-                                                iSpindel 1 name
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="name" class="form-control" id="ispindelname1"
-                                                    name="ispindelname1" minlength="3" maxlength="128"
-                                                    placeholder="iSpindel0001">
-                                            </div>
-                                            <label for="endpointURL" class="col-sm-3 col-form-label"
-                                                data-toggle="tooltip"
-                                                title="End of LittleBock API : /api/log/ispindle/XXXX/YYYY">
-                                                API for iSpindel 1
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="name" class="form-control" id="LBKey1"
-                                                    name="LBKey1" minlength="3" maxlength="128"
-                                                    placeholder="1234/567">
-                                            </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <label for="endpointURL" class="col-sm-3 col-form-label"
-                                                    data-toggle="tooltip"
-                                                    title="iSpindel Name">
-                                                    iSpindel 2 name
-                                                </label>
-                                                <div class="col-sm-9">
-                                                    <input type="name" class="form-control" id="ispindelname2"
-                                                        name="ispindelname2" minlength="3" maxlength="128"
-                                                        placeholder="iSpindel0002">
-                                                </div>
-                                                <label for="endpointURL" class="col-sm-3 col-form-label"
-                                                    data-toggle="tooltip"
-                                                    title="End of LittleBock API : /api/log/ispindle/XXXX/YYYY">
-                                                    API for iSpindel 2
-                                                </label>
-                                                <div class="col-sm-9">
-                                                    <input type="name" class="form-control" id="LBKey2"
-                                                        name="LBKey2" minlength="3" maxlength="128"
-                                                        placeholder="1234/567">
-                                                </div>
-                                                </div>
-                                        </div>
-
-
-
-                                        <div class="row col-sm-12 justify-content-center">
-                                            <button class="btn btn-primary" id="submitSettings"
-                                                onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
-                                        </div>
-                                    </form>
-                                    <!-- LittleBock Target Frequency Form -->
-
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- LittleBock Target Settings tab -->
-
-                    <!-- Brewer's Friend Settings tab -->
-                    <div class="tab-pane fade" id="brewersfriend">
-
-                        <div class="card-header">
-                            <h4 class="card-title">Brewer's Friend Target Settings</h4>
-                        </div>
-
-                        <div class="card-body">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-
-                                    <p class="card-text">
-                                        These settings control how iSpindHub forwards iSpindel information to
-                                        <a href="http://www.brewersfriend.com/">Brewer's Friend.</a> With a premium
-                                        account, Brewer's Friend supports logging brew-related data. To find your API
-                                        key; log into your Brewer's Friend account and go to Profile
-                                        > Account. Your API key will be a 20 to 64-character string of letters and
-                                        numbers (not a URL).
-                                    </p>
-                                    <p class="card-text">
-                                        To disable pushing to Brewer's Friend, delete the key.
-                                    </p>
-
-                                    <form class="form-group" id="brewersfriend" action="/settings/brewersfriendtarget/"
-                                        method="POST" onsubmit="return processPost(this);">
-                                        <div class="form-group row">
-                                            <label for="brewersFriendKey" class="col-sm-3 col-form-label"
-                                                data-toggle="tooltip"
-                                                title="Enter the API key from your Brewer's Friend premium account. To disable pushing to Brewer's Friend, delete the key.">
-                                                Brewer's Friend Key
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="brewersfriendkey"
-                                                    name="brewersfriendkey" minlength="20" maxlength="64"
-                                                    placeholder="000fa2ac454c1abf14ffa3">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="bfPushEvery" class="col-sm-3 col-form-label"
-                                                data-toggle="tooltip"
-                                                title="How often (in minutes) to push data to Brewer's Friend">Push
-                                                Frequency</label>
-                                            <div class="col-sm-9">
-                                                <input type="number" class="form-control" id="brewersfriendfreq"
-                                                    placeholder="15" name="brewersfriendfreq" min="15" max="120">
-                                            </div>
-                                        </div>
-
-                                        <div class="row col-sm-12 justify-content-center">
-                                            <button class="btn btn-primary" id="submitSettings"
-                                                onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
-                                        </div>
-                                    </form>
-
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <!-- Brewer's Friend Settings tab -->
-
-                    <!-- Brewfather Settings tab -->
-                    <div class="tab-pane fade" id="brewfather">
-
-                        <div class="card-header">
-                            <h4 class="card-title">Brewfather Target Settings</h4>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-
-                                    <p class="card-text">
-                                        These settings control how iSpindHub forwards iSpindel information to
-                                        <a href="https://brewfather.app/">Brewfather.</a> With a premium account,
-                                        Brewfather supports logging brew-related data. To find your API key; log into
-                                        your Brewfather account and go to Custom Stream. Your API key
-                                        will be a 10 to 64-character string of letters and numbers on the line following
-                                        &quot;<b>URL</b> http://log.brewfather.net/stream?id=&quot; (do not include the
-                                        the URL.)
-                                    </p>
-                                    <p class="card-text">
-                                        To disable pushing to Brewfather, delete the key.
-                                    </p>
-
-                                    <form class="form-group" id="brewfather" action="/settings/brewfathertarget/"
-                                        method="POST" onsubmit="return processPost(this);">
-                                        <div class="form-group row">
-                                            <label for="BrewFatherKey" class="col-sm-3 col-form-label"
-                                                data-toggle="tooltip"
-                                                title="Enter the API key from your Brewfather premium account. To disable pushing to Brewfather, delete the key.">
-                                                Brewfather Key
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="brewfatherkey"
-                                                    name="brewfatherkey" minlength="10" maxlength="64"
-                                                    placeholder="q4F3wPfooBa3X3">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="bfPushEvery" class="col-sm-3 col-form-label"
-                                                data-toggle="tooltip"
-                                                title="How often (in minutes) to push data to Brewfather">Push
-                                                Frequency</label>
-                                            <div class="col-sm-9">
-                                                <input type="number" class="form-control" id="brewfatherfreq"
-                                                    placeholder="15" name="brewfatherfreq" min="2" max="120">
-                                            </div>
-                                        </div>
-
-                                        <div class="row col-sm-12 justify-content-center">
-                                            <button class="btn btn-primary" id="submitSettings"
-                                                onclick="if(!this.form.checkValidity(this)){return (false);}">Update</button>
-                                        </div>
-
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Brewfather Settings tab -->
-
-
-                    <!-- Reset Controller tab -->
-                    <div class="tab-pane fade" id="reset">
-                        <div class="card-header">
-                            <h4 class="card-title">Reset Controller</h4>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                You may want to reset the controller for some reason. For instance if it's AAALLL the
-                                way in the garage. You can do that here. This is a safe operation, it will simply reboot
-                                the controller.
-                            </p>
-                            <form action="/reset/">
-                                <button class="btn btn-danger">Reset Controller</button>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- Reset Controllers tab -->
-                    <!-- Wifi Reset tab -->
-                    <div class="tab-pane fade" id="wifi">
-                        <div class="card-header">
-                            <h4 class="card-title">Reset Wifi Settings</h4>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                If you plan on relocating your iSpindHub to a new network, you can reset the WiFi
-                                connection settings by clicking "Reset WiFi". You will need to perform the the original
-                                network setup again by connecting to this device as an access point.
-                            </p>
-                            <form action="/wifi/">
-                                <button class="btn btn-danger">Reset WiFi</button>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- Wifi Reset tab -->
-
-
-
-                </div>
-                <!-- Nav Tab Content -->
-
+      <div class="container" id="settingsapp">
+        <div class="card border-dark mb-3">
+          <!-- Nav Tabs -->
+          <ul class="nav nav-tabs">
+            <!-- Controller Nav Item -->
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#ispindhub"
+                >iSpindHub</a
+              >
+            </li>
+            <!-- Controller Nav Item -->
+
+            <!-- Targets Nav Item -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Targets</a
+              >
+              <div class="dropdown-menu">
+                <a class="dropdown-item" data-toggle="tab" href="#urltarget"
+                  >URL Target</a
+                >
+                <a class="dropdown-item" data-toggle="tab" href="#brewpiless"
+                  >BrewPiLess</a
+                >
+                <a class="dropdown-item" data-toggle="tab" href="#littlebock"
+                  >Little Bock</a
+                >
+                <a class="dropdown-item" data-toggle="tab" href="#brewersfriend"
+                  >Brewer's Friend</a
+                >
+                <a class="dropdown-item" data-toggle="tab" href="#brewfather"
+                  >Brewfather</a
+                >
+              </div>
+            </li>
+            <!-- Targets Nav Item -->
+            <!-- Advanced Nav Item -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Advanced</a
+              >
+              <div class="dropdown-menu">
+                <a class="dropdown-item" data-toggle="tab" href="#reset"
+                  >Reset</a
+                >
+                <a class="dropdown-item" data-toggle="tab" href="#wifi">Wifi</a>
+              </div>
+            </li>
+            <!-- Advanced Nav Item -->
+          </ul>
+          <!-- Nav Tabs -->
+
+          <!-- Nav Tab Content -->
+          <div id="myTabContent" class="tab-content">
+            <!-- Initial Page Tab -->
+            <div class="tab-pane fade active show" id="initial">
+              <div class="card-header">
+                <h4 class="card-title">Settings for iSpindHub</h4>
+              </div>
+              <div class="card-body">
+                <p>
+                  Use the tabs above to navigate the various settings and
+                  customize iSpindHub for your own use. Be sure to use the
+                  update button after changing a field.
+                </p>
+              </div>
             </div>
+            <!-- Initial Page Tab -->
+            <!-- iSPindHub Settings Tab -->
+            <div class="tab-pane fade" id="ispindhub">
+              <div class="card-header">
+                <h4 class="card-title">iSpindHub Base Settings</h4>
+              </div>
 
+              <div class="card-body">
+                <form
+                  id="ispindhub"
+                  action="/settings/ispindhub/"
+                  method="POST"
+                  onsubmit="return processPost(this);"
+                >
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      <p class="card-text">
+                        For those settings, you will have to reboot the
+                        iSpindHub. I may make it automatic if I find out how.
+                      </p>
+
+                      <div class="form-group row">
+                        <label
+                          for="ispindhubname"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="Change the name of this ispindhub"
+                        >
+                          ispindhub ID
+                        </label>
+                        <div class="col-sm-9">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="ispindhubname"
+                            name="ispindhubname"
+                            minlength="3"
+                            maxlength="32"
+                            placeholder="iSpindHub"
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label
+                          for="ispindhubTZ"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="Change the TimeZone for this iSpindeHub"
+                        >
+                          ispindhub TimeZone
+                        </label>
+                        <input
+                          type="hidden"
+                          id="ispindhubTZInfo"
+                          name="ispindhubTZInfo"
+                        />
+                        <div class="col-sm-9">
+                          <select
+                            class="select form-control"
+                            id="ispindhubTZ"
+                            name="ispindhubTZ"
+                          ></select>
+                        </div>
+                      </div>
+                      <div class="row col-sm-12 justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          id="submitSettings"
+                          onclick="if(!this.form.checkValidity(this)){return (false);}"
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                </form>
+              </div>
+            </div>
+            <!-- Controller Settings Tab -->
+
+            <!-- URL Target Settings tab -->
+            <div class="tab-pane fade" id="urltarget">
+              <div class="card-header">
+                <h4 class="card-title">URL Target Settings</h4>
+              </div>
+
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <p class="card-text">
+                      These settings control how iSpindHub will relay iSpindel
+                      data to an HTML endpoint such as
+                      <a href="https://www.brewpiremix.com/">BrewPi Remix</a> or
+                      <a href="https://www.fermentrack.com/">Fermentrack</a>. To
+                      disable pushing to the endpoint, delete the URL.
+                    </p>
+
+                    <form
+                      class="form-group"
+                      id="urltarget"
+                      action="/settings/urltarget/"
+                      method="POST"
+                      onsubmit="return processPost(this);"
+                    >
+                      <!-- URL Target URL Form -->
+                      <div class="form-group row">
+                        <label
+                          for="endpointURL"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="HTML Endpoint URL. Delete to disable pushing to an HTML Endpoint. Ports other than 80 need to be in the format of: http://foo.com:8080/page.php"
+                        >
+                          Target
+                        </label>
+                        <div class="col-sm-9">
+                          <input
+                            type="url"
+                            class="form-control"
+                            id="urltargeturl"
+                            name="urltargeturl"
+                            minlength="3"
+                            maxlength="128"
+                            placeholder="http://brewpi.local/brewpi-api.php"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label
+                          for="endpointPushEvery"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="How often (in minutes) to push data to HTML Endpoint"
+                          >Push Frequency</label
+                        >
+                        <div class="col-sm-9">
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="urlfreq"
+                            name="urlfreq"
+                            placeholder="2"
+                            min="1"
+                            max="60"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="row col-sm-12 justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          id="submitSettings"
+                          onclick="if(!this.form.checkValidity(this)){return (false);}"
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </form>
+                    <!-- URL Target Frequency Form -->
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- URL Target Settings tab -->
+
+            <!-- BrewPiLess Target Settings tab -->
+            <div class="tab-pane fade" id="brewpiless">
+              <div class="card-header">
+                <h4 class="card-title">BrewPiLess as a Target Settings</h4>
+              </div>
+
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <p class="card-text">
+                      These settings control how iSpindHub will relay iSpindel
+                      data to a
+                      <a href="https://github.com/vitotai/BrewPiLess"
+                        >BrewPiLess</a
+                      >. To disable pushing to the endpoint, delete the URL.
+                    </p>
+
+                    <form
+                      class="form-group"
+                      id="brewpiless"
+                      action="/settings/bpilesstarget/"
+                      method="POST"
+                      onsubmit="return processPost(this);"
+                    >
+                      <!-- BrewPiLess Target URL Form -->
+                      <div class="form-group row">
+                        <label
+                          for="endpointURL"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="BrewPiLess IP adress. Delete to disable pushing to BrewPiLess."
+                        >
+                          IP Adress for BrewPiLess
+                        </label>
+                        <div class="col-sm-9">
+                          <input
+                            type="url"
+                            class="form-control"
+                            id="BPiLessurl"
+                            name="BPiLessurl"
+                            minlength="3"
+                            maxlength="128"
+                            placeholder="http://192.168.1.22"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label
+                          for="endpointPushEvery"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="How often (in minutes) to push data to HTML Endpoint"
+                          >Push Frequency</label
+                        >
+                        <div class="col-sm-9">
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="BPiLessfreq"
+                            name="BPiLessfreq"
+                            placeholder="2"
+                            min="1"
+                            max="60"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="row col-sm-12 justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          id="submitSettings"
+                          onclick="if(!this.form.checkValidity(this)){return (false);}"
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </form>
+                    <!-- BrewPiLess Target Frequency Form -->
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- BrewPiLess Target Settings tab -->
+            <!-- LittleBock Target Settings tab -->
+            <div class="tab-pane fade" id="littlebock">
+              <div class="card-header">
+                <h4 class="card-title">LittleBock Target Settings</h4>
+              </div>
+
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <p class="card-text">
+                      These settings control how iSpindHub will relay iSpindel
+                      data to
+                      <a href="https://www.littlebock.fr/">LittleBock</a>. To
+                      disable pushing to the endpoint, delete the URL.
+                    </p>
+
+                    <form
+                      class="form-group"
+                      id="littlebock"
+                      action="/settings/LBtarget/"
+                      method="POST"
+                      onsubmit="return processPost(this);"
+                    >
+                      <!-- Little Bock Form -->
+                      <div class="form-group row">
+                        <label
+                          for="endpointPushEvery"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="How often (in minutes) to push data to LittleBock"
+                          >Push Frequency</label
+                        >
+                        <div class="col-sm-9">
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="urlfreq"
+                            name="urlfreq"
+                            placeholder="15"
+                            min="1"
+                            max="60"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <div class="form-row">
+                          <label
+                            for="endpointURL"
+                            class="col-sm-3 col-form-label"
+                            data-toggle="tooltip"
+                            title="iSpindel Name"
+                          >
+                            iSpindel 1 name
+                          </label>
+                          <div class="col-sm-9">
+                            <input
+                              type="name"
+                              class="form-control"
+                              id="ispindelname1"
+                              name="ispindelname1"
+                              minlength="3"
+                              maxlength="128"
+                              placeholder="iSpindel0001"
+                            />
+                          </div>
+                          <label
+                            for="endpointURL"
+                            class="col-sm-3 col-form-label"
+                            data-toggle="tooltip"
+                            title="End of LittleBock API : /api/log/ispindle/XXXX/YYYY"
+                          >
+                            API for iSpindel 1
+                          </label>
+                          <div class="col-sm-9">
+                            <input
+                              type="name"
+                              class="form-control"
+                              id="LBKey1"
+                              name="LBKey1"
+                              minlength="3"
+                              maxlength="128"
+                              placeholder="1234/567"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <label
+                            for="endpointURL"
+                            class="col-sm-3 col-form-label"
+                            data-toggle="tooltip"
+                            title="iSpindel Name"
+                          >
+                            iSpindel 2 name
+                          </label>
+                          <div class="col-sm-9">
+                            <input
+                              type="name"
+                              class="form-control"
+                              id="ispindelname2"
+                              name="ispindelname2"
+                              minlength="3"
+                              maxlength="128"
+                              placeholder="iSpindel0002"
+                            />
+                          </div>
+                          <label
+                            for="endpointURL"
+                            class="col-sm-3 col-form-label"
+                            data-toggle="tooltip"
+                            title="End of LittleBock API : /api/log/ispindle/XXXX/YYYY"
+                          >
+                            API for iSpindel 2
+                          </label>
+                          <div class="col-sm-9">
+                            <input
+                              type="name"
+                              class="form-control"
+                              id="LBKey2"
+                              name="LBKey2"
+                              minlength="3"
+                              maxlength="128"
+                              placeholder="1234/567"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row col-sm-12 justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          id="submitSettings"
+                          onclick="if(!this.form.checkValidity(this)){return (false);}"
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </form>
+                    <!-- LittleBock Target Frequency Form -->
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- LittleBock Target Settings tab -->
+
+            <!-- Brewer's Friend Settings tab -->
+            <div class="tab-pane fade" id="brewersfriend">
+              <div class="card-header">
+                <h4 class="card-title">Brewer's Friend Target Settings</h4>
+              </div>
+
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <p class="card-text">
+                      These settings control how iSpindHub forwards iSpindel
+                      information to
+                      <a href="http://www.brewersfriend.com/"
+                        >Brewer's Friend.</a
+                      >
+                      With a premium account, Brewer's Friend supports logging
+                      brew-related data. To find your API key; log into your
+                      Brewer's Friend account and go to Profile > Account. Your
+                      API key will be a 20 to 64-character string of letters and
+                      numbers (not a URL).
+                    </p>
+                    <p class="card-text">
+                      To disable pushing to Brewer's Friend, delete the key.
+                    </p>
+
+                    <form
+                      class="form-group"
+                      id="brewersfriend"
+                      action="/settings/brewersfriendtarget/"
+                      method="POST"
+                      onsubmit="return processPost(this);"
+                    >
+                      <div class="form-group row">
+                        <label
+                          for="brewersFriendKey"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="Enter the API key from your Brewer's Friend premium account. To disable pushing to Brewer's Friend, delete the key."
+                        >
+                          Brewer's Friend Key
+                        </label>
+                        <div class="col-sm-9">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="brewersfriendkey"
+                            name="brewersfriendkey"
+                            minlength="20"
+                            maxlength="64"
+                            placeholder="000fa2ac454c1abf14ffa3"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label
+                          for="bfPushEvery"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="How often (in minutes) to push data to Brewer's Friend"
+                          >Push Frequency</label
+                        >
+                        <div class="col-sm-9">
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="brewersfriendfreq"
+                            placeholder="15"
+                            name="brewersfriendfreq"
+                            min="15"
+                            max="120"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="row col-sm-12 justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          id="submitSettings"
+                          onclick="if(!this.form.checkValidity(this)){return (false);}"
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Brewer's Friend Settings tab -->
+
+            <!-- Brewfather Settings tab -->
+            <div class="tab-pane fade" id="brewfather">
+              <div class="card-header">
+                <h4 class="card-title">Brewfather Target Settings</h4>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <p class="card-text">
+                      These settings control how iSpindHub forwards iSpindel
+                      information to
+                      <a href="https://brewfather.app/">Brewfather.</a> With a
+                      premium account, Brewfather supports logging brew-related
+                      data. To find your API key; log into your Brewfather
+                      account and go to Custom Stream. Your API key will be a 10
+                      to 64-character string of letters and numbers on the line
+                      following &quot;<b>URL</b>
+                      http://log.brewfather.net/stream?id=&quot; (do not include
+                      the the URL.)
+                    </p>
+                    <p class="card-text">
+                      To disable pushing to Brewfather, delete the key.
+                    </p>
+
+                    <form
+                      class="form-group"
+                      id="brewfather"
+                      action="/settings/brewfathertarget/"
+                      method="POST"
+                      onsubmit="return processPost(this);"
+                    >
+                      <div class="form-group row">
+                        <label
+                          for="BrewFatherKey"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="Enter the API key from your Brewfather premium account. To disable pushing to Brewfather, delete the key."
+                        >
+                          Brewfather Key
+                        </label>
+                        <div class="col-sm-9">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="brewfatherkey"
+                            name="brewfatherkey"
+                            minlength="10"
+                            maxlength="64"
+                            placeholder="q4F3wPfooBa3X3"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label
+                          for="bfPushEvery"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="How often (in minutes) to push data to Brewfather"
+                          >Push Frequency</label
+                        >
+                        <div class="col-sm-9">
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="brewfatherfreq"
+                            placeholder="15"
+                            name="brewfatherfreq"
+                            min="2"
+                            max="120"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="row col-sm-12 justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          id="submitSettings"
+                          onclick="if(!this.form.checkValidity(this)){return (false);}"
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Brewfather Settings tab -->
+
+            <!-- Reset Controller tab -->
+            <div class="tab-pane fade" id="reset">
+              <div class="card-header">
+                <h4 class="card-title">Reset Controller</h4>
+              </div>
+              <div class="card-body">
+                <p class="card-text">
+                  You may want to reset the controller for some reason. For
+                  instance if it's AAALLL the way in the garage. You can do that
+                  here. This is a safe operation, it will simply reboot the
+                  controller.
+                </p>
+                <form action="/reset/">
+                  <button class="btn btn-danger">Reset Controller</button>
+                </form>
+              </div>
+            </div>
+            <!-- Reset Controllers tab -->
+            <!-- Wifi Reset tab -->
+            <div class="tab-pane fade" id="wifi">
+              <div class="card-header">
+                <h4 class="card-title">Reset Wifi Settings</h4>
+              </div>
+              <div class="card-body">
+                <p class="card-text">
+                  If you plan on relocating your iSpindHub to a new network, you
+                  can reset the WiFi connection settings by clicking "Reset
+                  WiFi". You will need to perform the the original network setup
+                  again by connecting to this device as an access point.
+                </p>
+                <form action="/wifi/">
+                  <button class="btn btn-danger">Reset WiFi</button>
+                </form>
+              </div>
+            </div>
+            <!-- Wifi Reset tab -->
+          </div>
+          <!-- Nav Tab Content -->
         </div>
-
+      </div>
     </main>
 
     <footer class="footer mt-auto py-3">
-        <div class="container text-center">
-            <span class="text-muted">Copyright © 2020-2021, Nicolas Outrey</span>
-        </div>
+      <div class="container text-center">
+        <span class="text-muted">Copyright © 2020-2021, Nicolas Outrey</span>
+      </div>
     </footer>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-        </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.10/moment-timezone-with-data.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
-    <script src="/settings.js"></script>
-    <script>
-        // var tzz = moment.tz.guess();
-        // var tzz = config.ispindhub.TMZ
-        var tzz
-        var timezone = moment.tz.names();
-        for (var i = 0; i < timezone.length; i++) {
-          if (timezone[i] == tzz){
-                  $('select').append('<option value="' + moment.tz.zone(timezone[i]).abbr(Date.now()) + '" selected>' + timezone[i] + '</option>');
-          }
-          else{
-            $('select').append('<option value="' + moment.tz.zone(timezone[i]).abbr(Date.now()) + '">' + timezone[i] + '</option>');
-          }
-          }
-        $('select').selectpicker();
-      
-      </script>
     <script type="text/javascript">
-        // Attach the event after the page loads (multi-browser)
-        if (window.addEventListener)
-            window.addEventListener("load", loadPage, false);
-        else if (window.attachEvent)
-            window.attachEvent("onload", loadPage);
-        else window.onload = loadPage;
+      // Attach the event after the page loads (multi-browser)
+      if (window.addEventListener)
+        window.addEventListener("load", loadPage, false);
+      else if (window.attachEvent) window.attachEvent("onload", loadPage);
+      else window.onload = loadPage;
 
-        function loadPage() { // Page data load - make triple sure the whole DOM loaded
-            if (document.readyState === 'ready' || document.readyState === 'complete') {
-                populatePage();
+      function loadPage() {
+        // Page data load - make triple sure the whole DOM loaded
+        if (
+          document.readyState === "ready" ||
+          document.readyState === "complete"
+        ) {
+          populatePage();
+          var TZinfo = ispindhubTZInfo.value;
+          console.log(TZinfo);
+          var timezone = moment.tz.names();
+          for (var i = 0; i < timezone.length; i++) {
+            
+            if (moment.tz.zone(timezone[i]).abbr(Date.now()) == TZinfo) {
+              $("#ispindhubTZ").append(
+                '<option selected value="' +
+                  moment.tz.zone(timezone[i]).abbr(Date.now()) +
+                  '">' +
+                  timezone[i] +
+                  "</option>"
+              );
             } else {
-                document.onreadystatechange = function () {
-                    if (document.readyState == "complete") {
-                        populatePage();
-                    }
-                }
+              $("#ispindhubTZ").append(
+                '<option value="' +
+                  moment.tz.zone(timezone[i]).abbr(Date.now()) +
+                  '">' +
+                  timezone[i] +
+                  "</option>"
+              );
             }
+          }
+        } else {
+          document.onreadystatechange = function () {
+            if (document.readyState == "complete") {
+              populatePage();
+            }
+          };
         }
+      }
     </script>
-
-</body>
-
+  </body>
 </html>

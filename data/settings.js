@@ -88,7 +88,7 @@ function populateForm() { // Get current parameters
             try {
                 $('#mdnsid').val(config.hostname);
                 $('#ispindhubname').val(config.ispindhub.name);
-                $('#ispindhubTZ').val(config.ispindhub.TMZ);
+                $('#ispindhubTZInfo').val(config.ispindhub.TZ);
                 $('#urltargeturl').val(config.urltarget.url);
                 $('#urlfreq').val(config.urltarget.freq);
                 $('#brewersfriendkey').val(config.brewersfriend.key);

@@ -13,6 +13,9 @@
 //#define FreeSansGras9 "FreeSansGras9"
 #define FreeSans12 "FreeSans12"
 #define FreeSansGras12 "SegLight20"
+#define Arial9 "Arial9"
+#define Arial12 "Arial12"
+#define Arial20 "Arial20"
 #include <FS.h>
 #include <LittleFS.h>
 #define FlashFS LittleFS

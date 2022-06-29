@@ -506,9 +506,9 @@ bool handleiSpindHubPost(AsyncWebServerRequest *request) // Handle controller se
                 }
                 else
                 {
-                    strlcpy(config.ispindhub.TMZ, value, sizeof(config.ispindhub.TMZ));
+                    strlcpy(config.ispindhub.TZ, value, sizeof(config.ispindhub.TZ));
                     Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
-                    ESP.restart();
+                    //ESP.restart();
                 }
             }
         }

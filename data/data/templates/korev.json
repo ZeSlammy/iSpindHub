@@ -1,0 +1,105 @@
+{
+	"g": {
+		"bc": "TFT_BLACK",
+		"fc": "TFT_BLUE",
+		"tw": false
+
+	},
+	"line 1": {
+		"t": "text",
+		"f": "SegLight20",
+		"c": "TFT_YELLOW",
+		"x": 0,
+		"y": 6,
+		"ctr": true,
+		"text": "#SG °P"
+	},
+	"line 2": {
+		"t": "text",
+		"f": "SegLight20",
+		"c": "TFT_RED",
+		"x": 0,
+		"y": 26,
+		"ctr": true,
+		"text": "T°: #Temp °"
+	},
+	"line 3": {
+		"t": "text",
+		"f": "SegLight20",
+		"c": "TFT_LIGHTGREY",
+		"x": 0,
+		"y": 48,
+		"ctr": true,
+		"text": "#Angle ° / #VoltageV"
+	},
+    "line 4": {
+		"t": "text",
+		"f": "",
+        "s": 1.5,
+		"c": "TFT_WHITE",
+		"x": 0,
+		"y": 74,
+		"ctr": true,
+		"text": "#deviceName"
+	},
+    "line 5": {
+		"t": "text",
+		"f": "",
+        "s": 1,
+		"c": "TFT_ORANGE",
+		"x": 0,
+		"y": "MAX",
+        "y_delta" : -40,
+		"ctr": true,
+		"text": "Last Seen"
+	},
+    "line 6": {
+		"t": "text",
+		"f": "",
+        "s": 1,
+		"c": "TFT_ORANGE",
+		"x": 0,
+		"y": "MAX",
+        "y_delta" : -30,
+		"ctr": true,
+		"text": "#LastSeen"
+	},
+	"line 7": {
+		"t": "text",
+		"f": "",
+		"s": 1,
+		"var": "#RSSI",
+		"cs": [{
+				"val": 65,
+				"col": "TFT_GREEN"
+			},
+			{
+				"val": 70,
+				"col": "TFT_YELLOW"
+			},
+			{
+				"val": 85,
+				"col": "TFT_ORANGE"
+			}
+		],
+		"def_col": "TFT_RED",
+		"x": 0,
+		"y": "MAX",
+        "y_delta" : -20,
+		"ctr": true,
+		"text": "Signal: #RSSI dB"
+	},
+    "line ": {
+		"t": "text",
+		"f": "",
+        "s": 1,
+		"c": "TFT_WHITE",
+		"x": 0,
+		"y": "MAX",
+        "y_delta" : -10,
+		"ctr": true,
+		"text": "IP: #IP"
+	}
+
+
+}

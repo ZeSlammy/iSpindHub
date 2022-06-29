@@ -12,6 +12,15 @@ int delay_loop = 30000;
 // String version = "0.0.6";
 String vers = String(version());
 
+// Let's put Global variable because why not
+String SG; 
+String Voltage;
+String Temp;
+String Angle;
+String deviceName;
+String RSSI;
+String IP;
+String LastSeen;
 
 // Recurring jobs setup
 TickTwo BFa_timer(pushBrewFather, 900);
@@ -40,9 +49,11 @@ void setup()
   wdt_enable(WDTO_8S);
   Log.begin(LOG_LEVEL_VERBOSE, &Serial);
   if (loadConfig())
-    Log.notice(F("Configuration loaded." CR));
+    {Log.notice(F("Configuration loaded." CR));
+    printConfig();
+    }
   else
-    Log.error(F("Unable to load configuration." CR));
+    {Log.error(F("Unable to load configuration." CR));}
   // WiFi.mode(WIFI_STA);
   // bool rst = drd.detect(); // Check for double-reset
   bool rst = false;

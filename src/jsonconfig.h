@@ -12,7 +12,7 @@ struct iSpindHub
 {
     // Stores iSpindHub configuration
     char name[32];
-    char TMZ[4];
+    char TZ[32];
     void load(JsonObjectConst);
     void save(JsonObject) const;
 };

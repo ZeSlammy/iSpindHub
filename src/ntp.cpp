@@ -3,9 +3,16 @@
 
 void setClock() {
     Log.notice(F("Entering blocking loop to get NTP time."));
-    char* TMZ = config.ispindhub.TMZ;
+    char* TMZ = config.ispindhub.TZ;
+    Log.notice(TMZ);
+    Serial.println(TMZ);
+    if (strlen(TMZ) == 0)
+    {
+      TMZ = "CET";
+    }
+    Serial.println(TMZ);
     Log.notice("Time Zone used is %", TMZ);
-    configTime(TMZ, 0, "pool.ntp.org", "time.nist.gov");
+    configTime(TMZ,"pool.ntp.org", "time.nist.gov");
     time_t nowSecs = time(nullptr);
     time_t startSecs = time(nullptr);
     int cycle = 0;
@@ -19,7 +26,7 @@ void setClock() {
             Serial.println();
 #endif
             Log.verbose(F("Re-requesting time hack."));
-            configTime(TMZ, 0, "pool.ntp.org", "time.nist.gov");
+            configTime(TMZ, "pool.ntp.org", "time.nist.gov");
             startSecs = time(nullptr);
             cycle++;
         }

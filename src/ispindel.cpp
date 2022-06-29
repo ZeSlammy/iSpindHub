@@ -26,6 +26,10 @@ int handle_spindel_data(String iSpinData,int delay_loop,int last_seen_ms){
     //Serial.println("delay loop en sortant");
     //Serial.println(delay_loop);
     wdt_disable();
-    displaydata(array_data,last_seen_ms);
+    String screen_template = "korev";
+    parse_screen_template(screen_template,array_data,last_seen_ms);
+    //delay(5000);
+    //displaydata(array_data,last_seen_ms);
+
     return(delay_loop);
 }

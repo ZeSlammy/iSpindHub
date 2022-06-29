@@ -1,28 +1,37 @@
 {
     "global": {
-        "back_color": "BLACK",
-        "font_color": "WHITE",
+        "back_color": "TFT_BLACK" ,
+        "font_color": "TFT_BLUE",
         "text_wrap" : false
 
     },
-    "line 1": {
+    "line": {
         "type": "text",
         "font": "",
         "color": "",
         "x": 0,
         "y": 18,
-        "center": false,
+        "center": true,
         "text": "SG: #SG"
+    },
+    "line": {
+        "type": "text",
+        "font": "FreeSans9",
+        "color": "TFT_BLUE",
+        "x": 87,
+        "y": 50,
+        "center": true,
+        "text": "Voltage: #Voltage"
     },
     "line 2": {
         "type": "variable_text",
-        "font": "",
+        "font": "FreeSansGras12",
         "variable" : "#RSSI",
         "colors": {
-            "65": "GREEN",
-            "70": "YELLOW",
-            "80": "ORANGE",
-            "default": "RED"
+            "65": "TFT_GREEN",
+            "70": "TFT_YELLOW",
+            "80": "TFT_ORANGE",
+            "default": "TFT_RED"
         },
         "x": 0,
         "y": 18,
@@ -31,7 +40,7 @@
     },
     "line 3": {
         "type": "rectangle",
-        "color": "MAGENTA",
+        "color": "TFT_MAGENTA",
         "x_0": 0,
         "y_0": 0,
         "x_1": 128,
@@ -39,7 +48,7 @@
     },
     "line 4": {
         "type": "line",
-        "color": "YELLOW",
+        "color": "TFT_YELLOW",
         "x_0": 0,
         "y_0": 0
     }
