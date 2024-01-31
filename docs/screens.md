@@ -19,18 +19,37 @@ Sounded like the easiest way to have a clean structure and also I finally know h
 - For the lines, various variables are available
   - Specific Gravity #SG
   - Signal Strength in dB #RSSI
-  - Temperature #temp
-  - Angle of the iSpindel #angle
-  - Voltage of the battery #battery
-  - Name of the iSpindel #name
-  - Duration since last seen #lastseen
+  - Temperature #Temp
+  - Angle of the iSpindel #Angle
+  - Voltage of the battery #Voltage
+  - Name of the iSpindel #deviceName
+  - Duration since last seen #LastSeen
   - Local IP adress of the iSpindHub #IP
 
 #### Global
 - In here you'll define everyting that'll be true for the whole screen
-  - Background Color (back_color)
-  - Font Color (font_color)
-  - Whether or not the text is wrapped (text_wrap)
+  - Background Color (bc)
+  - Font Color (fc)
+  - Whether or not the text is wrapped (tw)
   - Generic/Default Font (default_font)
-  - Screen Orientation (rotation)
+  - Screen Orientation (r)
+
+#### Generic for Lines
+- When passing a position (x or y), you can use the keyword "MAX" and use x_delta or y_delta. This will replace the MAX par TFT_WIDTH and TFT_HEIGHT respectfully and apply the delta to it (say you want it 20 pixels from the bottom, you'll write "y" : "MAX" and "y_delta" : -20 in the JSON Template)
+- Same applies for lines (2 points so x_0/y_0 and x_1,y_1)
+
+#### Text Lines
+- To define a text line you need :
+  - a font (f)
+    - Can be empty to use System font
+  - a color (c)
+    - can be empty
+  - a position (x and y)
+  - a centered (ctr) attribute
+  - a text (obviously)
+- You can have the color changing based on values of your variable.
+  - You need a var key in which you put the name of the variable you want to use (ex : "var" : "#RSSI")
+  - You need to build a "cs" entry that list in order the 3 couples threshold/color you want to use (low/medium/high)
+    - A couple is defined by a "val" and a "col" attribute
+  - You need a default color (def_col)
 

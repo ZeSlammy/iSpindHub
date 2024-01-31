@@ -3,7 +3,7 @@ import shutil
 
 build_root = "C:\\Users\\noutrey\\Documents\\Perso\\PlatformIO\\Projects\\iSpindHub\\.pio\\build\\"
 releases_root = "C:\\Users\\noutrey\\Documents\\Perso\\Brassage\\iSpindHub\\Releases"
-release_index = "0.0.6"
+release_index = "0.0.7"
 
 list_firmwares = os.scandir(build_root)
 for el in list_firmwares:
