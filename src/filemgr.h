@@ -2,4 +2,4 @@
 #include "tools.h"
 #include <LittleFS.h>
 #include <ArduinoJson.h>
-JsonDocument get_files_info();
+void get_files_info();

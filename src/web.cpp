@@ -286,7 +286,7 @@ void setJsonHandlers()
         server.on("/thisVersion/", HTTP_GET, [](AsyncWebServerRequest *request) {
         Log.verbose(F("Serving /thisVersion/." CR));
         const size_t capacity = JSON_OBJECT_SIZE(3);
-        DynamicJsonDocument doc(capacity);
+        JsonDocument doc;
 
         doc["version"] = version();
         doc["branch"] = branch();
@@ -303,7 +303,7 @@ void setJsonHandlers()
         Log.verbose(F("Serving /config/." CR));
 
         // Serialize configuration
-        DynamicJsonDocument doc(capacitySerial); // Create doc
+        JsonDocument doc; // Create doc
         JsonObject root = doc.to<JsonObject>();  // Create JSON object
         config.save(root);                       // Fill the object with current config
         String json;

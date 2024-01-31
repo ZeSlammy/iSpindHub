@@ -98,7 +98,7 @@ bool saveFile()
 bool deserializeConfig(Stream &src)
 {
     // Deserialize configuration
-    DynamicJsonDocument doc(capacityDeserial);
+    JsonDocument doc;
 
     // Parse the JSON object in the file
     DeserializationError err = deserializeJson(doc, src);
@@ -119,7 +119,7 @@ bool deserializeConfig(Stream &src)
 bool serializeConfig(Print &dst)
 {
     // Serialize configuration
-    DynamicJsonDocument doc(capacitySerial);
+    JsonDocument doc;
 
     // Create an object at the root
     JsonObject root = doc.to<JsonObject>();
@@ -149,7 +149,7 @@ bool printFile()
 bool printConfig()
 {
     // Serialize configuration
-    DynamicJsonDocument doc(capacitySerial);
+    JsonDocument doc;
 
     // Create an object at the root
     JsonObject root = doc.to<JsonObject>();
@@ -165,7 +165,7 @@ bool printConfig()
 bool mergeJsonString(String newJson)
 {
     // Serialize configuration
-    DynamicJsonDocument doc(capacityDeserial);
+    JsonDocument doc;
 
     // Parse directly from file
     DeserializationError err = deserializeJson(doc, newJson);
@@ -178,7 +178,7 @@ bool mergeJsonString(String newJson)
 bool mergeJsonObject(JsonVariantConst src)
 {
     // Serialize configuration
-    DynamicJsonDocument doc(capacityDeserial);
+    JsonDocument doc;
 
     // Create an object at the root
     JsonObject root = doc.to<JsonObject>();
@@ -204,7 +204,8 @@ bool merge(JsonVariant dst, JsonVariantConst src)
     {
         for (auto kvp : src.as<JsonObjectConst>())
         {
-            merge(dst.getOrAddMember(kvp.key()), kvp.value());
+
+            merge(dst[kvp.key()], kvp.value());
         }
     }
     else
@@ -367,8 +368,7 @@ void iSpindHub::load(JsonObjectConst obj)
     else
     {
         const char *tm = obj["TZ"];
-        strlcpy(TZ,tm, sizeof(TZ));
-        
+        strlcpy(TZ, tm, sizeof(TZ));
     }
 }
 
@@ -387,17 +387,16 @@ void Config::load(JsonObjectConst obj)
 void Config::save(JsonObject obj) const
 {
     // Add Access Point object
-    apconfig.save(obj.createNestedObject("apconfig"));
+    // apconfig.save(obj.createNestedObject("apconfig"));
+    apconfig.save(obj["apconfig"].to<JsonObject>());
     // Add iSpindHub object
-    ispindhub.save(obj.createNestedObject("ispindhub"));
+    ispindhub.save(obj["ispindhub"].to<JsonObject>());
     // Add Target object
-    urltarget.save(obj.createNestedObject("urltarget"));
+    urltarget.save(obj["urltarget"].to<JsonObject>());
     // Add BrewPiLess object
-    bpiless.save(obj.createNestedObject("bpiless"));
+    bpiless.save(obj["bpiless"].to<JsonObject>());
     // Add Brewer's Friend object
-    brewersfriend.save(obj.createNestedObject("brewersfriend"));
+    brewersfriend.save(obj["brewersfriend"].to<JsonObject>());
     // Add Brewfather object
-    brewfather.save(obj.createNestedObject("brewfather"));
+    brewfather.save(obj["brewfather"].to<JsonObject>());
 }
-
-

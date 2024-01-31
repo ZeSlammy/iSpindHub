@@ -22,7 +22,7 @@ struct ApConfig
     // Stores Access Point configuration
     char ssid[32];
     char passphrase[64];
-    
+
     void load(JsonObjectConst);
     void save(JsonObject) const;
 };

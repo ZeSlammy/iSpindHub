@@ -1,48 +1,51 @@
 #include "wifi.h"
-
 bool shouldSaveConfig = false;
-AsyncWiFiManager wm;
 const byte DNS_PORT = 53;
+#define HTTP_PORT 80
 IPAddress apIP(192, 168, 4, 1);
-DNSServer dnsServer;
+AsyncWebServer webServer(HTTP_PORT);
+AsyncDNSServer dnsServer;
 
+ESPAsync_WiFiManager wm(&webServer, &dnsServer, "iSpindHub");
 
-
-void doWiFi() {
+void doWiFi()
+{
     doWiFi(false);
 }
-void doWiFi(bool dontUseStoredCreds) {
-    //wm.setConfigPortalBlocking(false);
-    wm.setConfigPortalBlocking(true);
-    WiFi.mode(WIFI_AP_STA); // explicitly set mode, esp defaults to STA+AP    
+void doWiFi(bool dontUseStoredCreds)
+{
+    // wm.setConfigPortalBlocking(false);
+    // wm.setConfigPortalBlocking(true);
+    WiFi.mode(WIFI_AP_STA); // explicitly set mode, esp defaults to STA+AP
+    WiFi.setAutoReconnect(true);
     // AsyncWiFiManager Callbacks
     wm.setAPCallback(apCallback); // Called after AP has started
     // wm.setConfigResetCallback(configResetCallback); // Called after settings are reset
     // wm.setPreSaveConfigCallback(preSaveConfigCallback); // Called before saving wifi creds
     wm.setSaveConfigCallback(saveConfigCallback); //  Called only if wifi is saved/changed, or setBreakAfterConfig(true)
-    wm.setSaveParamsCallback(saveParamsCallback); // Called after parameters are saved via params menu or wifi config
+    // wm.setSaveParamsCallback(saveParamsCallback); // Called after parameters are saved via params menu or wifi config
     // wm.setWebServerCallback(webServerCallback); // Called after webserver is setup
     wm.setDebugOutput(true); // Verbose debug is enabled by default
     std::vector<const char *> _wfmPortalMenu = {
-    "wifi",
-    "wifinoscan",
-    "sep",
-    "info",
-    //"param",
-    //"close",
-    "erase",
-    "restart",
-    "exit"};
-    wm.setMenu(_wfmPortalMenu); // Set menu items
-    //wm.setCountry(WIFI_COUNTRY);    // Setting wifi country seems to improve OSX soft ap connectivity
+        "wifi",
+        "wifinoscan",
+        "sep",
+        "info",
+        //"param",
+        //"close",
+        "erase",
+        "restart",
+        "exit"};
+    // wm.setMenu(_wfmPortalMenu); // Set menu items
+    // wm.setCountry(WIFI_COUNTRY);    // Setting wifi country seems to improve OSX soft ap connectivity
     Log.notice(F("Set COUNTRY OK" CR));
-    wm.setWiFiAPChannel(WIFI_CHAN); // Set WiFi channel
-    wm.setShowStaticFields(true); // Force show static ip fields
-    wm.setShowDnsFields(true);
-  if (dontUseStoredCreds)
+    // wm.setWiFiAPChannel(WIFI_CHAN); // Set WiFi channel
+    // wm.setShowStaticFields(true); // Force show static ip fields
+    // wm.setShowDnsFields(true);
+    if (dontUseStoredCreds)
     {
         // Voluntary portal
-        //blinker.attach_ms(APBLINK, wifiBlinker);
+        // blinker.attach_ms(APBLINK, wifiBlinker);
         wm.setConfigPortalTimeout(120);
 
         if (wm.startConfigPortal(APCONFNAME, APCONFPWD))
@@ -54,12 +57,12 @@ void doWiFi(bool dontUseStoredCreds) {
             // Hit timeout on voluntary portal
             delay(3000);
             Log.notice(F("Hit timeout for on-demand portal, exiting." CR));
-            //ESP.restart();
+            // ESP.restart();
         }
     }
     else
     { // Normal WiFi connection attempt
-        //blinker.attach_ms(STABLINK, wifiBlinker);
+        // blinker.attach_ms(STABLINK, wifiBlinker);
         wm.setConnectTimeout(30);
         wm.setConfigPortalTimeout(120);
         if (!wm.autoConnect(APNAME, APPWD))
@@ -72,13 +75,15 @@ void doWiFi(bool dontUseStoredCreds) {
         {
             // We finished with portal (We were configured)
             Log.notice(F("Get In Set HostName" CR));
-            if (strlen(config.ispindhub.name) == 0) {
+            if (strlen(config.ispindhub.name) == 0)
+            {
                 Log.notice(F(HOSTNAME CR));
-                //WiFi.setHostname(HOSTNAME);
+                // WiFi.setHostname(HOSTNAME);
                 WiFi.hostname(HOSTNAME);
                 WiFi.softAP(HOSTNAME);
             }
-            else {
+            else
+            {
                 Log.notice("We use the information from the config file");
                 Log.notice(F(CR));
                 Log.notice(config.ispindhub.name);
@@ -86,13 +91,14 @@ void doWiFi(bool dontUseStoredCreds) {
                 WiFi.hostname(config.ispindhub.name);
                 WiFi.softAP(config.ispindhub.name);
             }
-            
+
             Log.notice(F("Get Out Set HostName" CR));
             saveConfig();
         }
     }
-    if (shouldSaveConfig) { // Save configuration
-        // Save configuration
+    if (shouldSaveConfig)
+    { // Save configuration
+      // Save configuration
     }
 
     Log.notice(F("Connected. IP address: %s." CR), WiFi.localIP().toString().c_str());
@@ -111,7 +117,7 @@ void resetWifi()
     ESP.restart();
 }
 
-void apCallback(AsyncWiFiManager *asyncWiFiManager)
+void apCallback(ESPAsync_WiFiManager *asyncWiFiManager)
 { // Entered Access Point mode
     Log.verbose(F("[CALLBACK]: setAPCallback fired." CR));
     Log.notice(F("Entered portal mode; name: %s, IP: %s." CR),
@@ -119,12 +125,14 @@ void apCallback(AsyncWiFiManager *asyncWiFiManager)
                WiFi.localIP().toString().c_str());
 }
 
-void saveConfigCallback() {
+void saveConfigCallback()
+{
     Log.verbose(F("[CALLBACK]: setSaveConfigCallback fired." CR));
     shouldSaveConfig = true;
 }
 
-void saveParamsCallback() {
+void saveParamsCallback()
+{
     Log.verbose(F("[CALLBACK]: setSaveParamsCallback fired." CR));
 }
 
@@ -135,23 +143,44 @@ void saveParamsCallback() {
 void WiFiEvent(WiFiEvent_t event)
 {
     Log.notice(F("[WiFi-event] event: %d" CR), event);
-    if (! WiFi.isConnected())
+    if (!WiFi.isConnected())
     {
         Log.warning(F("WiFi lost connection.."));
         WiFi.begin();
 
         int WLcount = 0;
-        while (! WiFi.isConnected() && WLcount < 190) {
+        while (!WiFi.isConnected() && WLcount < 190)
+        {
             delay(100);
             Serial.print(".");
             ++WLcount;
         }
 
-        if (! WiFi.isConnected()) {
+        if (!WiFi.isConnected())
+        {
             // We failed to reconnect.
             Log.error(F("Unable to reconnect WiFI, restarting." CR));
             delay(1000);
             ESP.restart();
+        }
+        else
+        {
+            bool isdeployed;
+            if (strlen(config.ispindhub.name) == 0)
+            {
+                isdeployed = WiFi.softAP(APNAME);
+            }
+            else
+            {
+                isdeployed = WiFi.softAP(config.ispindhub.name);
+            }
+
+            if (!isdeployed)
+            {
+                Log.error(F("Unable to start softAP, restarting." CR));
+                delay(1000);
+                ESP.restart();
+            }
         }
         Serial.println();
     }
