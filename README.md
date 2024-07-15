@@ -8,7 +8,7 @@
   - [1.4 TFT Screen](#14-tft-screen)
   - [1.77" TFT Screen](#177-tft-screen)
   - [2" TFT Screen](#2-tft-screen)
-- [To Do List](#to-do-list)
+  - [2.4" TFT Screen](#24-tft-screen)
  
 
   
@@ -47,29 +47,29 @@ Display is square 128*128
 /!\ I have not tested it (recently) directly plugged onto the D1 Mini.
 I used the bottom connection and soldered pins.
 
-| Marking on screen  |  D1 Mini PIN  |  Alternative names  | Comments  |
-| :------------: | :------------: | :------------: | :------------: |
-| LED  | 3.3V  | LCD | Could be on 5V if your screen is tolerant  |
-|  GND | GND  |  G |   |
-|  RST | D2 |   |   |
-| DC  | D3  |   |   |
-| MOSI  | D7  | SDI  |   |
-| SCK  | D5  |   |   |
-| 3V  | 3V3  |   |   |
-| CS  | D4  |   |   |
+| Marking on screen | D1 Mini PIN | Alternative names |                 Comments                  |
+| :---------------: | :---------: | :---------------: | :---------------------------------------: |
+|        LED        |    3.3V     |        LCD        | Could be on 5V if your screen is tolerant |
+|        GND        |     GND     |         G         |                                           |
+|        RST        |     D2      |                   |                                           |
+|        DC         |     D3      |                   |                                           |
+|       MOSI        |     D7      |        SDI        |                                           |
+|        SCK        |     D5      |                   |                                           |
+|        3V         |     3V3     |                   |                                           |
+|        CS         |     D4      |                   |                                           |
 
 
 If you want to use the existing pins at the back of the screen do the following
 
-| Marking on screen  |  D1 Mini PIN  |  Alternative names  | Comments  |
-| :------------: | :------------: | :------------: | :------------: |
-|  D4 | D8  |  |   |
-|  G | GND  |   |   |
-| D7  | D7  |   | It might be marked D4. It is the one between D6 and D8  |
-| D5  | D5  |   |   |
-| 3V  | 3V3  |   |   |
-| RST  | D2  |   |   |
-| D3  | D3  |   |   |
+| Marking on screen | D1 Mini PIN | Alternative names |                        Comments                        |
+| :---------------: | :---------: | :---------------: | :----------------------------------------------------: |
+|        D4         |     D8      |                   |                                                        |
+|         G         |     GND     |                   |                                                        |
+|        D7         |     D7      |                   | It might be marked D4. It is the one between D6 and D8 |
+|        D5         |     D5      |                   |                                                        |
+|        3V         |     3V3     |                   |                                                        |
+|        RST        |     D2      |                   |                                                        |
+|        D3         |     D3      |                   |                                                        |
 
 
 
@@ -85,16 +85,16 @@ If you want to use the existing pins at the back of the screen do the following
 
 ## 1.77" TFT Screen
 Display is 160*128
-| Marking on screen  |  D1 Mini PIN  |  Alternative names  | Comments  |
-| :------------: | :------------: | :------------: | :------------: |
-| LEDA  | D4  | 8 | Could be on 5V if your screen is tolerant  |
-|  GND | GND  |  1 |   |
-|  RES | D2  |  5 |   |
-| RS  | D1  | 6  |   |
-| SDA  | D7  | 4  |   |
-| SCK  | D5  |  3 |   |
-| VCC  | 3V3  | 2  |   |
-| CS  | D8  | 7  |   |
+| Marking on screen | D1 Mini PIN | Alternative names |                 Comments                  |
+| :---------------: | :---------: | :---------------: | :---------------------------------------: |
+|       LEDA        |     D4      |         8         | Could be on 5V if your screen is tolerant |
+|        GND        |     GND     |         1         |                                           |
+|        RES        |     D2      |         5         |                                           |
+|        RS         |     D1      |         6         |                                           |
+|        SDA        |     D7      |         4         |                                           |
+|        SCK        |     D5      |         3         |                                           |
+|        VCC        |     3V3     |         2         |                                           |
+|        CS         |     D8      |         7         |                                           |
 
 
 
@@ -107,30 +107,49 @@ Red PCB with Red Tab
 Display is 176*220
 
 
-| Marking on screen  |  D1 Mini PIN  |  Alternative names  | Comments  |
-| :------------: | :------------: | :------------: | :------------: |
-| LED  | D4  | LCD | Could be on 5V if your screen is tolerant  |
-|  GND | GND  |  G |   |
-|  RST | D2  |   |   |
-| DC  | D1  | RS  |   |
-| MOSI  | D7  | SDI  |   |
-| SCK  | D5  |   |   |
-| 3V  | 3V3  |   |   |
-| CS  | D8  |   |   |
+| Marking on screen | D1 Mini PIN | Alternative names |                 Comments                  |
+| :---------------: | :---------: | :---------------: | :---------------------------------------: |
+|        LED        |     D4      |        LCD        | Could be on 5V if your screen is tolerant |
+|        GND        |     GND     |         G         |                                           |
+|        RST        |     D2      |                   |                                           |
+|        DC         |     D1      |        RS         |                                           |
+|       MOSI        |     D7      |        SDI        |                                           |
+|        SCK        |     D5      |                   |                                           |
+|        3V         |     3V3     |                   |                                           |
+|        CS         |     D8      |                   |                                           |
 
 [**Find it on AliExpress**](https://s.click.aliexpress.com/e/_9JS0cI)
 
 [**Find it on Amazon.fr**](https://amzn.to/3mOLFIX) REFERRAL LINK
 
-[**Anothe one ton amazon**](https://amzn.to/3Cfpq2E) REFERRAL LINK
+[**Another one on amazon**](https://amzn.to/3Cfpq2E) REFERRAL LINK
 For this one, connections are as follow
-| Marking on screen  |  D1 Mini PIN  |  Alternative names  | Comments  |
-| :------------: | :------------: | :------------: | :------------: |
-| VCC  | Vin  |  |   |
-| GND | GND  |   |   |
-| CLK | D5  |   |   |
-| SDA | D7  |   |   |
-| RS  | D1  |   |   |
-| RST  | RST  |   |   |
-| CS | D8  |   |   |
-|
+| Marking on screen | D1 Mini PIN | Alternative names | Comments |
+| :---------------: | :---------: | :---------------: | :------: |
+|        VCC        |     Vin     |                   |          |
+|        GND        |     GND     |                   |          |
+|        CLK        |     D5      |                   |          |
+|        SDA        |     D7      |                   |          |
+|        RS         |     D1      |                   |          |
+|        RST        |     RST     |                   |          |
+|        CS         |     D8      |                   |          |
+|                   |
+
+## 2.4" TFT Screen
+Red PCB with Red Tab
+Display is 240*320
+
+
+| Marking on screen | D1 Mini PIN | Alternative names |                 Comments                  |
+| :---------------: | :---------: | :---------------: | :---------------------------------------: |
+|        LED        |     D4      |        LCD        | Could be on 5V if your screen is tolerant |
+|        GND        |     GND     |         G         |                                           |
+|        RST        |     D2      |       RESET       |                                           |
+|        DC         |     D1      |        RS         |                                           |
+|       MOSI        |     D7      |        SDI        |                                           |
+|        SCK        |     D5      |                   |                                           |
+|        VCC        |     3V3     |                   |                                           |
+|        CS         |     D8      |                   |                                           |
+
+	
+
