@@ -1,10 +1,7 @@
 #include "web.h"
 #include "resetreasons.h"
 AsyncWebServer server(80);
-//extern Adafruit_ST7735 tft;
 
-//const size_t capacitySerial = 3 * JSON_OBJECT_SIZE(2) + JSON_OBJECT_SIZE(3) + 3 * JSON_OBJECT_SIZE(4) + JSON_OBJECT_SIZE(11);
-//const size_t capacityDeserial = capacitySerial + 810;
 const char *build() { return stringify(PIO_SRC_REV); }
 const char *branch() { return stringify(PIO_SRC_BRH); }
 const char *version() { return stringify(PIO_SRC_TAG); }
@@ -39,11 +36,8 @@ void setRegPageAliases()
     server.serveStatic("/wifi/", LittleFS, "/").setDefaultFile("wifi.htm").setCacheControl("max-age=600");
 }
 void setActionPageHandlers()
-{   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-        Log.notice("Connected on /");
-        request->send(200, F("text/plain"), "Hello World");
-    });
-        server.on("/wifi2/", HTTP_GET, [](AsyncWebServerRequest *request) {
+{
+    server.on("/wifi2/", HTTP_GET, [](AsyncWebServerRequest *request) {
         Log.verbose(F("Processing /wifi2/." CR));
         request->send(LittleFS, "/wifi2.htm");
         resetWifi(); // Wipe settings, reset controller
@@ -60,24 +54,15 @@ void setJsonHandlers()
             //}
 
             StaticJsonDocument<300> jdoc;
-            //ReadLoggingStream loggingStream(data, Serial);
-            //DeserializationError error = deserializeJson(jdoc, loggingStream);
             DeserializationError error = deserializeJson(jdoc, (const char*)data);
             Log.verbose(F("Parsing json from ispindel.\n"));
             if (!error) {
-                //tft.fillRect(0,0,128,20,ST7735_BLACK);
-                // Get Data from JSON 
-                float data_size = jdoc.size();
+                int data_size = jdoc.size();
                 const char* name = jdoc["name"];
-                //long id = jdoc["ID"];
                 float angle = jdoc["angle"];
                 const char* t_unit = jdoc["temp_units"];
                 float temp = jdoc["temperature"];
                 float battery = jdoc["battery"];
-                // Output iSpindel Name
-                //Serial.println("name of file");
-                //Serial.println(name);
-                //Serial.println(temp);
                 
                 // Build and open file
                 String fname = String("/data/") + String(name) + String(".csv");
@@ -204,15 +189,6 @@ void setJsonHandlers()
         int size_info = file_info.length()-1;
         file_info.remove(size_info,1);
         file_info+= "}";
-        //Serial.print(file_info);
-        //const size_t capacity = JSON_OBJECT_SIZE(8) + 210;
-        //StaticJsonDocument<capacity> doc;
-        //JsonObject root = doc.to<JsonObject>();
-        //Serial.print(root);
-        //String json;
-        //serializeJsonPretty(doc, json);
-
-        //request->send(200, F("application/json"), json);
         request->send(200, F("application/json"), file_info);
     });
     // JSON Handlers
