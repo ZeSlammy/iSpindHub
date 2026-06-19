@@ -29,6 +29,9 @@ bool handleiSpindHubPost(AsyncWebServerRequest *request);
 bool handleURLTargetPost(AsyncWebServerRequest *request);
 bool handleBrewfatherTargetPost(AsyncWebServerRequest *request);
 bool handleBPiLessPost(AsyncWebServerRequest *request);
+bool handleApConfigPost(AsyncWebServerRequest *request);
+bool handleFermentrackPost(AsyncWebServerRequest *request);
+bool handleBierBotPost(AsyncWebServerRequest *request);
 
 #define LOG_LEVEL LOG_LEVEL_VERBOSE
 extern struct Config config;

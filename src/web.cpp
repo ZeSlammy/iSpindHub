@@ -386,6 +386,57 @@ void setSettingsAliases()
         request->send(405, F("text/plain"), F("Method not allowed."));
     });
 
+    server.on("/settings/apconfig/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/apconfig/." CR));
+        if (handleApConfigPost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/apconfig/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/apconfig/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+
+    server.on("/settings/fermentracktarget/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/fermentracktarget/." CR));
+        if (handleFermentrackPost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/fermentracktarget/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/fermentracktarget/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+
+    server.on("/settings/bierbottarget/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/bierbottarget/." CR));
+        if (handleBierBotPost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/bierbottarget/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/bierbottarget/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+
 }
 bool handleURLTargetPost(AsyncWebServerRequest *request) // Handle URL Target Post
 {
@@ -476,7 +527,7 @@ bool handleiSpindHubPost(AsyncWebServerRequest *request) // Handle controller se
             }
             if (strcmp(name, "ispindhubTZ") == 0) // Set iSpindHub TimeZone
             {
-                if ((strlen(value) < 3) || (strlen(value) > 5))
+                if ((strlen(value) < 3) || (strlen(value) > 32))
                 {
                     Log.warning(F("Settings update error, [%s]:(%s) not valid." CR), name, value);
                 }
@@ -485,6 +536,18 @@ bool handleiSpindHubPost(AsyncWebServerRequest *request) // Handle controller se
                     strlcpy(config.ispindhub.TZ, value, sizeof(config.ispindhub.TZ));
                     Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
                     //ESP.restart();
+                }
+            }
+            if (strcmp(name, "ispindhubDST") == 0) // Set iSpindHub DST offset
+            {
+                if ((atoi(value) < 0) || (atoi(value) > 2))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not valid." CR), name, value);
+                }
+                else
+                {
+                    config.ispindhub.dst_offset = atoi(value);
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
                 }
             }
         }
@@ -617,6 +680,176 @@ bool handleBPiLessPost(AsyncWebServerRequest *request) // Handle URL Target Post
     else
     {
         Log.error(F("Error: Unable to save BPiless configuration data." CR));
+        return false;
+    }
+}
+
+bool handleApConfigPost(AsyncWebServerRequest *request) // Handle AP Config Post
+{
+    // Loop through all parameters
+    int params = request->params();
+    for (int i = 0; i < params; i++)
+    {
+        AsyncWebParameter *p = request->getParam(i);
+        if (p->isPost())
+        {
+            // Process any p->name().c_str() / p->value().c_str() pairs
+            const char *name = p->name().c_str();
+            const char *value = p->value().c_str();
+            Log.verbose(F("Processing [%s]:(%s) pair." CR), name, value);
+
+            if (strcmp(name, "apssid") == 0) // Change AP SSID
+            {
+                if ((strlen(value) < 3) || (strlen(value) > 32))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    strlcpy(config.apconfig.ssid, value, sizeof(config.apconfig.ssid));
+                }
+            }
+            if (strcmp(name, "appassphrase") == 0) // Change AP passphrase
+            {
+                if (strlen(value) == 0)
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied. Open AP." CR), name, value);
+                    strlcpy(config.apconfig.passphrase, value, sizeof(config.apconfig.passphrase));
+                }
+                else if ((strlen(value) < 8) || (strlen(value) > 63))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    strlcpy(config.apconfig.passphrase, value, sizeof(config.apconfig.passphrase));
+                }
+            }
+        }
+    }
+    if (saveConfig())
+    {
+        return true;
+    }
+    else
+    {
+        Log.error(F("Error: Unable to save AP configuration data." CR));
+        return false;
+    }
+}
+
+bool handleFermentrackPost(AsyncWebServerRequest *request) // Handle Fermentrack Target Post
+{
+    // Loop through all parameters
+    int params = request->params();
+    for (int i = 0; i < params; i++)
+    {
+        AsyncWebParameter *p = request->getParam(i);
+        if (p->isPost())
+        {
+            // Process any p->name().c_str() / p->value().c_str() pairs
+            const char *name = p->name().c_str();
+            const char *value = p->value().c_str();
+            Log.verbose(F("Processing [%s]:(%s) pair." CR), name, value);
+
+            if (strcmp(name, "fermentrackurl") == 0) // Change Fermentrack URL
+            {
+                if (strlen(value) == 0)
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied. Disabling Fermentrack target." CR), name, value);
+                    strlcpy(config.fermentrack.url, value, sizeof(config.fermentrack.url));
+                }
+                else if ((strlen(value) < 3) || (strlen(value) > 128))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    strlcpy(config.fermentrack.url, value, sizeof(config.fermentrack.url));
+                }
+            }
+            if (strcmp(name, "fermentrackfreq") == 0) // Change Fermentrack frequency
+            {
+                if ((atoi(value) < 1) || (atoi(value) > 60))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    config.fermentrack.freq = atoi(value);
+                    config.fermentrack.update = true;
+                }
+            }
+        }
+    }
+    if (saveConfig())
+    {
+        return true;
+    }
+    else
+    {
+        Log.error(F("Error: Unable to save Fermentrack configuration data." CR));
+        return false;
+    }
+}
+
+bool handleBierBotPost(AsyncWebServerRequest *request) // Handle BierBot Target Post
+{
+    // Loop through all parameters
+    int params = request->params();
+    for (int i = 0; i < params; i++)
+    {
+        AsyncWebParameter *p = request->getParam(i);
+        if (p->isPost())
+        {
+            // Process any p->name().c_str() / p->value().c_str() pairs
+            const char *name = p->name().c_str();
+            const char *value = p->value().c_str();
+            Log.verbose(F("Processing [%s]:(%s) pair." CR), name, value);
+
+            if (strcmp(name, "bierbotkey") == 0) // Change BierBot key
+            {
+                if (strlen(value) == 0)
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied. Disabling BierBot target." CR), name, value);
+                    strlcpy(config.bierbot.key, value, sizeof(config.bierbot.key));
+                }
+                else if ((strlen(value) < 10) || (strlen(value) > 64))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    strlcpy(config.bierbot.key, value, sizeof(config.bierbot.key));
+                }
+            }
+            if (strcmp(name, "bierbotfreq") == 0) // Change BierBot frequency
+            {
+                if ((atoi(value) < 2) || (atoi(value) > 120))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    config.bierbot.freq = atoi(value);
+                    config.bierbot.update = true;
+                }
+            }
+        }
+    }
+    if (saveConfig())
+    {
+        return true;
+    }
+    else
+    {
+        Log.error(F("Error: Unable to save BierBot configuration data." CR));
         return false;
     }
 }

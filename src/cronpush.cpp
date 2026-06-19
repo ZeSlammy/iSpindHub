@@ -101,3 +101,130 @@ void pushBrewFather()
         Serial.println("No BF Key, no Push");
     }
 }
+
+void pushFermentrack()
+{
+    if (strlen(config.fermentrack.url) == 0)
+    {
+        return;
+    }
+
+    StaticJsonDocument<400> payload;
+    FSInfo fs_info;
+    LittleFS.info(fs_info);
+    Dir dir = LittleFS.openDir("/data");
+    String ft_url = String(config.fermentrack.url) + "/api/gravity/";
+    Serial.println(ft_url);
+    WiFiClient client;
+    HTTPClient http;
+
+    while (dir.next())
+    {
+        http.begin(client, ft_url);
+        http.addHeader("Content-Type", "application/json");
+        http.addHeader("Cache-Control", "no-cache");
+        String json;
+        String f_name = dir.fileName();
+        f_name.remove(f_name.length() - 4);
+        if (dir.fileSize())
+        {
+            File file = dir.openFile("r");
+            String temp = file.readStringUntil('\r');
+            int line_len = temp.length() + 1;
+            file.seek(line_len, SeekEnd);
+            String lastData = file.readString();
+            file.close();
+            int str_len = lastData.length() + 1;
+            int count = 0;
+            int idx;
+            int mov_idx = 0;
+            String array_data[10] = {};
+            for (idx = 0; idx <= str_len; idx++)
+            {
+                if (lastData[idx] == ',')
+                {
+                    array_data[count] = lastData.substring(mov_idx, idx);
+                    mov_idx = idx + 1;
+                    count++;
+                }
+            }
+            payload["name"] = array_data[1];
+            payload["angle"] = array_data[2];
+            payload["temperature"] = array_data[3];
+            payload["battery"] = array_data[4];
+            payload["gravity"] = array_data[5];
+            payload["interval"] = array_data[6];
+            payload["RSSI"] = array_data[7];
+            payload["temp_units"] = array_data[8];
+            serializeJson(payload, json);
+            http.POST(json);
+            Serial.print(http.getString());
+            delay(5000);
+            http.end();
+        }
+    }
+}
+
+void pushBierBot()
+{
+    if (strlen(config.bierbot.key) == 0)
+    {
+        return;
+    }
+
+    StaticJsonDocument<400> payload;
+    FSInfo fs_info;
+    LittleFS.info(fs_info);
+    Dir dir = LittleFS.openDir("/data");
+    String bb_key = config.bierbot.key;
+    String bb_url = String("https://app.bierbot.com/api/anubis/v1/telemetry?apikey=") + bb_key;
+    Serial.println(bb_url);
+
+    while (dir.next())
+    {
+        String json;
+        String f_name = dir.fileName();
+        f_name.remove(f_name.length() - 4);
+        if (dir.fileSize())
+        {
+            File file = dir.openFile("r");
+            String temp = file.readStringUntil('\r');
+            int line_len = temp.length() + 1;
+            file.seek(line_len, SeekEnd);
+            String lastData = file.readString();
+            file.close();
+            int str_len = lastData.length() + 1;
+            int count = 0;
+            int idx;
+            int mov_idx = 0;
+            String array_data[10] = {};
+            for (idx = 0; idx <= str_len; idx++)
+            {
+                if (lastData[idx] == ',')
+                {
+                    array_data[count] = lastData.substring(mov_idx, idx);
+                    mov_idx = idx + 1;
+                    count++;
+                }
+            }
+            payload["type"] = "iSpindel";
+            payload["id"] = array_data[1];
+            payload["status"] = "0";
+            payload["angle"] = array_data[2];
+            payload["gravity"] = array_data[5];
+            payload["temp_celsius"] = array_data[3];
+            payload["battery"] = array_data[4];
+            serializeJson(payload, json);
+            WiFiClientSecure secureClient;
+            secureClient.setInsecure();
+            HTTPClient http;
+            http.begin(secureClient, bb_url);
+            http.addHeader("Content-Type", "application/json");
+            http.addHeader("Cache-Control", "no-cache");
+            http.POST(json);
+            Serial.print(http.getString());
+            delay(5000);
+            http.end();
+        }
+    }
+}

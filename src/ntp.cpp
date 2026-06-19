@@ -1,6 +1,47 @@
 
 #include "ntp.h"
 
+static long tzToOffsetSeconds(const char* tz)
+{
+    struct { const char* name; long offset; } table[] = {
+        {"GMT", 0}, {"UTC", 0},
+        {"ECT", 3600}, {"CET", 3600},
+        {"EET", 7200},
+        {"ART", 7200},
+        {"EAT", 10800},
+        {"MET", 12600},
+        {"NET", 14400},
+        {"PLT", 18000},
+        {"IST", 19800},
+        {"BST", 21600},
+        {"VST", 25200},
+        {"CTT", 28800},
+        {"JST", 32400},
+        {"ACT", 34200},
+        {"AET", 36000},
+        {"SST", 39600},
+        {"NST", 43200},
+        {"MIT", -39600},
+        {"HST", -36000},
+        {"AST", -32400},
+        {"PST", -28800},
+        {"PNT", -25200}, {"MST", -25200},
+        {"CST", -21600},
+        {"EST", -18000}, {"IET", -18000},
+        {"PRT", -14400},
+        {"CNT", -12600},
+        {"AGT", -10800}, {"BET", -10800},
+        {"CAT", -3600},
+        {NULL, 0}
+    };
+    for (int i = 0; table[i].name != NULL; i++)
+    {
+        if (strcmp(tz, table[i].name) == 0)
+            return table[i].offset;
+    }
+    return 0;
+}
+
 void setClock() {
     Log.notice(F("Entering blocking loop to get NTP time."));
     char* TMZ = config.ispindhub.TZ;
@@ -12,7 +53,7 @@ void setClock() {
     }
     Serial.println(TMZ);
     Log.notice("Time Zone used is %", TMZ);
-    configTime(TMZ,"pool.ntp.org", "time.nist.gov");
+    configTime(tzToOffsetSeconds(TMZ), (long)config.ispindhub.dst_offset * 3600, "pool.ntp.org", "time.nist.gov");
     time_t nowSecs = time(nullptr);
     time_t startSecs = time(nullptr);
     int cycle = 0;
@@ -26,7 +67,7 @@ void setClock() {
             Serial.println();
 #endif
             Log.verbose(F("Re-requesting time hack."));
-            configTime(TMZ, "pool.ntp.org", "time.nist.gov");
+            configTime(tzToOffsetSeconds(TMZ), (long)config.ispindhub.dst_offset * 3600, "pool.ntp.org", "time.nist.gov");
             startSecs = time(nullptr);
             cycle++;
         }
