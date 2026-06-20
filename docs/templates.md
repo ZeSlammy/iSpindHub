@@ -91,6 +91,31 @@ Position relative to screen bottom using `"MAX"` and `y_delta`:
 
 ---
 
+### `"t": "rectangle"` — Draw a rectangle
+
+| Key    | Type            | Required | Description |
+|--------|-----------------|----------|-------------|
+| `c`    | string          | yes      | Rectangle color |
+| `x_0`  | number          | yes      | Left edge X  |
+| `y_0`  | number          | yes      | Top edge Y   |
+| `x_1`  | number\|`"MAX"` | yes      | Right edge X. `"MAX"` = screen width. |
+| `y_1`  | number\|`"MAX"` | yes      | Bottom edge Y. `"MAX"` = screen height. |
+| `fill` | boolean         | no       | `true` = filled (default), `false` = outline only |
+
+```json
+"line 1": {
+    "t": "rectangle",
+    "c": "TFT_MAGENTA",
+    "x_0": 0,
+    "y_0": 0,
+    "x_1": "MAX",
+    "y_1": "MAX",
+    "fill": false
+}
+```
+
+---
+
 ### `"t": "line"` — Draw a straight line
 
 | Key   | Type            | Required | Description |
@@ -190,31 +215,30 @@ Font files (`.vlw`) are stored in the root of the LittleFS filesystem. Use these
 
 | Name          | Style             | Size |
 |---------------|-------------------|------|
-| `Arial9`      | Arial             | 9px  |
-| `Arial12`     | Arial             | 12px |
-| `Arial20`     | Arial             | 20px |
-| `RThin9`      | Roboto Thin       | 9px  |
-| `RThin12`     | Roboto Thin       | 12px |
-| `RThin20`     | Roboto Thin       | 20px |
-| `RBold20`     | Roboto Bold       | 20px |
-| `TMS10`       | Times             | 10px |
-| `TMS12`       | Times             | 12px |
-| `SegLight20`  | Segment Light     | 20px |
+| `FreeSans9`      | FreeSans          | 9px  |
+| `FreeSans12`     | FreeSans          | 12px |
+| `FreeSans20`     | FreeSans          | 20px |
+| `FreeSansGras12` | FreeSans Bold     | 12px |
+| `Arial9`         | Arial             | 9px  |
+| `Arial12`        | Arial             | 12px |
+| `Arial20`        | Arial             | 20px |
+| `RThin9`         | Roboto Thin       | 9px  |
+| `RThin12`        | Roboto Thin       | 12px |
+| `RThin20`        | Roboto Thin       | 20px |
+| `RBold20`        | Roboto Bold       | 20px |
+| `TMS10`          | Times             | 10px |
+| `TMS12`          | Times             | 12px |
+| `SegLight20`     | Segment Light     | 20px |
 
 Leave `"f"` as `""` to keep the current font and use `"s"` for a size multiplier instead.
-
-> **Known issues with font names:** `FreeSans9`, `FreeSansGras12`, and `FreeSans12` are defined in the codebase but do not load the expected font files — prefer the fonts in the table above.
 
 ---
 
 ## Not yet implemented
 
-The following types are parsed but not rendered:
+The following type is parsed but not rendered:
 
-- **`"t": "var_text"`** — text whose content varies by value (stubbed)
-- **`"t": "rectangle"`** — filled rectangle (stubbed)
-
-These entries are silently skipped without error.
+- **`"t": "var_text"`** — text whose content varies by value (stubbed, silently skipped)
 
 ---
 

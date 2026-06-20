@@ -159,9 +159,13 @@ void handle_line(String line_json)
                 Serial.println("Let's deal with a line line");
                 make_line_line(lineTemp);
             }
+            else if (lineTemp["t"] == "rectangle")
+            {
+                make_rect_line(lineTemp);
+            }
         }
     }
-    // parsedLine.clear();
+    parsedLine.clear();
     return;
 }
 
@@ -341,6 +345,24 @@ void make_line_line(JsonObject line_line_json)
     tft.drawLine(x_0, y_0, x_1, y_1, l_col);
 }
 
+void make_rect_line(JsonObject rect_line_json)
+{
+    int x_0 = rect_line_json["x_0"];
+    int y_0 = rect_line_json["y_0"];
+    int x_1, y_1;
+    if (rect_line_json["x_1"] == "MAX") { x_1 = TFT_WIDTH; }
+    else { x_1 = rect_line_json["x_1"]; }
+    if (rect_line_json["y_1"] == "MAX") { y_1 = TFT_HEIGHT; }
+    else { y_1 = rect_line_json["y_1"]; }
+    String rect_color = rect_line_json["c"];
+    uint16_t r_col = get_color(rect_color);
+    bool fill = rect_line_json["fill"] | true;
+    int w = x_1 - x_0;
+    int h = y_1 - y_0;
+    if (fill) { tft.fillRect(x_0, y_0, w, h, r_col); }
+    else      { tft.drawRect(x_0, y_0, w, h, r_col); }
+}
+
 char *get_font(String font)
 {
     if (font == "FreeSansGras12")
@@ -350,6 +372,14 @@ char *get_font(String font)
     else if (font == "FreeSans9")
     {
         return FreeSans9;
+    }
+    else if (font == "FreeSans12")
+    {
+        return FreeSans12;
+    }
+    else if (font == "FreeSans20")
+    {
+        return FreeSans20;
     }
     else if (font == "Arial9")
     {
