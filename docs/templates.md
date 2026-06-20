@@ -100,7 +100,7 @@ Position relative to screen bottom using `"MAX"` and `y_delta`:
 | `y_0`  | number          | yes      | Top edge Y   |
 | `x_1`  | number\|`"MAX"` | yes      | Right edge X. `"MAX"` = screen width. |
 | `y_1`  | number\|`"MAX"` | yes      | Bottom edge Y. `"MAX"` = screen height. |
-| `fill` | boolean         | no       | `true` = filled (default), `false` = outline only |
+| `fill` | boolean         | no       | `true` = filled, `false` = outline only (default) |
 
 ```json
 "line 1": {

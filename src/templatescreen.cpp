@@ -356,7 +356,7 @@ void make_rect_line(JsonObject rect_line_json)
     else { y_1 = rect_line_json["y_1"]; }
     String rect_color = rect_line_json["c"];
     uint16_t r_col = get_color(rect_color);
-    bool fill = rect_line_json["fill"] | true;
+    bool fill = rect_line_json["fill"] | false;
     int w = x_1 - x_0;
     int h = y_1 - y_0;
     if (fill) { tft.fillRect(x_0, y_0, w, h, r_col); }
