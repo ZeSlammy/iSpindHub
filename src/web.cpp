@@ -145,8 +145,8 @@ void setJsonHandlers()
                 file_info+= "\"" + f_name+ "\"";
                 file_info+= ": { \"created\":\"";
                 struct tm * tmstruct = localtime(&cr);
-                char t_format[32];
-                sprintf(t_format,"%d-%02d-%02d %02d:%02d:%02d", (tmstruct->tm_year) + 1900, (tmstruct->tm_mon) + 1, tmstruct->tm_mday, tmstruct->tm_hour, tmstruct->tm_min, tmstruct->tm_sec);
+                char t_format[64];
+                snprintf(t_format, sizeof(t_format), "%d-%02d-%02d %02d:%02d:%02d", (tmstruct->tm_year) + 1900, (tmstruct->tm_mon) + 1, tmstruct->tm_mday, tmstruct->tm_hour, tmstruct->tm_min, tmstruct->tm_sec);
                 //store creation date
                 file_info+=String(t_format);
                 tmstruct = localtime(&lw);
