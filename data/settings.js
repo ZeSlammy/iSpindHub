@@ -95,8 +95,8 @@ function populateForm() { // Get current parameters
                 var tzNames = moment.tz.names();
                 for (var i = 0; i < tzNames.length; i++) {
                     var abbr = moment.tz.zone(tzNames[i]).abbr(Date.now());
-                    var opt = $('<option>').val(abbr).text(tzNames[i]);
-                    if (abbr === savedTZ) { opt.prop('selected', true); }
+                    var opt = $('<option>').val(tzNames[i]).text(abbr + ' - ' + tzNames[i]);
+                    if (tzNames[i] === savedTZ) { opt.prop('selected', true); }
                     $tzSelect.append(opt);
                 }
                 $('#ispindhubDST').val(config.ispindhub.dst_offset);

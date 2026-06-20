@@ -12,7 +12,7 @@ struct iSpindHub
 {
     // Stores iSpindHub configuration
     char name[32];
-    char TZ[32];
+    char TZ[64];
     int dst_offset;
     char screen_template[32];
     void load(JsonObjectConst);
