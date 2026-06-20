@@ -121,20 +121,23 @@ void setJsonHandlers()
         Dir dir = LittleFS.openDir("/data");
         String file_info = "{";
         while (dir.next()) {
-            //Porcessing One file at at time
+            yield(); // feed hardware WDT between files
             String f_name = dir.fileName();
             if(dir.fileSize()) {
                 File file = dir.openFile("r");
                 time_t cr = file.getCreationTime();
-                //Serial.println(cr);
                 time_t lw = file.getLastWrite();
-                //Serial.println(lw);
                 //Get Last Readings
                 String temp = file.readStringUntil('\r');
-                int line_len = temp.length()+1;
+                int line_len = temp.length() + 1;
                 int file_size = file.size();
-                float num_line = file_size/line_len;
-                file.seek(line_len,SeekEnd);
+                if (line_len <= 1 || file_size < line_len) {
+                    // File has no complete row yet — skip to avoid seek underflow
+                    file.close();
+                    continue;
+                }
+                float num_line = file_size / line_len;
+                file.seek(line_len, SeekEnd);
                 String lastData  = file.readString();
                 //String lastData = get_last_value(file.readString());
                 //Serial.println(iSpinData);
