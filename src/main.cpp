@@ -140,6 +140,8 @@ void loop()
   // put your main code here, to run repeatedly:
   Serial.println("Début du Loop");
   BFa_timer.update();
+  FT_timer.update();
+  BB_timer.update();
   FSInfo fs_info;
   LittleFS.info(fs_info);
   Dir dir = LittleFS.openDir("/data");

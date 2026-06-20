@@ -1,12 +1,13 @@
 #include "wifi.h"
 bool shouldSaveConfig = false;
 const byte DNS_PORT = 53;
-#define HTTP_PORT 80
 IPAddress apIP(192, 168, 4, 1);
-AsyncWebServer webServer(HTTP_PORT);
 AsyncDNSServer dnsServer;
 
-ESPAsync_WiFiManager wm(&webServer, &dnsServer, "iSpindHub");
+// Use the single AsyncWebServer instance from web.cpp to avoid having two
+// listeners on port 80 (which causes HTTP 500 on all our routes).
+extern AsyncWebServer server;
+ESPAsync_WiFiManager wm(&server, &dnsServer, "iSpindHub");
 
 void doWiFi()
 {
@@ -65,6 +66,17 @@ void doWiFi(bool dontUseStoredCreds)
         // blinker.attach_ms(STABLINK, wifiBlinker);
         wm.setConnectTimeout(30);
         wm.setConfigPortalTimeout(120);
+        // Disconnect any stale association first.
+        WiFi.disconnect(false);
+        // ESPAsync_WiFiManager v1.15.1 crashes (Exception 28) when the stored
+        // WiFi password is shorter than WPA minimum (8 chars) instead of
+        // falling back to the config portal.  Pre-check here and erase bad
+        // credentials so autoConnect opens a fresh portal instead of crashing.
+        if (!WiFi.SSID().isEmpty() && WiFi.psk().length() > 0 && WiFi.psk().length() < 8) {
+            Log.warning(F("Stored WiFi password too short (%d chars) — clearing to prevent WiFiManager crash." CR),
+                        (int)WiFi.psk().length());
+            WiFi.disconnect(true); // erase stored SSID/PSK
+        }
         if (!wm.autoConnect(APNAME, APPWD))
         {
             Log.warning(F("Failed to connect and/or hit timeout." CR));
