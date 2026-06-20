@@ -73,8 +73,18 @@ void doWiFi(bool dontUseStoredCreds)
         if (!WiFi.SSID().isEmpty() && WiFi.psk().length() > 0 && WiFi.psk().length() < 8) {
             Log.warning(F("Stored WiFi password too short (%d chars) — clearing to prevent WiFiManager crash." CR),
                         (int)WiFi.psk().length());
+            WiFi.persistent(true);
             WiFi.disconnect(true); // erase stored SSID/PSK
         }
+        // WiFi.disconnect() on ESP8266 with persistent=true (the default) calls
+        // wifi_station_set_config() with a zeroed struct, which writes blank
+        // credentials to flash.  ESPAsync_WiFiManager calls WiFi.disconnect()
+        // internally before every connection attempt, so without this guard it
+        // erases credentials on every boot.  Setting persistent=false makes all
+        // internal disconnects only modify the in-memory config, leaving flash
+        // untouched.  We restore persistent=true explicitly when we need to
+        // write (new portal credentials, or the short-password erase above).
+        WiFi.persistent(false);
         if (!wm.autoConnect(APNAME, APPWD))
         {
             Log.warning(F("Failed to connect and/or hit timeout." CR));
@@ -83,12 +93,20 @@ void doWiFi(bool dontUseStoredCreds)
         }
         else
         {
-            // We finished with portal (We were configured)
+            if (shouldSaveConfig)
+            {
+                // New credentials were entered in the config portal.
+                // Persist them to flash now that we know they work.
+                WiFi.persistent(true);
+                WiFi.begin(WiFi.SSID().c_str(), WiFi.psk().c_str());
+                WiFi.persistent(false);
+                Log.notice(F("New WiFi credentials saved to flash." CR));
+            }
+
             Log.notice(F("Get In Set HostName" CR));
             if (strlen(config.ispindhub.name) == 0)
             {
                 Log.notice(F(HOSTNAME CR));
-                // WiFi.setHostname(HOSTNAME);
                 WiFi.hostname(HOSTNAME);
                 WiFi.softAP(HOSTNAME, config.apconfig.passphrase);
             }
@@ -105,10 +123,6 @@ void doWiFi(bool dontUseStoredCreds)
             Log.notice(F("Get Out Set HostName" CR));
             saveConfig();
         }
-    }
-    if (shouldSaveConfig)
-    { // Save configuration
-      // Save configuration
     }
 
     Log.notice(F("Connected. IP address: %s." CR), WiFi.localIP().toString().c_str());
