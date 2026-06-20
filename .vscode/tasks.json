@@ -1,0 +1,89 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "PIO: Build Filesystem Image (1_4_inches_red)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t buildfs -e 1_4_inches_red",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Upload Filesystem Image (1_4_inches_red)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t uploadfs -e 1_4_inches_red",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Build Filesystem Image (1_4_inches_green)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t buildfs -e 1_4_inches_green",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Upload Filesystem Image (1_4_inches_green)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t uploadfs -e 1_4_inches_green",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Build Filesystem Image (1_4_inches_direct)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t buildfs -e 1_4_inches_direct",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Upload Filesystem Image (1_4_inches_direct)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t uploadfs -e 1_4_inches_direct",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Build Filesystem Image (1_7_inches)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t buildfs -e 1_7_inches",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Upload Filesystem Image (1_7_inches)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t uploadfs -e 1_7_inches",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Build Filesystem Image (2_inches)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t buildfs -e 2_inches",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Upload Filesystem Image (2_inches)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t uploadfs -e 2_inches",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Build Filesystem Image (2_4_inches_ILI9341)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t buildfs -e 2_4_inches_ILI9341",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Upload Filesystem Image (2_4_inches_ILI9341)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t uploadfs -e 2_4_inches_ILI9341",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        }
+    ]
+}
