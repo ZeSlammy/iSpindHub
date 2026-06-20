@@ -6,7 +6,7 @@ void pushBrewFather()
     {
 
         // create payload
-        StaticJsonDocument<400> payload;
+        JsonDocument payload;
         FSInfo fs_info;
         LittleFS.info(fs_info);
         Dir dir = LittleFS.openDir("/data");
@@ -109,7 +109,7 @@ void pushFermentrack()
         return;
     }
 
-    StaticJsonDocument<400> payload;
+    JsonDocument payload;
     FSInfo fs_info;
     LittleFS.info(fs_info);
     Dir dir = LittleFS.openDir("/data");
@@ -172,7 +172,7 @@ void pushBierBot()
         return;
     }
 
-    StaticJsonDocument<400> payload;
+    JsonDocument payload;
     FSInfo fs_info;
     LittleFS.info(fs_info);
     Dir dir = LittleFS.openDir("/data");
