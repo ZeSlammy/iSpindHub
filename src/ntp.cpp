@@ -52,7 +52,7 @@ void setClock() {
       TMZ = "CET";
     }
     Serial.println(TMZ);
-    Log.notice("Time Zone used is %", TMZ);
+    Log.notice(F("Time Zone used is %s" CR), TMZ);
     configTime(tzToOffsetSeconds(TMZ), (long)config.ispindhub.dst_offset * 3600, "pool.ntp.org", "time.nist.gov");
     time_t nowSecs = time(nullptr);
     time_t startSecs = time(nullptr);
