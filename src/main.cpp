@@ -137,7 +137,7 @@ void setup()
 
 void loop()
 {
-  // put your main code here, to run repeatedly:
+  handleWifiReconnect();
   Serial.println("Début du Loop");
   BFa_timer.update();
   FT_timer.update();

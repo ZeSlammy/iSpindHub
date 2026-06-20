@@ -14,6 +14,7 @@
 void doWiFi();
 void doWiFi(bool dontUseStoredCreds);
 void resetWifi();
+void handleWifiReconnect();
 extern struct Config config;
 // WiFiManager Callbacks
 // void apCallback(AsyncWiFiManager *myWiFiManager);

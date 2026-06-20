@@ -89,6 +89,16 @@ function populateForm() { // Get current parameters
                 $('#mdnsid').val(config.hostname);
                 $('#ispindhubname').val(config.ispindhub.name);
                 $('#ispindhubTZInfo').val(config.ispindhub.TZ);
+                var savedTZ = config.ispindhub.TZ;
+                var $tzSelect = $('#ispindhubTZ');
+                $tzSelect.empty();
+                var tzNames = moment.tz.names();
+                for (var i = 0; i < tzNames.length; i++) {
+                    var abbr = moment.tz.zone(tzNames[i]).abbr(Date.now());
+                    var opt = $('<option>').val(abbr).text(tzNames[i]);
+                    if (abbr === savedTZ) { opt.prop('selected', true); }
+                    $tzSelect.append(opt);
+                }
                 $('#ispindhubDST').val(config.ispindhub.dst_offset);
                 $('#urltargeturl').val(config.urltarget.url);
                 $('#urlfreq').val(config.urltarget.freq);

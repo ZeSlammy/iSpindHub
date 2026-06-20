@@ -1190,29 +1190,6 @@
           document.readyState === "complete"
         ) {
           populatePage();
-          var TZinfo = ispindhubTZInfo.value;
-          console.log(TZinfo);
-          var timezone = moment.tz.names();
-          for (var i = 0; i < timezone.length; i++) {
-            
-            if (moment.tz.zone(timezone[i]).abbr(Date.now()) == TZinfo) {
-              $("#ispindhubTZ").append(
-                '<option selected value="' +
-                  moment.tz.zone(timezone[i]).abbr(Date.now()) +
-                  '">' +
-                  timezone[i] +
-                  "</option>"
-              );
-            } else {
-              $("#ispindhubTZ").append(
-                '<option value="' +
-                  moment.tz.zone(timezone[i]).abbr(Date.now()) +
-                  '">' +
-                  timezone[i] +
-                  "</option>"
-              );
-            }
-          }
         } else {
           document.onreadystatechange = function () {
             if (document.readyState == "complete") {

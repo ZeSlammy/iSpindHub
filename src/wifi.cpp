@@ -1,5 +1,6 @@
 #include "wifi.h"
 bool shouldSaveConfig = false;
+volatile bool wifiLost = false;
 const byte DNS_PORT = 53;
 IPAddress apIP(192, 168, 4, 1);
 AsyncDNSServer dnsServer;
@@ -164,48 +165,58 @@ void saveParamsCallback()
 //     Log.verbose(F("[CALLBACK]: setWebServerCallback fired." CR));
 // }
 
+// Called in ESP8266 system task context (ctx: sys) — keep it minimal.
+// Blocking operations here (delay, WiFi.begin, malloc) cause Exception 9.
+// Set a flag and let handleWifiReconnect() do the real work from loop().
 void WiFiEvent(WiFiEvent_t event)
 {
-    Log.notice(F("[WiFi-event] event: %d" CR), event);
     if (!WiFi.isConnected())
     {
-        Log.warning(F("WiFi lost connection.."));
-        WiFi.begin();
+        wifiLost = true;
+    }
+}
 
-        int WLcount = 0;
-        while (!WiFi.isConnected() && WLcount < 190)
-        {
-            delay(100);
-            Serial.print(".");
-            ++WLcount;
-        }
+void handleWifiReconnect()
+{
+    if (!wifiLost) return;
+    wifiLost = false;
+    if (WiFi.isConnected()) return; // auto-reconnected before loop() ran
 
-        if (!WiFi.isConnected())
+    Log.warning(F("WiFi lost connection, attempting reconnect." CR));
+    WiFi.begin();
+
+    int WLcount = 0;
+    while (!WiFi.isConnected() && WLcount < 190)
+    {
+        delay(100);
+        Serial.print(".");
+        ++WLcount;
+    }
+    Serial.println();
+
+    if (!WiFi.isConnected())
+    {
+        Log.error(F("Unable to reconnect WiFi, restarting." CR));
+        delay(1000);
+        ESP.restart();
+    }
+    else
+    {
+        bool isdeployed;
+        if (strlen(config.ispindhub.name) == 0)
         {
-            // We failed to reconnect.
-            Log.error(F("Unable to reconnect WiFI, restarting." CR));
-            delay(1000);
-            ESP.restart();
+            isdeployed = WiFi.softAP(APNAME, config.apconfig.passphrase);
         }
         else
         {
-            bool isdeployed;
-            if (strlen(config.ispindhub.name) == 0)
-            {
-                isdeployed = WiFi.softAP(APNAME, config.apconfig.passphrase);
-            }
-            else
-            {
-                isdeployed = WiFi.softAP(config.ispindhub.name, config.apconfig.passphrase);
-            }
-
-            if (!isdeployed)
-            {
-                Log.error(F("Unable to start softAP, restarting." CR));
-                delay(1000);
-                ESP.restart();
-            }
+            isdeployed = WiFi.softAP(config.ispindhub.name, config.apconfig.passphrase);
         }
-        Serial.println();
+
+        if (!isdeployed)
+        {
+            Log.error(F("Unable to start softAP, restarting." CR));
+            delay(1000);
+            ESP.restart();
+        }
     }
 }
