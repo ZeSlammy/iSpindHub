@@ -121,7 +121,6 @@ void setJsonHandlers()
         Dir dir = LittleFS.openDir("/data");
         String file_info = "{";
         while (dir.next()) {
-            ESP.wdtFeed(); // ISR-safe WDT reset (yield() panics in TCP callback context)
             String f_name = dir.fileName();
             if(dir.fileSize()) {
                 File file = dir.openFile("r");
