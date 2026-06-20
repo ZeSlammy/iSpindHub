@@ -53,7 +53,7 @@ void setJsonHandlers()
             //    Serial.write(data[i]);
             //}
 
-            JsonDocument jdoc;
+            StaticJsonDocument<300> jdoc;
             DeserializationError error = deserializeJson(jdoc, (const char*)data);
             Log.verbose(F("Parsing json from ispindel.\n"));
             if (!error) {
@@ -214,79 +214,44 @@ void setJsonHandlers()
     });
 
     server.on("/resetreason/", HTTP_GET, [](AsyncWebServerRequest *request) {
-        // Used to provide the reset reason json
         Log.verbose(F("Sending /resetreason/." CR));
-
-        JsonDocument doc;
-        JsonObject r = doc["r"].to<JsonObject>();
-
         rst_info *_reset = ESP.getResetInfoPtr();
         unsigned int reset = (unsigned int)(*_reset).reason;
-
-        r["reason"] = resetReason[reset];
-        r["description"] = resetDescription[reset];
-
-        String resetreason;
-        serializeJson(doc, resetreason);
-        request->send(200, F("text/plain"), resetreason);
+        char buf[256];
+        snprintf(buf, sizeof(buf),
+            "{\"r\":{\"reason\":\"%s\",\"description\":\"%s\"}}",
+            resetReason[reset], resetDescription[reset]);
+        request->send(200, F("text/plain"), buf);
     });
 
     server.on("/heap/", HTTP_GET, [](AsyncWebServerRequest *request) {
-        // Used to provide the heap json
         Log.verbose(F("Sending /heap/." CR));
-
-        JsonDocument doc;
-        JsonObject h = doc["h"].to<JsonObject>();
-
         uint32_t free;
         uint16_t max;
         uint8_t frag;
         ESP.getHeapStats(&free, &max, &frag);
-
-        h["free"] = free;
-        h["max"] = max;
-        h["frag"] = frag;
-
-        String heap;
-        serializeJson(doc, heap);
-        request->send(200, F("text/plain"), heap);
+        char buf[80];
+        snprintf(buf, sizeof(buf),
+            "{\"h\":{\"free\":%u,\"max\":%u,\"frag\":%u}}", free, max, frag);
+        request->send(200, F("text/plain"), buf);
     });
 
     server.on("/uptime/", HTTP_GET, [](AsyncWebServerRequest *request) {
-        // Used to provide the uptime json
         Log.verbose(F("Sending /uptime/." CR));
-
-        JsonDocument doc;
-        JsonObject u = doc["u"].to<JsonObject>();
-
-        const int days = uptimeDays();
-        const int hours = uptimeHours();
-        const int minutes = uptimeMinutes();
-        const int seconds = uptimeSeconds();
-        const int millis = uptimeMillis();
-
-        u["days"] = days;
-        u["hours"] = hours;
-        u["minutes"] = minutes;
-        u["seconds"] = seconds;
-        u["millis"] = millis;
-
-        String ut = "";
-        serializeJson(doc, ut);
-        request->send(200, F("text/plain"), ut);
+        char buf[96];
+        snprintf(buf, sizeof(buf),
+            "{\"u\":{\"days\":%d,\"hours\":%d,\"minutes\":%d,\"seconds\":%d,\"millis\":%d}}",
+            uptimeDays(), uptimeHours(), uptimeMinutes(), uptimeSeconds(), uptimeMillis());
+        request->send(200, F("text/plain"), buf);
     });
 
         server.on("/thisVersion/", HTTP_GET, [](AsyncWebServerRequest *request) {
         Log.verbose(F("Serving /thisVersion/." CR));
-        JsonDocument doc;
-
-        doc["version"] = version();
-        doc["branch"] = branch();
-        doc["build"] = build();
-
-        String json;
-        serializeJsonPretty(doc, json);
-        request->send(200, F("application/json"), json);
+        char buf[160];
+        snprintf(buf, sizeof(buf),
+            "{\n  \"version\": \"%s\",\n  \"branch\": \"%s\",\n  \"build\": \"%s\"\n}",
+            version(), branch(), build());
+        request->send(200, F("application/json"), buf);
     });
 
 
