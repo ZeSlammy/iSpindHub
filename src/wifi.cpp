@@ -66,8 +66,6 @@ void doWiFi(bool dontUseStoredCreds)
         // blinker.attach_ms(STABLINK, wifiBlinker);
         wm.setConnectTimeout(30);
         wm.setConfigPortalTimeout(120);
-        // Disconnect any stale association first.
-        WiFi.disconnect(false);
         // ESPAsync_WiFiManager v1.15.1 crashes (Exception 28) when the stored
         // WiFi password is shorter than WPA minimum (8 chars) instead of
         // falling back to the config portal.  Pre-check here and erase bad
