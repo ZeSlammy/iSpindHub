@@ -236,9 +236,7 @@ Leave `"f"` as `""` to keep the current font and use `"s"` for a size multiplier
 
 ## Not yet implemented
 
-The following type is parsed but not rendered:
-
-- **`"t": "var_text"`** — text whose content varies by value (stubbed, silently skipped)
+`"t": "var_text"` is recognised by the parser but silently skipped — no rendering code exists for it. Variable substitution (`#SG`, `#IP`, etc.) is fully supported inside ordinary `"t": "text"` lines and does not require this type.
 
 ---
 
