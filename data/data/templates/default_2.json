@@ -1,55 +1,50 @@
 {
-    "global": {
-        "back_color": "TFT_BLACK" ,
-        "font_color": "TFT_BLUE",
-        "text_wrap" : false
-
+    "g": {
+        "bc": "TFT_BLACK",
+        "fc": "TFT_WHITE",
+        "tw": false
     },
-    "line": {
-        "type": "text",
-        "font": "",
-        "color": "",
+    "line 1": {
+        "t": "text",
+        "f": "FreeSansGras12",
+        "c": "TFT_WHITE",
         "x": 0,
-        "y": 18,
-        "center": true,
+        "y": 10,
+        "ctr": true,
         "text": "SG: #SG"
     },
-    "line": {
-        "type": "text",
-        "font": "FreeSans9",
-        "color": "TFT_BLUE",
-        "x": 87,
-        "y": 50,
-        "center": true,
-        "text": "Voltage: #Voltage"
-    },
     "line 2": {
-        "type": "variable_text",
-        "font": "FreeSansGras12",
-        "variable" : "#RSSI",
-        "colors": {
-            "65": "TFT_GREEN",
-            "70": "TFT_YELLOW",
-            "80": "TFT_ORANGE",
-            "default": "TFT_RED"
-        },
+        "t": "text",
+        "f": "FreeSans9",
+        "c": "TFT_BLUE",
         "x": 0,
-        "y": 18,
-        "center": true,
-        "text": "Signal: #RSSI dB"
+        "y": 40,
+        "ctr": true,
+        "text": "Voltage: #VoltageV"
     },
     "line 3": {
-        "type": "rectangle",
-        "color": "TFT_MAGENTA",
-        "x_0": 0,
-        "y_0": 0,
-        "x_1": 128,
-        "y_1": 128
+        "t": "text",
+        "f": "FreeSans9",
+        "s": 1,
+        "var": "#RSSI",
+        "cs": [
+            {"val": 65, "col": "TFT_GREEN"},
+            {"val": 70, "col": "TFT_YELLOW"},
+            {"val": 80, "col": "TFT_ORANGE"}
+        ],
+        "def_col": "TFT_RED",
+        "x": 0,
+        "y": 65,
+        "ctr": true,
+        "text": "Signal: #RSSI dB"
     },
     "line 4": {
-        "type": "line",
-        "color": "TFT_YELLOW",
-        "x_0": 0,
-        "y_0": 0
+        "t": "text",
+        "f": "FreeSans9",
+        "c": "TFT_CYAN",
+        "x": 0,
+        "y": 90,
+        "ctr": true,
+        "text": "#deviceName"
     }
 }
