@@ -53,7 +53,7 @@ void setJsonHandlers()
             //    Serial.write(data[i]);
             //}
 
-            StaticJsonDocument<300> jdoc;
+            JsonDocument jdoc;
             DeserializationError error = deserializeJson(jdoc, (const char*)data);
             Log.verbose(F("Parsing json from ispindel.\n"));
             if (!error) {
@@ -145,7 +145,7 @@ void setJsonHandlers()
                 file_info+= "\"" + f_name+ "\"";
                 file_info+= ": { \"created\":\"";
                 struct tm * tmstruct = localtime(&cr);
-                char t_format[25];
+                char t_format[32];
                 sprintf(t_format,"%d-%02d-%02d %02d:%02d:%02d", (tmstruct->tm_year) + 1900, (tmstruct->tm_mon) + 1, tmstruct->tm_mday, tmstruct->tm_hour, tmstruct->tm_min, tmstruct->tm_sec);
                 //store creation date
                 file_info+=String(t_format);
@@ -199,9 +199,8 @@ void setJsonHandlers()
         // Used to provide the reset reason json
         Log.verbose(F("Sending /resetreason/." CR));
 
-        const size_t capacity = JSON_OBJECT_SIZE(1) + JSON_OBJECT_SIZE(2);
-        StaticJsonDocument<capacity> doc;
-        JsonObject r = doc.createNestedObject("r");
+        JsonDocument doc;
+        JsonObject r = doc["r"].to<JsonObject>();
 
         rst_info *_reset = ESP.getResetInfoPtr();
         unsigned int reset = (unsigned int)(*_reset).reason;
@@ -218,9 +217,8 @@ void setJsonHandlers()
         // Used to provide the heap json
         Log.verbose(F("Sending /heap/." CR));
 
-        const size_t capacity = JSON_OBJECT_SIZE(1) + JSON_OBJECT_SIZE(3);
-        StaticJsonDocument<capacity> doc;
-        JsonObject h = doc.createNestedObject("h");
+        JsonDocument doc;
+        JsonObject h = doc["h"].to<JsonObject>();
 
         uint32_t free;
         uint16_t max;
@@ -240,9 +238,8 @@ void setJsonHandlers()
         // Used to provide the uptime json
         Log.verbose(F("Sending /uptime/." CR));
 
-        const size_t capacity = JSON_OBJECT_SIZE(1) + JSON_OBJECT_SIZE(5);
-        StaticJsonDocument<capacity> doc;
-        JsonObject u = doc.createNestedObject("u");
+        JsonDocument doc;
+        JsonObject u = doc["u"].to<JsonObject>();
 
         const int days = uptimeDays();
         const int hours = uptimeHours();
@@ -263,7 +260,6 @@ void setJsonHandlers()
 
         server.on("/thisVersion/", HTTP_GET, [](AsyncWebServerRequest *request) {
         Log.verbose(F("Serving /thisVersion/." CR));
-        const size_t capacity = JSON_OBJECT_SIZE(3);
         JsonDocument doc;
 
         doc["version"] = version();
