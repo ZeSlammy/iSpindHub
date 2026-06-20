@@ -193,7 +193,17 @@ void setJsonHandlers()
         file_info+= "}";
         request->send(200, F("application/json"), file_info);
     });
-    // JSON Handlers
+    // JSON Handlers — redirect bare paths (no trailing slash) to canonical form
+    auto slashRedirect = [](AsyncWebServerRequest *request) {
+        request->redirect(request->url() + "/");
+    };
+    server.on("/thisVersion",  HTTP_GET, slashRedirect);
+    server.on("/config",       HTTP_GET, slashRedirect);
+    server.on("/uptime",       HTTP_GET, slashRedirect);
+    server.on("/heap",         HTTP_GET, slashRedirect);
+    server.on("/resetreason",  HTTP_GET, slashRedirect);
+    server.on("/templates",    HTTP_GET, slashRedirect);
+    server.on("/iSpindInfo",   HTTP_GET, slashRedirect);
 
     server.on("/templates/", HTTP_GET, [](AsyncWebServerRequest *request) {
         // List available screen templates (filenames without .json extension)
