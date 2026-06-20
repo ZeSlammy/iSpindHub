@@ -1,10 +1,7 @@
 #include "web.h"
 #include "resetreasons.h"
 AsyncWebServer server(80);
-//extern Adafruit_ST7735 tft;
 
-//const size_t capacitySerial = 3 * JSON_OBJECT_SIZE(2) + JSON_OBJECT_SIZE(3) + 3 * JSON_OBJECT_SIZE(4) + JSON_OBJECT_SIZE(11);
-//const size_t capacityDeserial = capacitySerial + 810;
 const char *build() { return stringify(PIO_SRC_REV); }
 const char *branch() { return stringify(PIO_SRC_BRH); }
 const char *version() { return stringify(PIO_SRC_TAG); }
@@ -39,11 +36,8 @@ void setRegPageAliases()
     server.serveStatic("/wifi/", LittleFS, "/").setDefaultFile("wifi.htm").setCacheControl("max-age=600");
 }
 void setActionPageHandlers()
-{   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-        Log.notice("Connected on /");
-        request->send(200, F("text/plain"), "Hello World");
-    });
-        server.on("/wifi2/", HTTP_GET, [](AsyncWebServerRequest *request) {
+{
+    server.on("/wifi2/", HTTP_GET, [](AsyncWebServerRequest *request) {
         Log.verbose(F("Processing /wifi2/." CR));
         request->send(LittleFS, "/wifi2.htm");
         resetWifi(); // Wipe settings, reset controller
@@ -60,24 +54,15 @@ void setJsonHandlers()
             //}
 
             StaticJsonDocument<300> jdoc;
-            //ReadLoggingStream loggingStream(data, Serial);
-            //DeserializationError error = deserializeJson(jdoc, loggingStream);
             DeserializationError error = deserializeJson(jdoc, (const char*)data);
             Log.verbose(F("Parsing json from ispindel.\n"));
             if (!error) {
-                //tft.fillRect(0,0,128,20,ST7735_BLACK);
-                // Get Data from JSON 
-                float data_size = jdoc.size();
+                int data_size = jdoc.size();
                 const char* name = jdoc["name"];
-                //long id = jdoc["ID"];
                 float angle = jdoc["angle"];
                 const char* t_unit = jdoc["temp_units"];
                 float temp = jdoc["temperature"];
                 float battery = jdoc["battery"];
-                // Output iSpindel Name
-                //Serial.println("name of file");
-                //Serial.println(name);
-                //Serial.println(temp);
                 
                 // Build and open file
                 String fname = String("/data/") + String(name) + String(".csv");
@@ -204,15 +189,6 @@ void setJsonHandlers()
         int size_info = file_info.length()-1;
         file_info.remove(size_info,1);
         file_info+= "}";
-        //Serial.print(file_info);
-        //const size_t capacity = JSON_OBJECT_SIZE(8) + 210;
-        //StaticJsonDocument<capacity> doc;
-        //JsonObject root = doc.to<JsonObject>();
-        //Serial.print(root);
-        //String json;
-        //serializeJsonPretty(doc, json);
-
-        //request->send(200, F("application/json"), json);
         request->send(200, F("application/json"), file_info);
     });
     // JSON Handlers
@@ -410,6 +386,57 @@ void setSettingsAliases()
         request->send(405, F("text/plain"), F("Method not allowed."));
     });
 
+    server.on("/settings/apconfig/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/apconfig/." CR));
+        if (handleApConfigPost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/apconfig/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/apconfig/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+
+    server.on("/settings/fermentracktarget/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/fermentracktarget/." CR));
+        if (handleFermentrackPost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/fermentracktarget/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/fermentracktarget/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+
+    server.on("/settings/bierbottarget/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/bierbottarget/." CR));
+        if (handleBierBotPost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/bierbottarget/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/bierbottarget/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+
 }
 bool handleURLTargetPost(AsyncWebServerRequest *request) // Handle URL Target Post
 {
@@ -500,7 +527,7 @@ bool handleiSpindHubPost(AsyncWebServerRequest *request) // Handle controller se
             }
             if (strcmp(name, "ispindhubTZ") == 0) // Set iSpindHub TimeZone
             {
-                if ((strlen(value) < 3) || (strlen(value) > 5))
+                if ((strlen(value) < 3) || (strlen(value) > 32))
                 {
                     Log.warning(F("Settings update error, [%s]:(%s) not valid." CR), name, value);
                 }
@@ -509,6 +536,18 @@ bool handleiSpindHubPost(AsyncWebServerRequest *request) // Handle controller se
                     strlcpy(config.ispindhub.TZ, value, sizeof(config.ispindhub.TZ));
                     Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
                     //ESP.restart();
+                }
+            }
+            if (strcmp(name, "ispindhubDST") == 0) // Set iSpindHub DST offset
+            {
+                if ((atoi(value) < 0) || (atoi(value) > 2))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not valid." CR), name, value);
+                }
+                else
+                {
+                    config.ispindhub.dst_offset = atoi(value);
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
                 }
             }
         }
@@ -641,6 +680,176 @@ bool handleBPiLessPost(AsyncWebServerRequest *request) // Handle URL Target Post
     else
     {
         Log.error(F("Error: Unable to save BPiless configuration data." CR));
+        return false;
+    }
+}
+
+bool handleApConfigPost(AsyncWebServerRequest *request) // Handle AP Config Post
+{
+    // Loop through all parameters
+    int params = request->params();
+    for (int i = 0; i < params; i++)
+    {
+        AsyncWebParameter *p = request->getParam(i);
+        if (p->isPost())
+        {
+            // Process any p->name().c_str() / p->value().c_str() pairs
+            const char *name = p->name().c_str();
+            const char *value = p->value().c_str();
+            Log.verbose(F("Processing [%s]:(%s) pair." CR), name, value);
+
+            if (strcmp(name, "apssid") == 0) // Change AP SSID
+            {
+                if ((strlen(value) < 3) || (strlen(value) > 32))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    strlcpy(config.apconfig.ssid, value, sizeof(config.apconfig.ssid));
+                }
+            }
+            if (strcmp(name, "appassphrase") == 0) // Change AP passphrase
+            {
+                if (strlen(value) == 0)
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied. Open AP." CR), name, value);
+                    strlcpy(config.apconfig.passphrase, value, sizeof(config.apconfig.passphrase));
+                }
+                else if ((strlen(value) < 8) || (strlen(value) > 63))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    strlcpy(config.apconfig.passphrase, value, sizeof(config.apconfig.passphrase));
+                }
+            }
+        }
+    }
+    if (saveConfig())
+    {
+        return true;
+    }
+    else
+    {
+        Log.error(F("Error: Unable to save AP configuration data." CR));
+        return false;
+    }
+}
+
+bool handleFermentrackPost(AsyncWebServerRequest *request) // Handle Fermentrack Target Post
+{
+    // Loop through all parameters
+    int params = request->params();
+    for (int i = 0; i < params; i++)
+    {
+        AsyncWebParameter *p = request->getParam(i);
+        if (p->isPost())
+        {
+            // Process any p->name().c_str() / p->value().c_str() pairs
+            const char *name = p->name().c_str();
+            const char *value = p->value().c_str();
+            Log.verbose(F("Processing [%s]:(%s) pair." CR), name, value);
+
+            if (strcmp(name, "fermentrackurl") == 0) // Change Fermentrack URL
+            {
+                if (strlen(value) == 0)
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied. Disabling Fermentrack target." CR), name, value);
+                    strlcpy(config.fermentrack.url, value, sizeof(config.fermentrack.url));
+                }
+                else if ((strlen(value) < 3) || (strlen(value) > 128))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    strlcpy(config.fermentrack.url, value, sizeof(config.fermentrack.url));
+                }
+            }
+            if (strcmp(name, "fermentrackfreq") == 0) // Change Fermentrack frequency
+            {
+                if ((atoi(value) < 1) || (atoi(value) > 60))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    config.fermentrack.freq = atoi(value);
+                    config.fermentrack.update = true;
+                }
+            }
+        }
+    }
+    if (saveConfig())
+    {
+        return true;
+    }
+    else
+    {
+        Log.error(F("Error: Unable to save Fermentrack configuration data." CR));
+        return false;
+    }
+}
+
+bool handleBierBotPost(AsyncWebServerRequest *request) // Handle BierBot Target Post
+{
+    // Loop through all parameters
+    int params = request->params();
+    for (int i = 0; i < params; i++)
+    {
+        AsyncWebParameter *p = request->getParam(i);
+        if (p->isPost())
+        {
+            // Process any p->name().c_str() / p->value().c_str() pairs
+            const char *name = p->name().c_str();
+            const char *value = p->value().c_str();
+            Log.verbose(F("Processing [%s]:(%s) pair." CR), name, value);
+
+            if (strcmp(name, "bierbotkey") == 0) // Change BierBot key
+            {
+                if (strlen(value) == 0)
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied. Disabling BierBot target." CR), name, value);
+                    strlcpy(config.bierbot.key, value, sizeof(config.bierbot.key));
+                }
+                else if ((strlen(value) < 10) || (strlen(value) > 64))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    strlcpy(config.bierbot.key, value, sizeof(config.bierbot.key));
+                }
+            }
+            if (strcmp(name, "bierbotfreq") == 0) // Change BierBot frequency
+            {
+                if ((atoi(value) < 2) || (atoi(value) > 120))
+                {
+                    Log.warning(F("Settings update error, [%s]:(%s) not applied." CR), name, value);
+                }
+                else
+                {
+                    Log.notice(F("Settings update, [%s]:(%s) applied." CR), name, value);
+                    config.bierbot.freq = atoi(value);
+                    config.bierbot.update = true;
+                }
+            }
+        }
+    }
+    if (saveConfig())
+    {
+        return true;
+    }
+    else
+    {
+        Log.error(F("Error: Unable to save BierBot configuration data." CR));
         return false;
     }
 }

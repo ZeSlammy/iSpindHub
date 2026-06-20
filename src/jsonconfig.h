@@ -13,6 +13,7 @@ struct iSpindHub
     // Stores iSpindHub configuration
     char name[32];
     char TZ[32];
+    int dst_offset;
     void load(JsonObjectConst);
     void save(JsonObject) const;
 };
@@ -58,8 +59,10 @@ struct Config
     ApConfig apconfig;
     URLTarget urltarget;
     URLTarget bpiless;
+    URLTarget fermentrack;
     KeyTarget brewersfriend;
     KeyTarget brewfather;
+    KeyTarget bierbot;
     bool nodrd;
 
     void load(JsonObjectConst);

@@ -80,7 +80,7 @@ void doWiFi(bool dontUseStoredCreds)
                 Log.notice(F(HOSTNAME CR));
                 // WiFi.setHostname(HOSTNAME);
                 WiFi.hostname(HOSTNAME);
-                WiFi.softAP(HOSTNAME);
+                WiFi.softAP(HOSTNAME, config.apconfig.passphrase);
             }
             else
             {
@@ -89,7 +89,7 @@ void doWiFi(bool dontUseStoredCreds)
                 Log.notice(config.ispindhub.name);
                 Log.notice(F(CR));
                 WiFi.hostname(config.ispindhub.name);
-                WiFi.softAP(config.ispindhub.name);
+                WiFi.softAP(config.ispindhub.name, config.apconfig.passphrase);
             }
 
             Log.notice(F("Get Out Set HostName" CR));
@@ -168,11 +168,11 @@ void WiFiEvent(WiFiEvent_t event)
             bool isdeployed;
             if (strlen(config.ispindhub.name) == 0)
             {
-                isdeployed = WiFi.softAP(APNAME);
+                isdeployed = WiFi.softAP(APNAME, config.apconfig.passphrase);
             }
             else
             {
-                isdeployed = WiFi.softAP(config.ispindhub.name);
+                isdeployed = WiFi.softAP(config.ispindhub.name, config.apconfig.passphrase);
             }
 
             if (!isdeployed)

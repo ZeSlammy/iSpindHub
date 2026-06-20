@@ -344,6 +344,7 @@ void iSpindHub::save(JsonObject obj) const
 {
     obj["name"] = name;
     obj["TZ"] = TZ;
+    obj["dst_offset"] = dst_offset;
 }
 
 void iSpindHub::load(JsonObjectConst obj)
@@ -370,6 +371,16 @@ void iSpindHub::load(JsonObjectConst obj)
         const char *tm = obj["TZ"];
         strlcpy(TZ, tm, sizeof(TZ));
     }
+
+    if (obj["dst_offset"].isNull())
+    {
+        dst_offset = 0;
+    }
+    else
+    {
+        int d = obj["dst_offset"];
+        dst_offset = d;
+    }
 }
 
 void Config::load(JsonObjectConst obj)
@@ -380,8 +391,11 @@ void Config::load(JsonObjectConst obj)
     apconfig.load(obj["apconfig"]);
     ispindhub.load(obj["ispindhub"]);
     urltarget.load(obj["urltarget"]);
+    bpiless.load(obj["bpiless"]);
+    fermentrack.load(obj["fermentrack"]);
     brewersfriend.load(obj["brewersfriend"]);
     brewfather.load(obj["brewfather"]);
+    bierbot.load(obj["bierbot"]);
 }
 
 void Config::save(JsonObject obj) const
@@ -395,8 +409,12 @@ void Config::save(JsonObject obj) const
     urltarget.save(obj["urltarget"].to<JsonObject>());
     // Add BrewPiLess object
     bpiless.save(obj["bpiless"].to<JsonObject>());
+    // Add Fermentrack object
+    fermentrack.save(obj["fermentrack"].to<JsonObject>());
     // Add Brewer's Friend object
     brewersfriend.save(obj["brewersfriend"].to<JsonObject>());
     // Add Brewfather object
     brewfather.save(obj["brewfather"].to<JsonObject>());
+    // Add BierBot object
+    bierbot.save(obj["bierbot"].to<JsonObject>());
 }

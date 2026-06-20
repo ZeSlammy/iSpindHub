@@ -157,6 +157,12 @@
                 <a class="dropdown-item" data-toggle="tab" href="#brewfather"
                   >Brewfather</a
                 >
+                <a class="dropdown-item" data-toggle="tab" href="#fermentrack"
+                  >Fermentrack</a
+                >
+                <a class="dropdown-item" data-toggle="tab" href="#bierbot"
+                  >BierBot</a
+                >
               </div>
             </li>
             <!-- Targets Nav Item -->
@@ -176,6 +182,9 @@
                   >Reset</a
                 >
                 <a class="dropdown-item" data-toggle="tab" href="#wifi">Wifi</a>
+                <a class="dropdown-item" data-toggle="tab" href="#apconfig"
+                  >Access Point</a
+                >
               </div>
             </li>
             <!-- Advanced Nav Item -->
@@ -259,6 +268,27 @@
                             id="ispindhubTZ"
                             name="ispindhubTZ"
                           ></select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label
+                          for="ispindhubDST"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="DST hour offset added on top of the base timezone"
+                        >
+                          DST Offset
+                        </label>
+                        <div class="col-sm-9">
+                          <select
+                            class="form-control"
+                            id="ispindhubDST"
+                            name="ispindhubDST"
+                          >
+                            <option value="0">No DST (standard time)</option>
+                            <option value="1">+1 hour</option>
+                            <option value="2">+2 hours</option>
+                          </select>
                         </div>
                       </div>
                       <div class="row col-sm-12 justify-content-center">
@@ -808,6 +838,247 @@
               </div>
             </div>
             <!-- Wifi Reset tab -->
+
+            <!-- AP Config tab -->
+            <div class="tab-pane fade" id="apconfig">
+              <div class="card-header">
+                <h4 class="card-title">Access Point Settings</h4>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <p class="card-text">
+                      Configure the SSID and optional passphrase for the
+                      iSpindHub soft access point. Leave passphrase empty for an
+                      open AP.
+                    </p>
+                    <form
+                      class="form-group"
+                      id="apconfig"
+                      action="/settings/apconfig/"
+                      method="POST"
+                      onsubmit="return processPost(this);"
+                    >
+                      <div class="form-group row">
+                        <label
+                          for="apssid"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="SSID for the access point (3-32 characters)"
+                        >
+                          SSID
+                        </label>
+                        <div class="col-sm-9">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="apssid"
+                            name="apssid"
+                            minlength="3"
+                            maxlength="32"
+                            placeholder="iSpindHub"
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label
+                          for="appassphrase"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="Passphrase for the access point (8-63 characters, or empty for open AP)"
+                        >
+                          Passphrase
+                        </label>
+                        <div class="col-sm-9">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="appassphrase"
+                            name="appassphrase"
+                            maxlength="63"
+                            placeholder="leave empty for open AP"
+                          />
+                        </div>
+                      </div>
+                      <div class="row col-sm-12 justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          id="submitSettings"
+                          onclick="if(!this.form.checkValidity(this)){return (false);}"
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- AP Config tab -->
+
+            <!-- Fermentrack Settings tab -->
+            <div class="tab-pane fade" id="fermentrack">
+              <div class="card-header">
+                <h4 class="card-title">Fermentrack Target Settings</h4>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <p class="card-text">
+                      These settings control how iSpindHub forwards iSpindel
+                      information to a self-hosted
+                      <a href="https://www.fermentrack.com/">Fermentrack</a>
+                      instance. To disable pushing to Fermentrack, delete the
+                      URL.
+                    </p>
+
+                    <form
+                      class="form-group"
+                      id="fermentrack"
+                      action="/settings/fermentracktarget/"
+                      method="POST"
+                      onsubmit="return processPost(this);"
+                    >
+                      <div class="form-group row">
+                        <label
+                          for="fermentrackurl"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="Base URL of your Fermentrack instance. Delete to disable."
+                        >
+                          URL
+                        </label>
+                        <div class="col-sm-9">
+                          <input
+                            type="url"
+                            class="form-control"
+                            id="fermentrackurl"
+                            name="fermentrackurl"
+                            minlength="3"
+                            maxlength="128"
+                            placeholder="http://fermentrack.local"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label
+                          for="fermentrackfreq"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="How often (in minutes) to push data to Fermentrack"
+                          >Push Frequency</label
+                        >
+                        <div class="col-sm-9">
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="fermentrackfreq"
+                            name="fermentrackfreq"
+                            placeholder="15"
+                            min="1"
+                            max="60"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="row col-sm-12 justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          id="submitSettings"
+                          onclick="if(!this.form.checkValidity(this)){return (false);}"
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Fermentrack Settings tab -->
+
+            <!-- BierBot Settings tab -->
+            <div class="tab-pane fade" id="bierbot">
+              <div class="card-header">
+                <h4 class="card-title">BierBot Target Settings</h4>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <p class="card-text">
+                      These settings control how iSpindHub forwards iSpindel
+                      information to
+                      <a href="https://www.bierbot.com/">BierBot Bricks</a>.
+                      To disable pushing to BierBot, delete the key.
+                    </p>
+
+                    <form
+                      class="form-group"
+                      id="bierbot"
+                      action="/settings/bierbottarget/"
+                      method="POST"
+                      onsubmit="return processPost(this);"
+                    >
+                      <div class="form-group row">
+                        <label
+                          for="bierbotkey"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="Enter the API key from your BierBot account. To disable pushing to BierBot, delete the key."
+                        >
+                          API Key
+                        </label>
+                        <div class="col-sm-9">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="bierbotkey"
+                            name="bierbotkey"
+                            minlength="10"
+                            maxlength="64"
+                            placeholder="your-bierbot-api-key"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label
+                          for="bierbotfreq"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="How often (in minutes) to push data to BierBot"
+                          >Push Frequency</label
+                        >
+                        <div class="col-sm-9">
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="bierbotfreq"
+                            name="bierbotfreq"
+                            placeholder="15"
+                            min="2"
+                            max="120"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="row col-sm-12 justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          id="submitSettings"
+                          onclick="if(!this.form.checkValidity(this)){return (false);}"
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- BierBot Settings tab -->
+
           </div>
           <!-- Nav Tab Content -->
         </div>

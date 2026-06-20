@@ -89,12 +89,19 @@ function populateForm() { // Get current parameters
                 $('#mdnsid').val(config.hostname);
                 $('#ispindhubname').val(config.ispindhub.name);
                 $('#ispindhubTZInfo').val(config.ispindhub.TZ);
+                $('#ispindhubDST').val(config.ispindhub.dst_offset);
                 $('#urltargeturl').val(config.urltarget.url);
                 $('#urlfreq').val(config.urltarget.freq);
                 $('#brewersfriendkey').val(config.brewersfriend.key);
                 $('#brewersfriendfreq').val(config.brewersfriend.freq);
                 $('#brewfatherkey').val(config.brewfather.key);
                 $('#brewfatherfreq').val(config.brewfather.freq);
+                $('#apssid').val(config.apconfig.ssid);
+                $('#appassphrase').val(config.apconfig.passphrase);
+                $('#fermentrackurl').val(config.fermentrack.url);
+                $('#fermentrackfreq').val(config.fermentrack.freq);
+                $('#bierbotkey').val(config.bierbot.key);
+                $('#bierbotfreq').val(config.bierbot.freq);
             } catch {
                 if (!unloadingState) {
                     alert("Unable to parse configuration data.");
@@ -157,6 +164,15 @@ function processPost(obj) {
         case "#thingspeak":
             processThingSpeakPost(url, obj, 8);
             break;
+        case "#apconfig":
+            processApConfigPost(url, obj);
+            break;
+        case "#fermentrack":
+            processFermentrackPost(url, obj);
+            break;
+        case "#bierbot":
+            processBierBotPost(url, obj);
+            break;
         default:
             // Unknown hash location passed
             break;
@@ -181,11 +197,13 @@ function processiSpindHubPost(url, obj) {
     var $form = $(obj),
         ispindhubname = $form.find("input[name='ispindhubname']").val();
         ispindhubTZ = $form.find("select[name='ispindhubTZ'").val();
+        ispindhubDST = $form.find("select[name='ispindhubDST'").val();
 
     // Process post
     data = {
         ispindhubname: ispindhubname,
-        ispindhubTZ : ispindhubTZ
+        ispindhubTZ : ispindhubTZ,
+        ispindhubDST : ispindhubDST
     };
     postData(url, data);
 }
@@ -269,6 +287,54 @@ function processThingSpeakPost(url, obj) {
         thingspeakchannel: thingspeakchannel,
         thingspeakkey: thingspeakkey,
         thingspeakfreq: thingspeakfreq
+    };
+    postData(url, data);
+}
+
+function processApConfigPost(url, obj) {
+    // Handle AP Config posts
+
+    // Get form data
+    var $form = $(obj),
+        apssid = $form.find("input[name='apssid']").val(),
+        appassphrase = $form.find("input[name='appassphrase']").val();
+
+    // Process post
+    data = {
+        apssid: apssid,
+        appassphrase: appassphrase
+    };
+    postData(url, data);
+}
+
+function processFermentrackPost(url, obj) {
+    // Handle Fermentrack target posts
+
+    // Get form data
+    var $form = $(obj),
+        fermentrackurl = $form.find("input[name='fermentrackurl']").val(),
+        fermentrackfreq = $form.find("input[name='fermentrackfreq']").val();
+
+    // Process post
+    data = {
+        fermentrackurl: fermentrackurl,
+        fermentrackfreq: fermentrackfreq
+    };
+    postData(url, data);
+}
+
+function processBierBotPost(url, obj) {
+    // Handle BierBot target posts
+
+    // Get form data
+    var $form = $(obj),
+        bierbotkey = $form.find("input[name='bierbotkey']").val(),
+        bierbotfreq = $form.find("input[name='bierbotfreq']").val();
+
+    // Process post
+    data = {
+        bierbotkey: bierbotkey,
+        bierbotfreq: bierbotfreq
     };
     postData(url, data);
 }

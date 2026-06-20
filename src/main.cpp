@@ -24,6 +24,8 @@ String LastSeen;
 
 // Recurring jobs setup
 TickTwo BFa_timer(pushBrewFather, 900);
+TickTwo FT_timer(pushFermentrack, 900);
+TickTwo BB_timer(pushBierBot, 900);
 
 void setup()
 {
@@ -96,10 +98,10 @@ void setup()
     //isdeployed = WiFi.softAP("iSpindHub");
     if (strlen(config.ispindhub.name) == 0)
     {
-        isdeployed = WiFi.softAP(APNAME);
+        isdeployed = WiFi.softAP(APNAME, config.apconfig.passphrase);
     }
     else{
-      isdeployed = WiFi.softAP(config.ispindhub.name);
+      isdeployed = WiFi.softAP(config.ispindhub.name, config.apconfig.passphrase);
     }
     
     if (isdeployed)
@@ -118,6 +120,8 @@ void setup()
       initWebServer();
       // Serial.print("Web Server Launched");
       BFa_timer.start();
+      FT_timer.start();
+      BB_timer.start();
     }
     else
     {
@@ -165,6 +169,8 @@ void loop()
       f.close();
       //printConfig();
       BFa_timer.interval(config.brewfather.freq * 60 * 1000);
+      FT_timer.interval(config.fermentrack.freq * 60 * 1000);
+      BB_timer.interval(config.bierbot.freq * 60 * 1000);
       // free(iSpinData);
       //Serial.println("Avant delay");
       //Serial.println(BFa_timer.elapsed());
