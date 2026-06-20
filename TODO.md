@@ -1,75 +1,101 @@
-# iSpindHub — Testing TODO (PR #14)
-
-Branch: `fix/phase1-bugs`  
-PR: https://github.com/ZeSlammy/iSpindHub/pull/14
-
-Flash each env with `pio run -e <env> -t upload` and `pio run -e <env> -t uploadfs`.
+# iSpindHub — TODO & Testing Checklist
 
 ---
 
-## Phase 1 — Bug fixes
+## Feature backlog
 
-### #13 Root serves "Hello World" instead of web UI
-- [ ] Flash any env
-- [ ] Open `http://<hub-ip>/` in a browser
-- **Pass**: dashboard loads (not plain "Hello World")
+| Status | Feature |
+|--------|---------|
+| ✅ | Home page showing info about connected iSpindels |
+| ✅ | Configuration page — URL target |
+| ✅ | Configuration page — Brewfather |
+| ✅ | Configuration page — Fermentrack |
+| ✅ | Configuration page — BierBot Bricks |
+| ✅ | Configuration page — AP name & passphrase |
+| ✅ | Jobs: push data to Brewfather, Fermentrack, BierBot |
+| ✅ | Handle multiple screen sizes through separate build envs |
+| ✅ | Choose display template from settings (no recompile needed) |
+| ✅ | Upload a new display template from settings |
+| ✅ | Change colors / layout without recompiling (template system) |
+| ✅ | Timezone + manual DST offset (requires reboot) |
+| ✅ | Handle missing template JSON gracefully (no WDT crash) |
+| ⬜ | Configuration page — LittleBock (partially wired, needs testing) |
+| ⬜ | BrewPiLess as a push target |
+| ⬜ | Page to manage log files (delete / trim) |
+| ⬜ | Historical gravity graphs |
+| ⬜ | Config persistence across firmware flashes (without re-uploading FS) |
+| ⬜ | Log file download from web UI (endpoint `/download` exists, no UI) |
 
-### #12 Version mismatch
+---
+
+## Hardware testing checklist
+
+Flash each env: `pio run -e <env> -t upload` then `pio run -e <env> -t uploadfs`.
+
+### Bug fixes (merged in PR #14 / #15 / #16 / #17)
+
+#### #13 Root serves "Hello World" instead of web UI
+- [ ] Open `http://<hub-ip>/` — dashboard loads (not plain "Hello World")
+
+#### #12 Version mismatch
 - [ ] Open `http://<hub-ip>/thisVersion/` — confirm `"version": "0.0.9"`
 
-### #9 ILI9341 white screen (2.4" display)
-- [ ] Flash `2_4_inches_ILI9341` env
-- **Pass**: display shows iSpindel data (SG, temp, battery, etc.)
-- **If colours are inverted**: remove `-DTFT_INVERSION_ON=1` from `platformio.ini` env and reflash
+#### #9 ILI9341 white screen (2.4" display)
+- [ ] Flash `2_4_inches_ILI9341` — display shows iSpindel data
+- Note: if colours are inverted, remove `-DTFT_INVERSION_ON=1` from that env and reflash
+
+#### WDT crash on startup
+- [ ] Hub boots cleanly (no `rst cause:4` in serial monitor)
+- [ ] `/iSpindInfo/` loads without panic even when no iSpindel data has arrived yet
+
+### New features (merged in PR #14)
+
+#### #7 AP WiFi password
+- [ ] Settings → Advanced → Access Point: enter passphrase (8–63 chars), save, reboot
+- [ ] `iSpindHub` network now prompts for passphrase
+- [ ] Set passphrase back to empty → AP returns to open
+
+#### #6 DST offset
+- [ ] Settings → iSpindHub: set DST to **+1 hour**, click Update
+- [ ] Timestamps on `/iSpindInfo/` or display are 1 hour ahead of base TZ
+- [ ] Set back to **No DST** → timestamps return to base offset
+
+#### #8 Fermentrack push
+- [ ] Settings → Targets → Fermentrack: enter base URL + frequency, save
+- [ ] Wait for push interval — gravity reading appears in Fermentrack
+
+#### #2 BierBot Bricks push
+- [ ] Settings → Targets → BierBot: enter API key + frequency, save
+- [ ] Wait for push interval — telemetry appears in BierBot app
+
+### Template management (merged in PR #19)
+
+#### Template selection
+- [ ] Settings → Display: dropdown shows available templates (e.g. `korev`)
+- [ ] Select a different template, click Update
+- [ ] On next iSpindel data receive, display switches to the new template
+- [ ] Selection persists after reboot
+
+#### Template upload
+- [ ] Settings → Display: choose a `.json` file, click Upload
+- [ ] File appears in the dropdown immediately after upload
+- [ ] New template can be selected and applied
 
 ---
 
-## Phase 2 — New features
+## Issues to close after hardware testing
 
-### #7 AP WiFi password
-- [ ] Go to **Settings → Advanced → Access Point**
-- [ ] Enter a passphrase (8–63 chars) and save
-- [ ] Reboot the hub
-- **Pass**: the `iSpindHub` WiFi network is now WPA2 protected — phones/laptops prompt for the passphrase
-- Edge case: set passphrase back to empty → AP returns to open (no password)
+| Issue | Resolution |
+|-------|-----------|
+| #13 | Fixed — removed dead `server.on("/")` handler |
+| #12 | Fixed — version bumped to 0.0.9 |
+| #9  | Fixed — pinned TFT_eSPI + ILI9341 colour flags |
+| #7  | Fixed — AP passphrase wired in, settings UI added |
+| #6  | Fixed — manual DST offset field added |
+| #8  | Fixed — Fermentrack push target implemented |
+| #2  | Fixed — BierBot Bricks target implemented |
 
-### #6 DST offset
-- [ ] Go to **Settings → iSpindHub**, set DST to **+1 hour**, click Update
-- [ ] Check `/iSpindInfo/` or the display — timestamps should be 1 hour ahead of UTC+TZ
-- [ ] Set DST back to **No DST** — timestamps return to standard offset
-- Note: this is a *manual* toggle. Change it twice a year (spring forward / fall back).
+## Issues to close with a comment (no code)
 
-### #8 Fermentrack push
-- [ ] Go to **Settings → Targets → Fermentrack**
-- [ ] Enter your Fermentrack base URL (e.g. `http://fermentrack.local`) and frequency (e.g. 15 min)
-- [ ] Wait for the push interval to expire
-- **Pass**: gravity reading appears in Fermentrack under the iSpindel device
-- Edge case: empty URL → push is silently skipped (no crash)
-
-### #2 BierBot Bricks push
-- [ ] Go to **Settings → Targets → BierBot**
-- [ ] Enter your BierBot API key and frequency
-- [ ] Wait for the push interval
-- **Pass**: telemetry appears in BierBot app for the device
-- Note: uses HTTPS with no certificate validation (`setInsecure()`). If BierBot returns non-200, check the Serial monitor for the status line.
-
----
-
-## Issues to close after testing
-
-Once hardware-confirmed, close these with the linked PR:
-
-| Issue | How to close |
-|-------|--------------|
-| #13 | Close — fixed by removing dead `server.on("/")` handler |
-| #12 | Close — version bumped, dead code removed |
-| #9  | Close — pin TFT_eSPI + ILI9341 flags; note inversion toggle |
-| #7  | Close — AP passphrase wired in, settings UI added |
-| #6  | Close — manual DST offset field added |
-| #8  | Close — Fermentrack push target implemented |
-| #2  | Close — BierBot Bricks target implemented |
-
-## Issues to close with a comment (no code needed)
-
-- **#11 (ESP-Now)**: Good idea, but requires coordinated firmware changes in the iSpindel itself — can't be done unilaterally in the hub. Mark as `enhancement / help wanted`.
-- **#4 (Repeater question)**: The hub already operates in WIFI_AP_STA mode (repeater). Littlebock/generic URL targets handle external software forwarding. Answer the question and close.
+- **#11 (ESP-Now)**: Requires coordinated firmware changes in the iSpindel itself — can't be done unilaterally in the hub. Mark as `enhancement / help wanted`.
+- **#4 (Repeater question)**: Hub already operates in WIFI_AP_STA mode. Answer the question and close.
