@@ -345,6 +345,7 @@ void iSpindHub::save(JsonObject obj) const
     obj["name"] = name;
     obj["TZ"] = TZ;
     obj["dst_offset"] = dst_offset;
+    obj["screen_template"] = screen_template;
 }
 
 void iSpindHub::load(JsonObjectConst obj)
@@ -380,6 +381,16 @@ void iSpindHub::load(JsonObjectConst obj)
     {
         int d = obj["dst_offset"];
         dst_offset = d;
+    }
+
+    if (obj["screen_template"].isNull())
+    {
+        strlcpy(screen_template, "korev", sizeof(screen_template));
+    }
+    else
+    {
+        const char *st = obj["screen_template"];
+        strlcpy(screen_template, st, sizeof(screen_template));
     }
 }
 

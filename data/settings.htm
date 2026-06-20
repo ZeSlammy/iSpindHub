@@ -130,6 +130,12 @@
             </li>
             <!-- Controller Nav Item -->
 
+            <!-- Display Nav Item -->
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#display">Display</a>
+            </li>
+            <!-- Display Nav Item -->
+
             <!-- Targets Nav Item -->
             <li class="nav-item dropdown">
               <a
@@ -1078,6 +1084,86 @@
               </div>
             </div>
             <!-- BierBot Settings tab -->
+
+            <!-- Display Settings tab -->
+            <div class="tab-pane fade" id="display">
+              <div class="card-header">
+                <h4 class="card-title">Display Settings</h4>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <p class="card-text">
+                      Choose which template to use for the TFT screen display.
+                      Templates are JSON files stored in
+                      <code>/data/templates/</code> on the device.
+                    </p>
+
+                    <form
+                      class="form-group"
+                      id="display"
+                      action="/settings/template/"
+                      method="POST"
+                      onsubmit="return processPost(this);"
+                    >
+                      <div class="form-group row">
+                        <label
+                          for="screentemplate"
+                          class="col-sm-3 col-form-label"
+                          data-toggle="tooltip"
+                          title="Select the active display template"
+                        >
+                          Active Template
+                        </label>
+                        <div class="col-sm-9">
+                          <select
+                            class="form-control"
+                            id="screentemplate"
+                            name="screentemplate"
+                          >
+                            <!-- Populated by loadTemplates() -->
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row col-sm-12 justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          id="submitSettings"
+                          onclick="if(!this.form.checkValidity(this)){return (false);}"
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </form>
+
+                    <hr />
+                    <p class="card-text">
+                      Upload a new template JSON file to the device:
+                    </p>
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Template File</label>
+                      <div class="col-sm-9">
+                        <input
+                          type="file"
+                          class="form-control-file"
+                          id="templatefile"
+                          accept=".json"
+                        />
+                      </div>
+                    </div>
+                    <div class="row col-sm-12 justify-content-center">
+                      <button
+                        class="btn btn-secondary"
+                        onclick="uploadTemplate(); return false;"
+                      >
+                        Upload
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Display Settings tab -->
 
           </div>
           <!-- Nav Tab Content -->

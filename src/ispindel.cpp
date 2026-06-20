@@ -1,4 +1,5 @@
 #include "ispindel.h"
+#include "jsonconfig.h"
 //extern Adafruit_ST7735 tft;
 extern TFT_eSPI tft;
 //extern int delay_loop;
@@ -25,7 +26,8 @@ int handle_spindel_data(String iSpinData,int delay_loop,int last_seen_ms){
     }
     //Serial.println("delay loop en sortant");
     //Serial.println(delay_loop);
-    String screen_template = "korev";
+    String screen_template = String(config.ispindhub.screen_template);
+    if (screen_template.length() == 0) screen_template = "korev";
     parse_screen_template(screen_template,array_data,last_seen_ms);
     //delay(5000);
     //displaydata(array_data,last_seen_ms);
