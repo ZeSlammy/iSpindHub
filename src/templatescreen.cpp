@@ -25,17 +25,21 @@ void parse_screen_template(String screen_template, String array_data[10], int la
     String fname = String("/data/templates/") + String(screen_template) + String(".json");
 
     File file = LittleFS.open(fname, "r");
+    if (!file || file.size() == 0)
+    {
+        Serial.println(F("Template file missing or empty, skipping display update."));
+        wdt_enable(WDTO_8S);
+        return;
+    }
     String parsingScreen = file.readString();
+    file.close();
     JsonDocument parsedScreen;
-    // ReadLoggingStream loggingStream(parsingScreen, Serial);
-    // ReadLoggingStream loggingStream(file, Serial);
-    // DeserializationError errPars = deserializeJson(parsedScreen, loggingStream);
-    // DeserializationError errPars = deserializeJson(parsedScreen,file);
     DeserializationError errPars = deserializeJson(parsedScreen, parsingScreen);
     if (errPars)
     {
         Serial.print(F("deserializeJson() for template failed: "));
         Serial.println(errPars.f_str());
+        wdt_enable(WDTO_8S);
         return;
     }
     else
