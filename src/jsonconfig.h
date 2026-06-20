@@ -14,6 +14,7 @@ struct iSpindHub
     char name[32];
     char TZ[32];
     int dst_offset;
+    char screen_template[32];
     void load(JsonObjectConst);
     void save(JsonObject) const;
 };

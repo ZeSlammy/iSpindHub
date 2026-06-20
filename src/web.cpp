@@ -195,6 +195,24 @@ void setJsonHandlers()
     });
     // JSON Handlers
 
+    server.on("/templates/", HTTP_GET, [](AsyncWebServerRequest *request) {
+        // List available screen templates (filenames without .json extension)
+        String json = "[";
+        bool first = true;
+        Dir dir = LittleFS.openDir("/data/templates");
+        while (dir.next()) {
+            String fn = dir.fileName();
+            if (fn.endsWith(".json")) {
+                if (!first) json += ",";
+                fn.remove(fn.length() - 5);
+                json += "\"" + fn + "\"";
+                first = false;
+            }
+        }
+        json += "]";
+        request->send(200, F("application/json"), json);
+    });
+
     server.on("/resetreason/", HTTP_GET, [](AsyncWebServerRequest *request) {
         // Used to provide the reset reason json
         Log.verbose(F("Sending /resetreason/." CR));
@@ -434,6 +452,30 @@ void setSettingsAliases()
         Log.verbose(F("Invalid method to /settings/bierbottarget/." CR));
         request->send(405, F("text/plain"), F("Method not allowed."));
     });
+
+    server.on("/settings/template/", HTTP_POST, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Processing post to /settings/template/." CR));
+        if (handleTemplatePost(request))
+        {
+            request->send(200, F("text/plain"), F("Ok"));
+        }
+        else
+        {
+            request->send(500, F("text/plain"), F("Unable to process data"));
+        }
+    });
+
+    server.on("/settings/template/", HTTP_ANY, [](AsyncWebServerRequest *request) {
+        Log.verbose(F("Invalid method to /settings/template/." CR));
+        request->send(405, F("text/plain"), F("Method not allowed."));
+    });
+
+    server.on("/templates/upload/", HTTP_POST,
+        [](AsyncWebServerRequest *request) {
+            request->send(200, F("text/plain"), F("Ok"));
+        },
+        handleTemplateUpload
+    );
 
 }
 bool handleURLTargetPost(AsyncWebServerRequest *request) // Handle URL Target Post
@@ -849,6 +891,62 @@ bool handleBierBotPost(AsyncWebServerRequest *request) // Handle BierBot Target 
     {
         Log.error(F("Error: Unable to save BierBot configuration data." CR));
         return false;
+    }
+}
+
+bool handleTemplatePost(AsyncWebServerRequest *request)
+{
+    int params = request->params();
+    for (int i = 0; i < params; i++)
+    {
+        AsyncWebParameter *p = request->getParam(i);
+        if (p->isPost())
+        {
+            const char *name = p->name().c_str();
+            const char *value = p->value().c_str();
+            Log.verbose(F("Processing [%s]:(%s) pair." CR), name, value);
+            if (strcmp(name, "screentemplate") == 0)
+            {
+                if (strlen(value) > 0 && strlen(value) <= 31)
+                {
+                    strlcpy(config.ispindhub.screen_template, value, sizeof(config.ispindhub.screen_template));
+                    Log.notice(F("Settings update, screen template set to: %s" CR), value);
+                }
+            }
+        }
+    }
+    if (saveConfig())
+    {
+        return true;
+    }
+    else
+    {
+        Log.error(F("Error: Unable to save template configuration data." CR));
+        return false;
+    }
+}
+
+static File s_templateUpload;
+
+void handleTemplateUpload(AsyncWebServerRequest *request, const String& filename, size_t index, uint8_t *data, size_t len, bool final)
+{
+    if (index == 0)
+    {
+        String fn = filename;
+        int sep = fn.lastIndexOf('/');
+        if (sep >= 0) fn = fn.substring(sep + 1);
+        if (!fn.endsWith(".json")) fn += ".json";
+        Log.verbose(F("Template upload start: %s" CR), fn.c_str());
+        s_templateUpload = LittleFS.open("/data/templates/" + fn, "w");
+    }
+    if (s_templateUpload)
+    {
+        s_templateUpload.write(data, len);
+    }
+    if (final && s_templateUpload)
+    {
+        Log.verbose(F("Template upload complete." CR));
+        s_templateUpload.close();
     }
 }
 

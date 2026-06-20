@@ -102,6 +102,7 @@ function populateForm() { // Get current parameters
                 $('#fermentrackfreq').val(config.fermentrack.freq);
                 $('#bierbotkey').val(config.bierbot.key);
                 $('#bierbotfreq').val(config.bierbot.freq);
+                loadTemplates(config.ispindhub.screen_template || 'korev');
             } catch {
                 if (!unloadingState) {
                     alert("Unable to parse configuration data.");
@@ -116,6 +117,52 @@ function populateForm() { // Get current parameters
         .always(function() {
             // Can post-process here
         });
+}
+
+function loadTemplates(selected) { // Populate template dropdown from device
+    $.getJSON('/templates/', function() {})
+        .done(function(templates) {
+            var $sel = $('#screentemplate');
+            $sel.empty();
+            for (var i = 0; i < templates.length; i++) {
+                var opt = $('<option></option>').val(templates[i]).text(templates[i]);
+                if (templates[i] === selected) opt.attr('selected', true);
+                $sel.append(opt);
+            }
+            if (templates.length === 0) {
+                $sel.append('<option value="">No templates found</option>');
+            }
+        })
+        .fail(function() {
+            if (!unloadingState) {
+                $('#screentemplate').append('<option value="">Error loading templates</option>');
+            }
+        });
+}
+
+function uploadTemplate() { // Upload a new template JSON file to the device
+    var input = document.getElementById('templatefile');
+    if (!input.files || !input.files.length) {
+        alert("Please select a .json file to upload.");
+        return;
+    }
+    var formData = new FormData();
+    formData.append('file', input.files[0]);
+    $.ajax({
+        url: '/templates/upload/',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function() {
+            input.value = '';
+            loadTemplates($('#screentemplate').val());
+            alert("Template uploaded successfully.");
+        },
+        error: function() {
+            alert("Template upload failed.");
+        }
+    });
 }
 
 
@@ -172,6 +219,9 @@ function processPost(obj) {
             break;
         case "#bierbot":
             processBierBotPost(url, obj);
+            break;
+        case "#display":
+            processTemplatePost(url, obj);
             break;
         default:
             // Unknown hash location passed
@@ -320,6 +370,14 @@ function processFermentrackPost(url, obj) {
         fermentrackurl: fermentrackurl,
         fermentrackfreq: fermentrackfreq
     };
+    postData(url, data);
+}
+
+function processTemplatePost(url, obj) {
+    // Handle display template selection posts
+    var $form = $(obj),
+        screentemplate = $form.find("select[name='screentemplate']").val();
+    data = { screentemplate: screentemplate };
     postData(url, data);
 }
 

@@ -32,6 +32,8 @@ bool handleBPiLessPost(AsyncWebServerRequest *request);
 bool handleApConfigPost(AsyncWebServerRequest *request);
 bool handleFermentrackPost(AsyncWebServerRequest *request);
 bool handleBierBotPost(AsyncWebServerRequest *request);
+bool handleTemplatePost(AsyncWebServerRequest *request);
+void handleTemplateUpload(AsyncWebServerRequest *request, const String& filename, size_t index, uint8_t *data, size_t len, bool final);
 
 #define LOG_LEVEL LOG_LEVEL_VERBOSE
 extern struct Config config;
