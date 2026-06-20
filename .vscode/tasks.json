@@ -1,0 +1,103 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "PlatformIO: Build (1.4\" Red)",
+            "type": "shell",
+            "command": "pio run -e 1_4_inches_red",
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "PlatformIO: Build (1.4\" Green)",
+            "type": "shell",
+            "command": "pio run -e 1_4_inches_green",
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "PlatformIO: Build (1.4\" Direct)",
+            "type": "shell",
+            "command": "pio run -e 1_4_inches_direct",
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "PlatformIO: Build (1.7\")",
+            "type": "shell",
+            "command": "pio run -e 1_7_inches",
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "PlatformIO: Build (2\")",
+            "type": "shell",
+            "command": "pio run -e 2_inches",
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "PlatformIO: Build (2.4\" ILI9341)",
+            "type": "shell",
+            "command": "pio run -e 2_4_inches_ILI9341",
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "PlatformIO: Upload (1.4\" Red)",
+            "type": "shell",
+            "command": "pio run -e 1_4_inches_red -t upload",
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "PlatformIO: Upload (1.4\" Green)",
+            "type": "shell",
+            "command": "pio run -e 1_4_inches_green -t upload",
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "PlatformIO: Upload (1.4\" Direct)",
+            "type": "shell",
+            "command": "pio run -e 1_4_inches_direct -t upload",
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "PlatformIO: Upload (1.7\")",
+            "type": "shell",
+            "command": "pio run -e 1_7_inches -t upload",
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "PlatformIO: Upload (2\")",
+            "type": "shell",
+            "command": "pio run -e 2_inches -t upload",
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "PlatformIO: Upload (2.4\" ILI9341)",
+            "type": "shell",
+            "command": "pio run -e 2_4_inches_ILI9341 -t upload",
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "PlatformIO: Upload Filesystem",
+            "type": "shell",
+            "command": "pio run -t uploadfs",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "PlatformIO: Clean",
+            "type": "shell",
+            "command": "pio run -t clean",
+            "group": "build",
+            "problemMatcher": []
+        }
+    ]
+}
