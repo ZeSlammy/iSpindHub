@@ -193,17 +193,10 @@ void setJsonHandlers()
         file_info+= "}";
         request->send(200, F("application/json"), file_info);
     });
-    // JSON Handlers — redirect bare paths (no trailing slash) to canonical form
-    auto slashRedirect = [](AsyncWebServerRequest *request) {
-        request->redirect(request->url() + "/");
-    };
-    server.on("/thisVersion",  HTTP_GET, slashRedirect);
-    server.on("/config",       HTTP_GET, slashRedirect);
-    server.on("/uptime",       HTTP_GET, slashRedirect);
-    server.on("/heap",         HTTP_GET, slashRedirect);
-    server.on("/resetreason",  HTTP_GET, slashRedirect);
-    server.on("/templates",    HTTP_GET, slashRedirect);
-    server.on("/iSpindInfo",   HTTP_GET, slashRedirect);
+    // Note: no bare-path (no trailing slash) redirects here.
+    // ESPAsyncWebServer canHandle() uses prefix matching: server.on("/foo")
+    // matches /foo, /foo/, /foo//, etc., causing an infinite redirect loop
+    // when the redirect handler is registered before the actual handler.
 
     server.on("/templates/", HTTP_GET, [](AsyncWebServerRequest *request) {
         // List available screen templates (filenames without .json extension)
@@ -267,17 +260,34 @@ void setJsonHandlers()
 
         server.on("/config/", HTTP_GET, [](AsyncWebServerRequest *request) {
         // Used to provide the Config json
+        // JsonDocument (heap malloc) must NOT be used here — this handler runs
+        // in AsyncWebServer's ISR context and umm_malloc is not reentrant.
+        // Use snprintf into a stack buffer instead.
         Log.verbose(F("Serving /config/." CR));
-
-        // Serialize configuration
-        JsonDocument doc; // Create doc
-        JsonObject root = doc.to<JsonObject>();  // Create JSON object
-        config.save(root);                       // Fill the object with current config
-        String json;
-        serializeJsonPretty(doc, json); // Serialize JSON to String
-
-        request->header("Cache-Control: no-store");
-        request->send(200, F("application/json"), json);
+        char buf[1400];
+        snprintf(buf, sizeof(buf),
+            "{"
+            "\"hostname\":\"%s\","
+            "\"ispindhub\":{\"name\":\"%s\",\"TZ\":\"%s\",\"dst_offset\":%d,\"screen_template\":\"%s\"},"
+            "\"apconfig\":{\"ssid\":\"%s\",\"passphrase\":\"%s\"},"
+            "\"urltarget\":{\"url\":\"%s\",\"freq\":%d,\"update\":%s},"
+            "\"bpiless\":{\"url\":\"%s\",\"freq\":%d,\"update\":%s},"
+            "\"fermentrack\":{\"url\":\"%s\",\"freq\":%d,\"update\":%s},"
+            "\"brewersfriend\":{\"channel\":%d,\"key\":\"%s\",\"freq\":%d,\"update\":%s},"
+            "\"brewfather\":{\"channel\":%d,\"key\":\"%s\",\"freq\":%d,\"update\":%s},"
+            "\"bierbot\":{\"channel\":%d,\"key\":\"%s\",\"freq\":%d,\"update\":%s}"
+            "}",
+            config.hostname,
+            config.ispindhub.name, config.ispindhub.TZ, config.ispindhub.dst_offset, config.ispindhub.screen_template,
+            config.apconfig.ssid, config.apconfig.passphrase,
+            config.urltarget.url, config.urltarget.freq, config.urltarget.update ? "true" : "false",
+            config.bpiless.url, config.bpiless.freq, config.bpiless.update ? "true" : "false",
+            config.fermentrack.url, config.fermentrack.freq, config.fermentrack.update ? "true" : "false",
+            config.brewersfriend.channel, config.brewersfriend.key, config.brewersfriend.freq, config.brewersfriend.update ? "true" : "false",
+            config.brewfather.channel, config.brewfather.key, config.brewfather.freq, config.brewfather.update ? "true" : "false",
+            config.bierbot.channel, config.bierbot.key, config.bierbot.freq, config.bierbot.update ? "true" : "false"
+        );
+        request->send(200, F("application/json"), buf);
     });
 };
 
