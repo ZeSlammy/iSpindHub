@@ -2,102 +2,191 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "PIO: Build Filesystem Image (1_4_inches_red)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t buildfs -e 1_4_inches_red",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Upload Filesystem Image (1_4_inches_red)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t uploadfs -e 1_4_inches_red",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Build Filesystem Image (1_4_inches_green)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t buildfs -e 1_4_inches_green",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Upload Filesystem Image (1_4_inches_green)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t uploadfs -e 1_4_inches_green",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Build Filesystem Image (1_4_inches_direct)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t buildfs -e 1_4_inches_direct",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Upload Filesystem Image (1_4_inches_direct)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t uploadfs -e 1_4_inches_direct",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Build Filesystem Image (1_7_inches)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t buildfs -e 1_7_inches",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Upload Filesystem Image (1_7_inches)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t uploadfs -e 1_7_inches",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Build Filesystem Image (2_inches)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t buildfs -e 2_inches",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Upload Filesystem Image (2_inches)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t uploadfs -e 2_inches",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Build Filesystem Image (2_4_inches_ILI9341)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t buildfs -e 2_4_inches_ILI9341",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "PIO: Upload Filesystem Image (2_4_inches_ILI9341)",
+            "type": "shell",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t uploadfs -e 2_4_inches_ILI9341",
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
             "label": "PlatformIO: Build (1.4\" Red)",
             "type": "shell",
-            "command": "pio run -e 1_4_inches_red",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -e 1_4_inches_red",
             "group": "build",
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "presentation": { "reveal": "always", "panel": "shared" }
         },
         {
             "label": "PlatformIO: Build (1.4\" Green)",
             "type": "shell",
-            "command": "pio run -e 1_4_inches_green",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -e 1_4_inches_green",
             "group": "build",
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "presentation": { "reveal": "always", "panel": "shared" }
         },
         {
             "label": "PlatformIO: Build (1.4\" Direct)",
             "type": "shell",
-            "command": "pio run -e 1_4_inches_direct",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -e 1_4_inches_direct",
             "group": "build",
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "presentation": { "reveal": "always", "panel": "shared" }
         },
         {
             "label": "PlatformIO: Build (1.7\")",
             "type": "shell",
-            "command": "pio run -e 1_7_inches",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -e 1_7_inches",
             "group": "build",
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "presentation": { "reveal": "always", "panel": "shared" }
         },
         {
             "label": "PlatformIO: Build (2\")",
             "type": "shell",
-            "command": "pio run -e 2_inches",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -e 2_inches",
             "group": "build",
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "presentation": { "reveal": "always", "panel": "shared" }
         },
         {
             "label": "PlatformIO: Build (2.4\" ILI9341)",
             "type": "shell",
-            "command": "pio run -e 2_4_inches_ILI9341",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -e 2_4_inches_ILI9341",
             "group": "build",
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "presentation": { "reveal": "always", "panel": "shared" }
         },
         {
             "label": "PlatformIO: Upload (1.4\" Red)",
             "type": "shell",
-            "command": "pio run -e 1_4_inches_red -t upload",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -e 1_4_inches_red -t upload",
             "group": "build",
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "presentation": { "reveal": "always", "panel": "shared" }
         },
         {
             "label": "PlatformIO: Upload (1.4\" Green)",
             "type": "shell",
-            "command": "pio run -e 1_4_inches_green -t upload",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -e 1_4_inches_green -t upload",
             "group": "build",
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "presentation": { "reveal": "always", "panel": "shared" }
         },
         {
             "label": "PlatformIO: Upload (1.4\" Direct)",
             "type": "shell",
-            "command": "pio run -e 1_4_inches_direct -t upload",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -e 1_4_inches_direct -t upload",
             "group": "build",
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "presentation": { "reveal": "always", "panel": "shared" }
         },
         {
             "label": "PlatformIO: Upload (1.7\")",
             "type": "shell",
-            "command": "pio run -e 1_7_inches -t upload",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -e 1_7_inches -t upload",
             "group": "build",
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "presentation": { "reveal": "always", "panel": "shared" }
         },
         {
             "label": "PlatformIO: Upload (2\")",
             "type": "shell",
-            "command": "pio run -e 2_inches -t upload",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -e 2_inches -t upload",
             "group": "build",
-            "problemMatcher": ["$gcc"]
+            "problemMatcher": ["$gcc"],
+            "presentation": { "reveal": "always", "panel": "shared" }
         },
         {
             "label": "PlatformIO: Upload (2.4\" ILI9341)",
             "type": "shell",
-            "command": "pio run -e 2_4_inches_ILI9341 -t upload",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -e 2_4_inches_ILI9341 -t upload",
             "group": "build",
-            "problemMatcher": ["$gcc"]
-        },
-        {
-            "label": "PlatformIO: Upload Filesystem",
-            "type": "shell",
-            "command": "pio run -t uploadfs",
-            "group": "build",
-            "problemMatcher": []
+            "problemMatcher": ["$gcc"],
+            "presentation": { "reveal": "always", "panel": "shared" }
         },
         {
             "label": "PlatformIO: Clean",
             "type": "shell",
-            "command": "pio run -t clean",
+            "command": "C:\\Users\\slamm\\.platformio\\penv\\Scripts\\platformio.exe run -t clean",
             "group": "build",
-            "problemMatcher": []
+            "presentation": { "reveal": "always", "panel": "shared" }
         }
     ]
 }
